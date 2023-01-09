@@ -1,4 +1,6 @@
-# Distribution tests and plots for numeric variables ------
+# Distribution tests and plots for numeric variables
+# Normality (entire cohort) is investigated by Shapiro-Wilk test
+# Variance homogeneity in the CoV severity strata is assessed by Levene test
 
   insert_head()
 
@@ -26,7 +28,7 @@
   distr_tests$norm_test <- explore(cov_data$clear_data, 
                                    variables = distr_tests$num_vars, 
                                    what = 'normality', 
-                                   pub_styled = TRUE)
+                                   pub_styled = FALSE)
   
   ## QQ plots
   
@@ -54,7 +56,7 @@
               map_dfc(function(x) if(is.numeric(x)) log(x + 1) else x), 
             variables = distr_tests$num_vars, 
             what = 'normality', 
-            pub_styled = TRUE)
+            pub_styled = FALSE)
   
   ## QQ plots
   
@@ -84,7 +86,7 @@
               map_dfc(function(x) if(is.numeric(x)) sqrt(x) else x), 
             variables = distr_tests$num_vars, 
             what = 'normality', 
-            pub_styled = TRUE)
+            pub_styled = FALSE)
   
   ## QQ plots
   
@@ -133,7 +135,8 @@
     map(~cov_data$clear_data[.x, ])
   
   distr_tests$mvr_boot <- distr_tests$boot_tbl %>% 
-    future_map(~get_mvr(.x, variables = distr_tests$num_vars)[c('variable', 'mvr')]) %>% 
+    future_map(~get_mvr(.x, 
+                        variables = distr_tests$num_vars)[c('variable', 'mvr')]) %>% 
     map(column_to_rownames, 'variable') %>% 
     reduce(cbind) %>% 
     as.matrix
@@ -173,6 +176,30 @@
     labs(title = 'Variable mean and variance', 
          subtitle = '95%CI: bootstrap, n = 1000, percentile method', 
          x = 'mean MVR \u00B1 95%CI')
+  
+# A table with the optimal transformations of numeric variables ------
+  
+  insert_msg('Optimal transformation table')
+  
+  distr_tests$optimal_trans <- distr_tests[c('norm_test', 
+                                             'norm_test_log', 
+                                             'norm_test_sqrt')] %>% 
+    map2_dfr(., c('identity', 'log', 'sqrt'), 
+             ~mutate(.x, 
+                     transformation = .y, 
+                     base_variable = variable, 
+                     variable = ifelse(transformation == 'identity', 
+                                       base_variable, 
+                                       paste(transformation, 
+                                             base_variable, 
+                                             sep = '_')))) %>% 
+    group_by(base_variable) %>% 
+    filter(stat == max(stat)) %>% 
+    ungroup %>% 
+    select(base_variable, 
+           variable, 
+           transformation, 
+           stat)
   
 # END -----
   

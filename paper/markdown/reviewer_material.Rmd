@@ -1,0 +1,61 @@
+---
+title: "Persistent somatic symptoms are key to individual illness perception at one year after COVID-19 in a cross-sectional prospective cohort study"
+subtitle: "Figures for Reviewers"
+author: "CovILD study team"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+
+output: 
+  bookdown::word_document2:   
+    reference_docx: ms_template.docx
+    
+bibliography: cov_biblio.bib
+csl: jpr.csl
+
+header-includes:
+  \usepackage{longtable}
+  \usepackage{tabu}
+  \usepackage{caption}
+  \usepackage{makecell}
+  \usepackage{pdflscape}
+  \usepackage{array}
+  \usepackage{booktabs}
+  \usepackage{threeparttable}
+  \usepackage{threeparttablex}
+  \usepackage{wrapfig}
+  \usepackage{multirow}
+  \usepackage[normalem]{ulem}
+  \usepackage{colortbl}
+  \usepackage{xcolor}
+  \usepackage{float} \floatplacement{figure}{H} \floatplacement{table}{H}
+  \newcommand{\beginsupplement}{\setcounter{table}{0}  \renewcommand{\thetable}{S\arabic{table}}       \setcounter{figure}{0} \renewcommand{\thefigure}{S\arabic{figure}}}
+---
+
+```{r, setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, 
+                      dev = "png", dpi = 600, 
+                      tab.cap.pre = 'Supplementary Table ', tab.cap.sep = " ", 
+                      tab.cap.style = 'Table Heading')
+
+set_flextable_defaults(font.family = 'Cambria', font.size = 10)
+
+
+```
+
+\newpage
+
+# Figures for Reviewers
+
+```{r fig-eli-performance, fig.width = mm_inch(rev_fig$eli_performance$w), fig.height = mm_inch(rev_fig$eli_performance$h), fig.cap = 'Performance and reproducibility of backward elimination multi-parameter models.'}
+
+rev_fig$eli_performance$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-eli-performance). Performance and reproducibility of backward elimination multi-parameter models.__ 
+
+_The total illness perception (IP) score, the emotion/concern/consequences and the lacking control/coherence sub-scores at the one-year follow-up were modeled by linear regression with Akaike information criterion-driven backwards elimination of model terms._
+
+_(A) Fraction of variance explained by the model in the training data set and 10-repeats 10-fold cross-validation (CV) was estimated by the $R^2$ statistic._
+
+_(B) Model error expressed as root mean squared error (RMSE) in the training and CV data sets._

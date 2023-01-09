@@ -1,6 +1,18 @@
-# Detailed analysis of SES, SOCL-9 and KW IPQ
-# as a function of common influential paramaters identified by 
-# backwards elimination, Elastic Net and Bayesian Lasso modeling.
+# Detailed analysis of factor influencing illness perception
+# identified by Elastic Net, LASSO and Bayesian Lasso modeling.
+#
+# 1) Fit stats (training and CV) are compared for each of the algorithms
+# and factors influencing the total illness perceptions score and its sub-scores
+# are identified as overlapping non-zero coefficients computed by all 
+# three modeling algorithms. Note: no factor influencing the control/coherence
+# component could be discerned (COVID-19-independent effects?)
+#
+# 2) Detailed analysis of the influential factors by correlation and statistical 
+# hypothesis testing and analysis of their interaction with cardiopulmonary
+# abnormalities (two-way ANOVA)
+#
+# 3) Unsupervised clustering of the study participants in respect to 
+
 
 # tools ------
 
@@ -34,7 +46,7 @@
     map(~map(.x, filter, parameter != '(Intercept)')) %>% 
     map(~map(.x, ~.x$variable) %>% 
           map(stri_replace, fixed = '_sq', replacement = '') %>% 
-          map(stri_replace, fixed = 'ctss', replacement = 'ct_severity_score') %>% 
+          map(stri_replace, regex = '(log_)|(sqrt_)', replacement = '') %>% 
           map(unique))
   
   ## common variables selected by at least two penalized modeling methods
@@ -93,6 +105,7 @@
     './analysis scripts/ipq_sub1_factors.R',
     './analysis scripts/ipq_sub2_factors.R', 
     './analysis scripts/ipq_factors.R', 
+    './analysis scripts/interaction.R', 
     './analysis scripts/ipq_clust_development.R', 
     './analysis scripts/ipq_clustering.R', 
     './analysis scripts/clust_characteristic.R') %>% 

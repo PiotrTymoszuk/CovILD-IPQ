@@ -1,4 +1,4 @@
-# Principal component analysis of the IPQ sub-scores. Median centering
+# Principal component analysis of the BIPQ items. Median centering
 
   insert_head()
   
@@ -95,7 +95,3 @@
 # END ------
   
   insert_tail()
-
-  
-  
-  

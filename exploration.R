@@ -1,5 +1,41 @@
 # Exploratory data analysis
-# Remova of participants with > 25% missing answers if any detected
+# Removal of participants with > 25% missing answers if any detected 
+# (done during data import, see: 'import.R')
+#
+# 1) Characteristic of the study collective, i.e. participants with long-term 
+# sequelae of COVID-19 
+# (symptoms or cardiopulmonary findings at the one-year FUP).
+#
+# 2) Comparison of the individuals included in the analysis and excluded due to
+# variable missingness, missing BIPQ and lack of long term-sequelae.
+#
+# 3) Comparison of baseline, recovery and mental health features between 
+# the genders done for the participants fulfilling the inclusion criteria
+#
+# 4) Analysis of distribution (normality/homogeneity) of the modeling responses
+# and explanatory variables
+#
+# 5) Correlation of illness perception score, subscores and particular items
+# with other readouts of mental health (stress, anxiety, depression, 
+# somatization and others)
+#
+# 6) Dimensionality of the BIPQ tool investigated by median centered PCA 
+# (to get some idea on number of dimensions) and factor analysis
+#
+# 7) Analysis of the internal consistency of the BIPQ tool with McDonald omega
+#
+# 8) analysis of overlap between the cardiopulmonary findings and symptoms at 
+# the one year follow-up
+#
+# 9) Characteristic of patients with and without respiratory comorbidity 
+#
+# 10) Comparison of the BIPQ consistency in all patients and the patients 
+# included in the analysis with McDonald omega, as describe above
+#
+# 11) Kinetics of symptoms in participants included in the analysis
+#
+# 12) Dimensionality and McDonald's omega for the illness perception dataset
+# by Bierbauer et al. 2022 (DOI: 10.1080/23311908.2022.2105007)
 
 # tools -------
 
@@ -11,6 +47,9 @@
   library(furrr)
   library(psych)
   library(clustTools)
+  library(ggvenn)
+  library(kinet)
+  library(rstatix)
 
   insert_head()
   
@@ -101,13 +140,21 @@
   
   insert_msg('Analysis scripts')
   
-  c('./exploration scripts/distribution.R', 
-    './exploration scripts/score_pca.R', 
-    './exploration scripts/score_coherence.R', 
+  c('./exploration scripts/cohort_characteristic.R', 
+    './exploration scripts/included_excluded.R', 
+    './exploration scripts/gender.R', 
+    './exploration scripts/distribution.R', 
     './exploration scripts/psy_correlation.R', 
-    './exploration scripts/cohort_characteristic.R') %>% 
+    './exploration scripts/score_pca.R', 
+    './exploration scripts/score_fa.R', 
+    './exploration scripts/score_coherence.R', 
+    './exploration scripts/overlap.R', 
+    './exploration scripts/respiratory.R', 
+    './exploration scripts/omega_excluded.R', 
+    './exploration scripts/symptom_kinetic.R', 
+    './exploration scripts/bierbauer2022.R') %>% 
     source_all(message = TRUE, crash = TRUE)
-  
+
 # END ----
   
   insert_tail()

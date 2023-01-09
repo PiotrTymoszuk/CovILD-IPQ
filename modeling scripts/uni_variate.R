@@ -13,8 +13,8 @@
   ## without normalization
   
   uni_mod$models <- mod$responses  %>% 
-    map(function(resp) set_names(globals$variables, 
-                                 globals$variables) %>% 
+    map(function(resp) set_names(mod$variables, 
+                                 mod$variables) %>% 
           map(~make_lm(data = mod$multi_tbl, 
                        response = resp, 
                        indep_variable = .x, 

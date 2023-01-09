@@ -1,4 +1,8 @@
-# Correlation of the IPQ items, sum and subscores with other psy variables
+# Correlation of the IPQ items, sum and subscores with 
+# other mental health readouts variables
+#
+# Due to non-normal distribution of multiple mental health variables
+# Spearman correlation is employed
 
   insert_head()
   
@@ -11,7 +15,7 @@
   insert_msg('Globals: variables')
   
   psy_cor$var1 <- 
-    expl$variables$ipq[!expl$variables$ipq %in% c('ipq_sub1', 'ipq_sub2')]
+    expl$variables$ipq
   
   psy_cor$var2 <- globals$psy_variables
   

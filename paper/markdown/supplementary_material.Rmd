@@ -1,5 +1,5 @@
 ---
-title: "Persistent somatic symptoms are key to individual illness perception at one year after COVID-19"
+title: "Persistent somatic symptoms are key to individual illness perception at one year after COVID-19 in a cross-sectional prospective cohort study"
 subtitle: "Supplementary Material"
 author: "CovILD study team"
 date: "`r format(Sys.time(), '%Y-%m-%d')`"
@@ -9,7 +9,8 @@ output:
     reference_docx: ms_template.docx
     
 bibliography: cov_biblio.bib
-csl: frontiers-in-immunology.csl
+csl: jpr.csl
+
 header-includes:
   \usepackage{longtable}
   \usepackage{tabu}
@@ -47,43 +48,56 @@ set_flextable_defaults(font.family = 'Cambria', font.size = 10)
 
 ## Study cohort and approval
 
-The CovILD longitudinal observation cohort study (ClinicalTrials.gov: NCT04416100) includes adult ($\geq$ 18 year) patients with a symptomatic, PCR-confirmed SARS-CoV-2 infection. 
-The follow-up visits were scheduled at two, three, six months and one year after COVID-19 diagnosis. A total of 190 individuals were screened for participation.
-In the current report, a subset of the original CovILD cohort was investigated, which displayed (1) persistent COVID-19-related symptoms or (2) any abnormality in chest computed tomography (CT) or (4) any deficits in lung function testing (LFT) or (5) any cardiological abnormality in trans-thoracic echocardiography (TTE) at the one-year follow-up. The final analysis inclusion criterion was availability of complete Brief Illness Perception Questionnaire (IPQ) data [@Broadbent2006].
- 
-n = 145 participants were recruited between March and June 2020 at three centers located in Tyrol, Austria: the Medical University of Innsbruck (Innsbruck), St. Vinzenz Hospital (Zams) and Karl-Landsteiner Rehabilitation Facility (Muenster). 
-The reasons for screening failure were denied informed consent and self-declared logistic and temporary incompatibility with the scheduled study visits. 
-Out of n = `r nrow(cov_data$data_tbl)` participants, who completed the one-year follow-up, n = `r nrow(cov_data$clear_data)` suffered from symptoms or displayed cardiopulmonary abnormalities (CT, LFT or TTE findings), filled out the BIPQ and had a complete set of modeling variables (__Supplementary Table S\@ref(tab:tab-var-dict)__). 
-The recruitment process scheme is presented in __Figure 1__. 
-Baseline characteristic of the study cohort is presented in __Table 1__, follow-up features are summarized in __Supplementary Tables S\@ref(tab:tab-cohort-fup)__ (symptoms, cardiopulmonary findings) and __S\@ref(tab:tab-cohort-biochemistry)__ (laboratory parameters). BIPQ item scores and the sum BIPQ score are summarized in __Table 2__.
+The CovILD longitudinal observation cohort (ClinicalTrials.gov: NCT04416100) includes adult ($\geq$ 18 year) patients with a symptomatic, PCR-confirmed SARS-CoV-2 infection. 
+The follow-up visits were scheduled at two, three, six months and one year after COVID-19 diagnosis. 
+In the current report, a subset of the original CovILD cohort was investigated, which displayed (1) persistent somatic symptoms (PSS) or (2) any abnormality in chest computed tomography (CT) or (4) any deficits in lung function testing (LFT) or (5) any cardiological abnormality in trans-thoracic echocardiography (TTE) at the one-year follow-up. 
+The final analysis inclusion criterion was availability of complete Brief Illness Perception Questionnaire (IPQ) [@Broadbent2006] and the complete set of variables used in explorative data analysis, modeling and clustering (__Supplementary Table S\@ref(tab:tab-var-dict)__ and __S\@ref(tab:tab-modeling-vars)__).
 
-The study was performed in accordance with the Declaration of Helsinki and the European Data Policy. All participants gave written informed consent. The study protocol was approved by the ethics committee at the Medical University of Innsbruck (approval number 1103/2020).
+The decision to analyze the study participant subset with COVID-19 sequlae was motivated by the design of the illness perception-measuring tool used in our report, the Brief Illness Perception Questionnaire (BIPQ), which was initially developed for and validated in somatic conditions [@Broadbent2006].
+ 
+A total of 190 individuals were screened for participation. 
+The screened subset size was limited by the number of individuals diagnosed with COVID-19 at the study centers, their potential availability for follow-up visits (residency in the study region) and available resources for the follow-up assessments. 
+No statistical estimation of the sample size was performed, as the kinetic of COVID-19 recovery was entirely unknown at the pandemic onset. 
+Out of the positively screened individuals, 145 participants were recruited between March and June 2020 at three centers located in Tyrol, Austria: the Medical University of Innsbruck (Innsbruck), St. Vinzenz Hospital (Zams) and Karl-Landsteiner Rehabilitation Facility (Muenster). 
+The reasons for screening failure were denied informed consent and self-declared logistic and temporary incompatibility with the scheduled study visits. 
+Out of `r nrow(cov_data$raw_data)` participants, who completed the one-year follow-up, `r nrow(cov_data$clear_data)` met the inclusion criteria and were analyzed here. 
+The recruitment process scheme is presented in __Figure 1__. 
+Significant and near significant differences between the CovILD participants included in the analysis and excluded due to lacking COVID-19 sequelae at the one-year follow-up or missing BIPQ data are listed in __Supplementary Table S\@ref(tab:tab-excluded)__
+Baseline characteristic of the study participants included in the analysis is presented in __Table 1__, follow-up features are summarized in __Supplementary Tables S\@ref(tab:tab-cohort-fup)__ (symptoms, cardiopulmonary findings) and __S\@ref(tab:tab-cohort-biochemistry)__ (laboratory parameters). 
+BIPQ item scores, the sum BIPQ score, and the emotion/concern/consequences and lacking control/coherence IP component scores are summarized in __Table 2__.
+
+The study was performed in accordance with the Declaration of Helsinki and the European Data Policy. 
+All participants gave written informed consent. 
+The study protocol was approved by the ethics committee at the Medical University of Innsbruck (approval number 1103/2020). 
 
 ## Procedures and variables
 
-The protocol of each follow-up visit included a survey of COVID-19-related symptoms, blood laboratory parameter assessment, LFT, TTE and chest CT as described in more detail before [@Sonnweber2020; @Sonnweber2022; @Luger2022]. 
+The protocol of each follow-up visit included a survey of PSS, blood laboratory parameter assessment, LFT, TTE and chest CT as described in more detail before [@Sonnweber2020; @Sonnweber2022; @Luger2022]. 
 Comorbidities and data on acute COVID-19 course (symptoms, laboratory parameters, functional tests and imaging) were recorded retrospectively at the two-month follow-up visit based on information provided by the participant and electronic patient records.
+
+Variables used in the exploratory data analysis and multi-parameter modeling are listed in __Supplementary Table S\@ref(tab:tab-var-dict)__ and __Supplementary Table S\@ref(tab:tab-modeling-vars)__.
 
 ### Baseline demographic and clinical status, acute COVID-19 severity
 
 The baseline demographic variables included sex (male/female), age at COVID-19 diagnosis, smoking history, body weight and height. 
 The following pre-existing comorbidities were surveyed: obesity, metabolic disease, cardiovascular disease, hypertension, type II diabetes, hypercholesterolemia, gastrointestinal disease, malignancy, chronic kidney disease, immune deficiency, pulmonary and respiratory conditions. 
 Among the surveyed comorbidities, asthma, COPD (chronic obstructive pulmonary disease), interstitial lung disease and other chronic pulmonary disorders were subsumed under the 'respiratory disease' variable included in the independent modeling variable set.
-Study participants were stratified according to acute COVID-19 severity as ambulatory (outpatient, WHO grade 1 - 2), moderate (hospitalized at normal infection ward, no oxygen therapy, WHO grade 3 - 4) and severe COVID-19 survivors (hospitalized with oxygen therapy or mechanical ventilation or intensive care, WHO grade 5 - 7). 
+Study participants were stratified according to the acute COVID-19 severity as ambulatory (outpatient, WHO ordinal scale for clinical improvement 1 - 2), moderate (hospitalized at normal infection ward, no oxygen therapy, WHO 3 - 4) and severe COVID-19 survivors (hospitalized with oxygen therapy or mechanical ventilation or intensive care, WHO 5 - 7). 
 
-### Cardiopulonary assessment
+### Cardiopulmonary assessment
 
 LFT abnormality was defined as FVC (forced vital capacity) < 80% or FEV1 (forced expiratory volume in 1 second) < 80% or TLC (total lung capacity) < 80% or DLCO (diffusion lung capacity for carbon monoxide) < 80% of the predicted reference value or FEV1:FVC ratio < 70% of the predicted reference value [@Sonnweber2022]. 
 CT images were screened for ground glass opacities (GGO), consolidations, bronchiectasis and reticulations according to the Fleischner Society glossary [@Hansell2008]. 
-Chest CT abnormalities were scored separately for each lobe with the CT severity score [@Sonnweber2020; @Sonnweber2022; @Luger2022]: 0 - no abnormality, 1 - minimal (subtle GGO), 2 - mild (several GGO, subtle reticulation), 3 - moderate (multiple GGO, reticulation, small consolidation), 4 - severe (extensive GGO, consolidation, reticulation with distortion), 5 - massive (multiple findings, parenchymal destruction). 
-The sum for all five lobes was used in the analysis. 
-Any chest CT abnormality is defined as CT severity score $\geq$ 1. 
-The most frequent cardiological abnormality in TTE was low grade diastolic dysfunction (__Supplementary Table S\@ref(tab:tab-cohort-fup)__). 
-No reduced left ventricular ejection fraction was observed in the participants included in the current analysis.
+Chest CT abnormalities were scored separately for each lobe with the CT severity score (CTSS) [@Sonnweber2020; @Sonnweber2022; @Luger2022]: 0 - no abnormality, 1 - minimal (subtle GGO), 2 - mild (several GGO, subtle reticulation), 3 - moderate (multiple GGO, reticulation, small consolidation), 4 - severe (extensive GGO, consolidation, reticulation with distortion), 5 - massive (multiple findings, parenchymal destruction). 
+The sum CTSS for all five lobes was used in the analysis. 
+Any chest CT abnormality is defined as CTSS $\geq$ 1. 
+The most frequent cardiological abnormality in TTE was low grade diastolic dysfunction. 
+No reduced left ventricular ejection fraction was observed in the participants included in the current analysis. 
+Frequencies of cardiopulmonary findings at the one-year follow-up are presented in __Supplementary Table S\@ref(tab:tab-cohort-fup)__ and __Supplementary Figure S\@ref(fig:fig-overlap)__.
 
-### COVID-19-related persistent somatic symptoms and exertional capacity
+### Persistent somatic symptoms and exertional capacity
 
-The following features were surveyed as COVID-19-related persistent somatic symptoms:
+The following features were surveyed as PSS at the one-year follow-up:
 
 - __reduced physical performance__ assessed with the ECOG scale (Eastern Cooperative Oncology Group). Reduced physical performance was defined as ECOG $\geq$ 1
 - __dyspnea__ rated with the mMRC scale (Modified Medical British Research Council). Dyspnea was defined as mMRC $\geq$ 1
@@ -96,171 +110,433 @@ The following features were surveyed as COVID-19-related persistent somatic symp
 - __hair loss__, self-reported, surveyed as a yes/no item
 - __significant fatigue__, measured with the bimodal Chalder's Fatigue Scale (CFS). Significant fatigue was defined as bimodal CFS $\geq$ 4 [@Chalder1993; @Morriss1998]
 
-The individual counts of persistent somatic symptoms were subsequently calculated.
+Records of reduced physical performance, dyspnea, cough, sleep problems, night sweating, hyposmia/anosmia and gastrointestinal symptoms were available for acute disease and all scheduled study visits [@Sonnweber2022].
+
 Since only few participants displayed values of ECOG $\geq$ 2 or mMRC $\geq$ 2, the dichotomous 'reduced performance (ECOG $\geq$ 1)' and 'dyspnea (mMRC $\geq$ 1)' independent variables were used in modeling instead of the full numeric scales.
 Fatigue intensity was rated with the likert Chalder's Fatigue Scale (CFS) [@Chalder1993; @Morriss1998]. 
-Exertional capacity was assessed by six-minute walking distance (SMWD) test performed according to the ATS guidelines [@Crapo2012]. 
+Exertional capacity was assessed by six-minute walking distance (SMWD) test performed according to the American Thoracic Society guidelines [@Crapo2012]. 
 The reference SMWD values were obtained as described by Crapo and colleagues [@Crapo2012] and differences between the actual and reference values were calculated.
+Frequencies of symptoms, ratings of fatigue and exertional capacity at the one-year follow-up are shown in __Supplementary Table S\@ref(tab:tab-cohort-fup)__, __Supplementary Figures S\@ref(fig:fig-sev-symptoms)__ and  __S\@ref(fig:fig-overlap)__.
 
 ### Laboratory parameters
 
-Laboratory parameters encompassing hemoglobin (total and glycated hemoglobin [HbA1c]), biomarkers of iron turnover (ferritin [FT], transferrin saturation [TF-Sat], hepcidin and soluble transferrin receptor [sTFR]), inflammation and coagulation (C-reactive protein [CRP] and D-dimer) and cardiovascular pathology (N-terminal pro-brain natriuretic peptide [NT-proBNP]) were determined routinely at the certified laboratory of the Central Institute for Medical and Chemical Diagnostic at the Federal University Hospital in Innsbruck. 
-Other markers of systemic inflammation, interleukin 6 (IL6) and procalcitonin, were within the normal ranges in the analysis collective. 
+Laboratory parameters encompassing hemoglobin (total and glycated hemoglobin [HbA1c]), biomarkers of iron turnover (ferritin [FT], transferrin saturation [TF-Sat], hepcidin and soluble transferrin receptor [sTFR]), inflammation and coagulation (C-reactive protein [CRP] and D-dimer) and cardiovascular pathology (N-terminal pro-brain natriuretic peptide [NT-proBNP]) were determined routinely at the certified laboratory of the Central Institute for Medical and Chemical Diagnostic at the University Hospital in Innsbruck. 
+Other markers of systemic inflammation, interleukin 6 (IL6) and procalcitonin (PCT), were within the normal ranges in the analysis collective. 
+Values of laboratory parameters at the one-year follow-up are listed in __Supplementary Table S\@ref(tab:tab-cohort-biochemistry)__.
 
 ### Illness perception
 
-Illness perception was scored with the Brief Illness Perception Questionnaire (IPQ) developed by Broadbent and colleagues [@Broadbent2006]. 
-Each of the 8 BIPQ items (questions Q1 - Q8) was scored in with an 11-point likert scale:
+Illness perception (IP) was scored with a German translation of the Brief Illness Perception Questionnaire (BIPQ) [@Broadbent2006]. 
+Each of the 8 BIPQ items (questions Q1 - Q8) was scored in with an 11-point likert scale, the items Q3, Q4 and Q7 were conceptualized as negative items are were inverted prior to the analysis:
 
 - __Q1 consequences__ (0: no consequences, 10: very severe consequences)
-- __Q2 timeline__  (0: very short, 10: forever)
-- __Q3 personal control__ (0: no control, 10: extreme control)
-- __Q4 treatment control__ (0: no control, 10: extreme control)
+
+- __Q2 timeline__ (0: very short disease duration, 10: forever)
+
+- __Q3 lacking personal control__ (negative item, 0: full control, 10: no control at all)
+
+- __Q4 lacking treatment control__ (negative item, 0: full control, 10: no control at all)
+
 - __Q5 identity__ (0: no complaints, 10: multiple severe complaints)
+
 - __Q6 concerns__ (0: no concerns at all, 10: extreme concerns)
-- __Q7 coherence__ (0: not at all, 10: I understand my illness very good)
+
+- __Q7 lacking coherence__ (negative item, 0: very good disease understanding, 10: no understanding at all)
+
 - __Q8 emotional representation__ (0: no emotions at all, 10: extreme emotions)
 
-The illness perception score was calculated as an arithmetic sum of items Q1 - Q8, with the negative items Q3, Q4 and Q7 inverted. 
-The BIPQ tool demonstrated acceptable consistency as measured by Cronbach's $\alpha$ = `r ipq_co$alpha_stats %>% filter(response == "ipq_total") %>% .$raw_alpha %>% signif(2)` (bootstrap percentile 95% CI: `r paste(ipq_co$alpha_stats %>% filter(response == "ipq_total") %>% .$plot_cap %>% stri_extract(regex = "\\[.*\\]$"))`) (__Supplementary Figure S\@ref(fig:fig-coherence)__) [@Cronbach1951].
+The total IP score was calculated as an arithmetic sum of items Q1 - Q8. 
+As shown by the results of factor analysis [@Bartlett1937] of the BIPQ tool items (__Supplementary Figure S\@ref(fig:fig-factor-analysis)__), two separate factors could be identified: the emotion/concern/consequences (items Q1, Q2, Q5, Q6, Q8) and the lacking control/coherence component (items Q3, Q4, Q7). 
+For this reason, two IP component scores were calculated and analysed as well: the emotion/concern/consequences score defined as the Q1, Q2, Q5, Q6, Q8 item sum and the lacking control/coherence score defined as the Q3, Q4, Q7 item sum. 
+Values of the total IP score, the emotion/concern/consequences and lacking control/coherence IP component scores as well as values of the BIPQ items recorded at the one-year follow-up are presented in __Table 2__.
 
-Variables used in the exploratory data analysis and multi-parameter modeling are listed in __Supplementary Table S\@ref(tab:tab-var-dict)__.
+As measured by McDonald's total $\omega$ values [@McDonald1999], the full BIPQ tool ($\omega$ = `r ipq_co$omega_obj$omega.group$total[1] %>% signif(2)`), the emotion, concern, consequence ($\omega$ = `r ipq_co$omega_obj$omega.group$total[2] %>% signif(2)`) and the lacking control/coherence ($\omega$ = `r ipq_co$omega_obj$omega.group$total[3] %>% signif(2)`) demonstrated acceptable-to-good internal consistency (__Supplementary Figure S\@ref(fig:fig-coherence)__).
 
-## Data import, transformation and visualization methods
+## Software
 
 Data import, transformation, statistical analysis and result visualization was done with R version 4.2.0 (R Foundation for Statistical Computing). 
-For import of data tables and variable transformation, the _tidyverse_ package bundle [@Wickham2019] and _rlang_ package [@Henry2022] was used. 
-The _ggplot2_ [@Wickham2016] and _cowplot_ [@Wilke2019] packages and the development package _figur_ (https://github.com/PiotrTymoszuk/figur) were used for data visualization. 
-Quasi-proportional Venn diagrams were generated with the _nVennR_ package [@Perez-Silva2018].
-The manuscript and supplementary material files were created with the _rmarkdown_ [@Allaire2022], _knitr_ [@Xie2022], _bookdown_ [@Xie2016] packages, _Affiliations_ Pandoc filter set (https://github.com/drdanholmes/Affiliations) and the development package _figur_ (https://github.com/PiotrTymoszuk/figur).
+For import, handling and transformation of tabular data, the _tidyverse_ package bundle [@Wickham2019] and _rlang_ package [@Henry2022] was used. 
+Handling of text variables (search, replacement) was done with _stringi_ [@Gagolewski2021]. 
 
-## Hypothesis testing
+For descriptive statistic, correlation and statistical testing for differences between analysis groups the package _rstatix_ [@Kassambara2021] and the development package _ExDA_ were used (https://github.com/PiotrTymoszuk/ExDA) were employed.
+Factor analysis was accomplished with the _stats_ package of base R and the development package _clustTools_ (https://github.com/PiotrTymoszuk/clustTools). 
+The BIPQ score consistency was investigated with the _psych_ package [@Revelle2022].
 
-For statistical hypothesis testing, base R functions, the package _rstatix_ [@Kassambara2021] and development package _exda_ (https://github.com/PiotrTymoszuk/ExDA) were used. 
-Statistical significance of differences in frequency of categorical variable levels was assessed by $\chi^2$ test with Cramer V effect size statistic. 
-Since multiple study variables were non-normally distributed as investigated by Shapiro-Wilk test and quantile-quantile plots, differences in numeric variables were assessed by non-parametric Mann-Whitney (effect size: Wilcoxon r) or Kruskal-Wallis test (effect size: $\eta^2$), as appropriate. 
-Correlations were analyzed with Spearman test (function _cor.test()_, package _stats_) and visualized by fitting a second order trend (function _geom_smooth()_, package _ggplot_, formula: $y \sim x + I(x^2)$, development package _exda_).
+For modeling and ANOVA, the development package _lmqc_ (https://github.com/PiotrTymoszuk/lmqc, backward elimination and two-way ANOVA) and the packages _glmnet_ (Elastic Net and LASSO) [@Friedman2010], _monomvn_ [@Gramacy2022] (Bayesian LASSO) and _caret_ [@Kuhn2008] were employed. 
+Model quality control, cross-validation and fit statistics were computed with _caret_ and the development package _caretExtra_ (https://github.com/PiotrTymoszuk/caretExtra).
 
-## BIPQ tool consistency
+Clustering was accomplished with tools provided by the packages _cluster_ [@Schubert2019], _philentropy_ [@Drost2018], _factoextra_ [@Kassambara2020] and the development package _clustTools_ (https://github.com/PiotrTymoszuk/clustTools). 
 
-Spearman's pair-wise correlations between the BIPQ items were calculated (function _cor.test()_, package _stats_) and visualized in a bubble plot (__Supplementary Figure S\@ref(fig:fig-coherence)__). 
-Cronbach's $\alpha$ was calculated with package _psych_ [@Revelle2022; @Cronbach1951]. 95% confidence intervals for $\alpha$ were obtained by the bootstrap technique (n = 1000).
+The _ggplot2_ [@Wickham2016] package were used for data visualization. 
+Bar and violin plots were generated with _ExDA_. 
+Quasi-proportional Venn diagrams were generated with the _nVennR_ package [@Perez-Silva2018]. 
+Figures were constructed with _cowplot_ [@Wilke2019]. 
+Tables were generated with _flextable_ [@Gohel2022]. 
+The manuscript and supplementary material files were created with the _rmarkdown_ [@Allaire2022], _knitr_ [@Xie2022], _bookdown_ [@Xie2016] packages and _Affiliations_ Pandoc filter set (https://github.com/drdanholmes/Affiliations). 
+For management of figures, tables and R code in the RMarkdown documents, the development package _figur_ (https://github.com/PiotrTymoszuk/figur) was used.
+
+## Descriptive statistic, distribution testing and hypothesis testing
+
+Descriptive statistic: median with interquartile ranges for numeric variables, and percentages and counts for categorical variables were calculated with the `explore()` function (_ExDA_ package). 
+Statistical significance of differences in frequency of categorical variable levels was assessed by $\chi^2$ test with Cramer V effect size statistic (`compare_variables()`, the _ExDA_ package). 
+Normality was tested with Shapiro-Wilk test and quantile-quantile plots (`explore()`, _ExDA_ package).
+
+Since multiple study variables were non-normally distributed, differences in numeric variables were assessed by non-parametric Mann-Whitney (effect size: r) or Kruskal-Wallis test (effect size: $\eta^2$), as appropriate. 
+Group comparisons were done with the `compare_variables()` function (package _ExDA_).
+Correlations were analyzed with Spearman test (`correlate_variables()` package _ExDA_) and visualized by fitting a second order trend (`geom_smooth()`, package _ggplot_, formula: $y \sim x + I(x^2)$). 
+Statistical significance for changes in frequency of PSS in time was investigated with Cochran Q test (function `cochran_qtest()`, package _rstatix_) [@Kassambara2021].
+
+## BIPQ tool factor analysis and consistency assessment
+
+BIPQ dimensionality was assessed by maximum  likelihood factor analysis [@Bartlett1937] (`reduce_data(red_fun = 'fa')`, package _clustTools_, a wrapper around `factanal()` from _stats_) and visual investigation of the BIPQ item loadings (method `plot(type = 'loadings')` called for the factor analysis object). 
+The factor analysis revealed presence of two components of the BIPQ tool: the emotion/concern/consequences and the lacking control/coherence factor (__Figure \@ref(fig:fig-factor-analysis)__).
+Spearman's pair-wise correlations between the BIPQ items were calculated (function 'correlate_variables()', package _ExDA_) and visualized in a bubble plot. 
+Due to multi-dimensionality of the BIPQ tool McDonald's $\omega$ was calculated with the function `omega()` from the package _psych_ [@Revelle2022; @McDonald1999] was used as a reliability measure for the global BIPQ and the emotion/concern/consequences and lacking control/coherence factors (__Supplementary Figure S\@ref(fig:fig-coherence)__).
 
 ## Multi-parameter modeling
 
-In multi-parameter modeling, a set of `r length(globals$variables)` independent variables was used. 
-The response, illness perception score defined as a sum of all BIPQ items, was square-root transformed to guarantee normal distribution. 
-For numeric variables, both first- and second-order terms were included to account for non-linear relationship between the independent variable and response. 
+In multi-parameter modeling, a set of `r length(mod$variables)` independent variables was used (__Supplementary Table S\@ref(tab:tab-modeling-vars)__). 
+To improve normality, FT and sTFR were transformed with the logarithm function, and TF-Sat and hepcidin were transformed with square root. 
+Strongly non-normally or bimodally distributed numeric explanatory variables: 
+number of comorbidities (`r levels(cov_data$clear_data$no_comorb_class) %>% paste(collapse = ', ')`), 
+number of symptoms (`r levels(cov_data$clear_data$sympt_number_class) %>% paste(collapse = ', ')`), 
+CTSS ('none': CTSS 0, 'mild': 1 - 5, 'moderate': 5 - 10, 'severe': 11+) [@Luger2022], 
+NT-proBNP (`r levels(cov_data$clear_data$NTproBNP_class) %>% paste(collapse = ', ')`), 
+D-Dimer (`r levels(cov_data$clear_data$DDimer_class) %>% paste(collapse = ', ')`), 
+CRP (`r levels(cov_data$clear_data$DDimer_class) %>% paste(collapse = ', ')`) and 
+HbA1c (`r levels(cov_data$clear_data$DDimer_class) %>% paste(collapse = ', ')`) were stratified with clinically applicable cutoffs or cutoffs determined by visual analysis of the plots of modeling variable and the explanatory factor with fitted LOESS trends. 
+For numeric explanatory variables, both first- and second-order terms were included in the model to account for possible non-linear relationship between the independent variable and response. 
 During pre-processing, numeric variables (independent and responses) were normalized with mean centering (Z-scores). 
-The full independent variable list is provides in __Supplementary Table S\@ref(tab:tab-var-dict)__. 
 
-Three L1 penalized regression algorithms were utilized to model illness perception score at one year after COVID-19: Elastic Net [@Zou2005], LASSO (least absolute shrinkage and selection operator) [@Tibshirani1996] and Bayesian LASSO [@Park2012]. 
-The choice of penalized regression over canonical backward elimination or forward selection was motivated by highly multi-dimensional nature of the data set.
+The modeling responses: (1) the total IP score (all BIPQ item sum), (2) the emotion/concern/consequences (Q1, Q2, Q5, Q6 and Q8 BIPQ item sum) and (3) the lacking control/coherence (Q3, Q4 and Q7 BIPQ item sum) IP component scores were square root-transformed to guarantee normal distribution. 
+
+Three L1 regularized regression algorithms were utilized to model the total IP score and the IP component scores at one year after COVID-19: Elastic Net [@Zou2005], LASSO (least absolute shrinkage and selection operator) [@Tibshirani1996] and Bayesian LASSO [@Park2012]. 
+The choice of penalized regression over canonical backward elimination or forward selection was motivated by highly multi-dimensional nature of the data set [@Kirpich2018]. 
+As expected, modeling of the IP responses with canonical linear regression with Akaike information criterion-driven backward elimination (function `stepAIC()`, package MASS) [@Ripley2022] led to highly over-parameterized models as evident from huge expansion of the fit errors in cross-validation (CV) (not shown).
 
 The Elastic Net and LASSO algorithms are implemented in R by the _glmnet_ package [@Friedman2010]. 
-The optimal $\lambda$ parameters for Elastic Net and LASSO regression were found as values associated with the minimum model deviance in 200-repeats 10-fold cross-validation (CV, function _cv.glmnet()_, Elastic Net: $\alpha$ = 0.5, LASSO: $\alpha$ = 1, $\lambda$ parameter 'lambda.min' was extracted). 
-The optimal $\lambda$ values were `r filter(eln_mod$opt_lambda, response == "ipq_total")$lambda %>% signif(2)` for the Elastic Net and `r filter(lasso_mod$opt_lambda, response == "ipq_total")$lambda %>% signif(2)` for the LASSO model. 
-Finally, Elastic Net and LASSO models with the optimal $\lambda$ values were constructed with _caret_ package (function _train()_) [@Kuhn2008] and their performance in the training data set and 10-repeats 10-fold CV was tested (__Supplementary Figure D\@ref(fig:fig-performance)__). 
-Estimates of non-zero final model coefficients (__Supplementary Figures S\@ref(fig:fig-eln-est)__ and __S\@ref(fig:fig-lasso-est)__) were extracted with the _coef_ method (s parameter set to the optimal $\lambda$ value).
+The optimal $\lambda$ parameters for Elastic Net and LASSO regression were found as values associated with the minimum model deviance of the optimally regularized model in 200-repeats 10-fold CV (function `cv.glmnet()`, Elastic Net: $\alpha$ = 0.5, LASSO: $\alpha$ = 1, $\lambda$ parameter 'lambda.1se' corresponding to the optimally regularized model). 
+The optimal $\lambda$ values in Elastic Net were 
+`r filter(eln_mod$opt_lambda, response == "ipq_total")$lambda %>% signif(2)` for the total IP score, 
+`r filter(eln_mod$opt_lambda, response == "ipq_sub1")$lambda %>% signif(2)` for the emotion/concern/consequences and 
+`r filter(eln_mod$opt_lambda, response == "ipq_sub2")$lambda %>% signif(2)` for the lacking control/coherence IP component scores.
+The optimal $\lambda$ values in LASSO were 
+`r filter(lasso_mod$opt_lambda, response == "ipq_total")$lambda %>% signif(2)` for the total IP score, 
+`r filter(lasso_mod$opt_lambda, response == "ipq_sub1")$lambda %>% signif(2)` for the emotion/concern/consequences and 
+`r filter(lasso_mod$opt_lambda, response == "ipq_sub2")$lambda %>% signif(2)` for the lacking control/coherence IP component score. 
+Elastic Net and LASSO models with the optimal $\lambda$ values were constructed with _caret_ package (function `train(method = 'glmnet')`) [@Kuhn2008] and their performance in the training data set and 10-repeats 10-fold CV was tested.
+As shown in __Supplementary Figure S\@ref(fig:fig-performance)__, for the total IP score and the emotion/concern/consequences IP component score, meaningful, reproducible and acceptably parameterized models could be built with either of the algorithms as suggested by comparison of the model performance in the training and CV data sets. 
+In turn, poorly performing, estimate-only models could be obtained for the lacking control/coherence IP component. 
+Estimates of non-zero coefficients were extracted from the final models with the _coef_ method (the `s` parameter set to the optimal $\lambda$ value) (__Supplementary Figures S\@ref(fig:fig-eln-est-total)__ - __S\@ref(fig:fig-blasso-est-sub1)__).
 
 The Bayesian LASSO algorithm is implemented in R by the _monomvn_ package [@Gramacy2022]. 
-The Bayesian Lasso model was constructed with the _caret_ package (function _train()_, method: 'blasso', iteration number: T = 1000). 
-The optimal value of the sparsity parameter, which controls the fraction of non-zero coefficients in the final model based on the posterior distributions, was found by 10-repeats 10-fold CV with the RMSE (root mean squared error) statistic as a selection criterion (__Supplementary Figure S\@ref(fig:fig-performance)__). 
-The optimal sparsity value selected from the 0.1 - 0.7 range was `r blass_mod$models$ipq_total$bestTune[1, "sparsity"] %>% signif(2)`. 
+The Bayesian LASSO model was constructed with the _caret_ package (function `train(method = 'blasso')`, iteration number: T = 1000). 
+The optimal value of the sparsity parameter, which controls the fraction of non-zero coefficients in the final model based on the posterior distributions, was found by 10-repeats 10-fold CV with the RMSE (root mean squared error) statistic as a selection criterion. 
+The optimal sparsity values selected from the 0.1 - 0.7 range were `r blass_mod$models$ipq_total$bestTune[1, "sparsity"] %>% signif(2)`, `r blass_mod$models$ipq_sub1$bestTune[1, "sparsity"] %>% signif(2)` and `r blass_mod$models$ipq_sub2$bestTune[1, "sparsity"] %>% signif(2)` for the total IP score, the emotion/concern/consequences and the lacking control/coherence IP component scores, respectively. 
+Similar to the Elastic Net and LASSO algorithms, meaningful models could be obtained for the total IP score and the emotion/concern/consequences IP component score but not for the lacking control/coherence IP component score (__Supplementary Figure S\@ref(fig:fig-performance)__). 
 The model coefficient matrix X was extracted from the 'finalModel' slot of the caret model. 
-The coefficient values (__Supplementary Figure S\@ref(fig:fig-blasso-est)__) were calculated as matrix column medians over all algorithm iterations [@Park2012].
+The coefficient values (__Supplementary Figures S\@ref(fig:fig-blasso-est-total)__ and __S\@ref(fig:fig-blasso-est-sub1)__) were calculated as matrix column medians over all algorithm iterations [@Park2012].
 
-Extraction of caret model performance measures: RMSE and $R^2$ defined as $1 - MSE/Var(y)$ (__Supplementary Figure S\@ref(fig:fig-performance)__) was accomplished by the in-house-developed package _caretExtra_ (https://github.com/PiotrTymoszuk/caretExtra). 
-Model assumption testing (normality of residuals, Shapiro-Wilk test, method _residuals()_) and visual quality control based on plots of residuals versus fitted and residuals quantile-quantile plots was done with the _caretExtra_ package (method _plot()_).
+Extraction of caret model performance measures: RMSE and $R^2$ defined as $1 - MSE/Var(y)$ (__Supplementary Figure S\@ref(fig:fig-performance)__) was accomplished by the in-house-developed package _caretExtra_ (modeling objects created with `as_caretex()`). 
+Model assumption testing (normality of residuals, Shapiro-Wilk test, method `residuals()`) and visual quality control based on plots of residuals versus fitted and residuals quantile-quantile plots was done with the _caretExtra_ package (method `plot()` called for the `caretex` object).
 
-The key factors impacting on the illness perception score at one year after COVID-19 (`r an$cmm_variables$ipq_total %>% translate_var(out_value = "label_long") %>% de_capitalize %>% collapse_and`) were defined as variables with non-zero coefficients in all multi-parameter models.
+The number of non-zero model coefficients was found to differ substantially between the regularized regression models (__Supplementary Figures S\@ref(fig:fig-eln-est-total)__ - __S\@ref(fig:fig-blasso-est-sub1)__), which was reported for data sets of similar size [@Morozova2015]. 
+Hence, the key factors impacting on the total IP score and the emotion/concern/consequences IP component at one year after COVID-19 (`r an$cmm_variables$ipq_total %>% translate_var(out_value = "label_long") %>% de_capitalize %>% collapse_and`) were defined as variables with non-zero coefficients in all multi-parameter models. 
+Since no meaningful models for the lacking control/coherence could be obtained, no influential factors for the lacking control/coherence component could be identified (__Figure 2__).
+
+## Analysis of interaction with two-way ANOVA
+
+Interaction between the key factors affecting the total IP score and the emotion/concern/consequences IP component score and presence of cardiopulmonary abnormalities (CT, LFT findings or diastolic dysfunction in TTE) was analyzed by two-way ANOVA. 
+Briefly, the interaction ANOVA models were constructed with the function `make_lm()` (employing `lm()` from base R, package _lmqc_). 
+The dependent variables were square root-transformed to improve normality. 
+The assumptions of normality and homogeneity of distribution of the model residuals were checked by Shapiro-Wilk and Levene tests, respectively (method `summary(type = 'assumptions')`) and standard diagnostic plots of model residuals (method `plot()`). 
+ANOVA results with the $\eta^2$ effect size statistic (fraction of variance explained by the specific ANOVA term) were extracted from the models with the `anova()` method (package _lmqc_). 
+The significant and near significant (p < 0.1) interactions are presented in __Supplementary Figures S\@ref(fig:fig-interaction-total)__ - __S\@ref(fig:fig-interaction-sub1-lufo-dia)__.
 
 ## Clustering analysis
 
-Study participants were clustered in respect to BIPQ items (`r colnames(model.frame(ipq_clust$clust_obj)) %>% translate_var(out_value = "label_long") %>% stri_replace(fixed = "Illness perception, ", replacement = "") %>% collapse_and`) by the PAM algorithm (partition around medoids, package _cluster_) [@Schubert2019] with the Euclidean distance measure between the observations (package _philentropy_) [@Drost2018]. 
+Study participants were clustered in respect to the BIPQ items by PAM (partition around medoids, originally implemented by the package _cluster_) [@Schubert2019] with Euclidean distance between the observations (originally implemented by the package _philentropy_) [@Drost2018]. 
 The BIPQ item scores were not pre-processed, since they were measured with the same likert scale. 
-The PAM/Euclidean distance procedure was chosen based on the high explained clustering variance (ratio of the between-cluster sum of squares to the total sum of squares) and stability (cluster assignment accuracy in 10-fold CV, cluster assignment by 7-nearest neighbors label propagation algorithm) [@Lange2004; @Leng2014] as compared with several other clustering algorithms (__Supplementary Figure S\@ref(fig:fig-clust-dev)A__). 
-The choice of cluster number (k = `r ipq_clust$clust_obj$clust_assignment$clust_id %>% levels %>% length`) was based on the bend of the curve of within-cluster sum of squares (generated with package _factoextra_, __Supplementary Figure S\@ref(fig:fig-clust-dev)B__) [@Kassambara2020] and visual analysis of the distance heat map (__Supplementary Figure S\@ref(fig:fig-clust-dev)C__). 
-Clustering object development, clustering variance calculation, cross-validation and visualization were performed with the in-house developed package _clustTools_ (https://github.com/PiotrTymoszuk/clustTools).
+Technically, the PAM clustering object was constructed with the `kcluster(distance_method = 'euclidean', clust_fun = 'pam')` function from the development package _clustTools_.
+
+The PAM/Euclidean distance procedure was chosen based on the high explained clustering variance (ratio of the between-cluster sum of squares to the total sum of squares, method `var()`, package _clustTools_) and stability (cluster assignment accuracy in 10-fold CV, cluster assignment by 7-nearest neighbors classifier, method `cv()`, package _clustTools_) [@Lange2004; @Leng2014] as compared with several other clustering algorithms (hierarchical clustering and KMEANS) (__Supplementary Figure S\@ref(fig:fig-clust-dev)A__). 
+The choice of cluster number (k = `r ipq_clust$clust_obj$clust_assignment$clust_id %>% levels %>% length`) was based on the bend of the curve of within-cluster sum of squares (method `plot()`, package _clustTools_, a wrapper around `fviz_nbclust()`, package _factoextra_) [@Kassambara2020] and visual analysis of the distance heat map (__Supplementary Figure S\@ref(fig:fig-clust-dev)BC__).
 
 ## Data and code availability
 
-An R data (RDa) file with anonymized patient data will be made available upon request to the corresponding author. The study pipeline is available at https://github.com/PiotrTymoszuk/CovILD-IPQ.
+An R data (RDa) file with anonymized patient data will be made available upon request to the corresponding author. 
+The study analysis pipeline is available at https://github.com/PiotrTymoszuk/CovILD-IPQ.
 
 \newpage
 
 # Supplementary Tables
 
-```{r tab-var-dict, tab.cap = 'Study variables'}
+```{r tab-var-dict, tab.cap = 'Study variables. The table is available as a supplementary Excel file.'}
 
-flextable::flextable(suppl_tbl$var_lexicon) %>% 
-  width(1, width = 4.5, unit = 'cm') %>% 
-  width(2, width = 5.6, unit = 'cm') %>% 
-  width(3, width = 1.5, unit = 'cm') %>% 
-  width(4, width = 6, unit = 'cm') %>% 
+suppl_tbl$var_lexicon[1, 1] %>%
+  mutate(`R name` = '') %>% 
+  set_names(' ') %>% 
+  flextable
+
+```
+
+\newpage
+
+```{r tab-modeling-vars, tab.cap = 'Initial set of candidate explanatory variables in modeling of illness perception.'}
+
+flextable::flextable(suppl_tbl$modeling_vars) %>% 
+  width(1, width = 14, unit = 'cm') %>% 
   theme_vanilla
 
 ```
 
 \newpage
 
-```{r tab-cohort-fup, tab.cap = 'COVID-19 symptoms, performance, fatigue, exertional capacity, cardiopulmonary abnormalities and illness perception at the one-year follow-up.'}
+```{r tab-excluded, tab.cap = 'Significant and near-significant (p < 0.1) factors differentiating between the CovILD cohort participants included in the analysis and excluded due to variable missingness or lacking long-term COVID-19 sequelae. Numeric variables are presented as medians with interquartile ranges (IQR). Categorical variables are shown as percentages and counts within the strata.'}
+
+flextable::flextable(suppl_tbl$excluded) %>% 
+  width(1, width = 4.8, unit = 'cm') %>% 
+  width(2:3, width = 3.5, unit = 'cm') %>% 
+  width(4, width = 2.5, unit = 'cm') %>% 
+  width(5, width = 2.1, unit = 'cm') %>% 
+  footnote(1, 4:5, 
+           value = as_paragraph('Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Mann-Whitney test with r effect size statistic'), 
+           ref_symbols = 'a', 
+           part = 'header') %>% 
+  footnote(2, 1, 
+           value = as_paragraph('WHO ordinal scale for clinical improvement'), 
+           ref_symbols = 'b', 
+           part = 'body') %>% 
+  footnote(5, 1, 
+           value = as_paragraph('Six minute walking distance'), 
+           ref_symbols = 'b', 
+           part = 'body') %>% 
+  footnote(6, 1, 
+           value = as_paragraph('Blood hemoglobin'), 
+           ref_symbols = 'b', 
+           part = 'body') %>% 
+  footnote(7, 1, 
+           value = as_paragraph('Serum ferritin'), 
+           ref_symbols = 'b', 
+           part = 'body') %>% 
+  theme_vanilla()
+
+```
+
+\newpage
+
+```{r tab-cohort-fup, tab.cap = 'COVID-19 symptoms, performance, fatigue, exertional capacity, cardiopulmonary abnormalities and rehabilitation status at the one-year follow-up. Numeric variables are presented as medians with interquartile ranges (IQR). Categorical variables are shown as percentages and counts within the strata.'}
 
 flextable::flextable(suppl_tbl$fup) %>% 
-  width(1, width = 4.4, unit = 'cm') %>% 
-  width(2:5, width = 2.8, unit = 'cm') %>% 
-  width(6, width = 2.5, unit = 'cm') %>% 
+  width(1, width = 3.6, unit = 'cm') %>% 
+  width(2:5, width = 3.2, unit = 'cm') %>% 
+  width(6, width = 2.4, unit = 'cm') %>% 
   width(7, width = 2.1, unit = 'cm') %>%
-  footnote(1, 6:7, value = as_paragraph('COVID-19 severity strata comparison; categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Kruskal-Wallis test with \u03C7\u00B2 effect size statistic'), ref_symbols = 'a', part = 'header') %>% 
-  footnote(4, 1, value = as_paragraph('Eastern Cooperative Oncology Group performance score'), ref_symbols = 'b', part = 'body') %>% 
-  footnote(5, 1, value = as_paragraph('Modified Medical Research Council dyspnea score'), ref_symbols = 'c', part = 'body') %>% 
-  footnote(13:14, 1, value = as_paragraph("Chalder's Fatigure Score"), ref_symbols = 'd', part = 'body') %>% 
-  footnote(15, 1, value = as_paragraph('Lung function testing abnormality: FVC < 80% or FEV1 < 80% or TLC < 80% or DLCO < 80% predicted or FEV1:FVC < 70% predicted reference value'), ref_symbols = 'e', part = 'body') %>% 
-  footnote(16, 1, value = as_paragraph('Any abnormality in chest computed tomography (CT), CT severity score ≥ 1'), ref_symbols = 'f', part = 'body') %>% 
-  footnote(17, 1, value = as_paragraph('Chest computer tomography severity score'), ref_symbols = 'g', part = 'body') %>% 
-  footnote(19, 1, value = as_paragraph('Six minute walking distance'), ref_symbols = 'h', part = 'body') %>% 
-  footnote(20, 1, value = as_paragraph('Six-minute walking distance, difference between the actual and reference value'), ref_symbols = 'i', part = 'body') %>% 
+  footnote(1, 6:7, 
+           value = as_paragraph('Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Kruskal-Wallis test with \u03C7\u00B2 effect size statistic'), 
+           ref_symbols = 'a', 
+           part = 'header') %>% 
+  footnote(2:3, 1, 
+           value = as_paragraph('PSS: persistent somatic symptoms'), 
+           ref_symbols = 'c', 
+           part = 'body') %>% 
+  footnote(4, 1, 
+           value = as_paragraph('ECOG: Eastern Cooperative Oncology Group performance score'), 
+           ref_symbols = 'c', 
+           part = 'body') %>% 
+  footnote(5, 1, 
+           value = as_paragraph('mMRC: Modified Medical Research Council dyspnea score'), 
+           ref_symbols = 'd', 
+           part = 'body') %>% 
+  footnote(13:14, 1, 
+           value = as_paragraph("CFS: Chalder's Fatigure Score"), 
+           ref_symbols = 'e', 
+           part = 'body') %>% 
+  footnote(15, 1, 
+           value = as_paragraph('Lung function testing abnormality: FVC < 80% or FEV1 < 80% or TLC < 80% or DLCO < 80% predicted or FEV1:FVC < 70% predicted reference value'), 
+           ref_symbols = 'f', 
+           part = 'body') %>% 
+  footnote(17, 1, 
+           value = as_paragraph('Chest computer tomography severity score'), 
+           ref_symbols = 'g', 
+           part = 'body') %>% 
+  footnote(19, 1, 
+           value = as_paragraph('SMWD: Six minute walking distance'), 
+           ref_symbols = 'h', 
+           part = 'body') %>% 
+  footnote(20, 1, 
+           value = as_paragraph('SMWD, difference between the actual and reference value'), 
+           ref_symbols = 'i', 
+           part = 'body') %>% 
   theme_vanilla
 
 ```
 
 \newpage
 
-```{r tab-cohort-biochemistry, tab.cap = 'Laboratory parameters at the one-year follow-up.'}
+```{r tab-cohort-biochemistry, tab.cap = 'Laboratory parameters at the one-year follow-up. Values are presented as medians with interquartile ranges (IQR).'}
 
-flextable::flextable(suppl_tbl$biochemistry_fup) %>%
-  width(1, width = 2.8, unit = 'cm') %>% 
-  width(2:5, width = 3.3, unit = 'cm') %>% 
-  width(6, width = 2.5, unit = 'cm') %>% 
+flextable::flextable(suppl_tbl$biochemistry_fup) %>% 
+  width(1, width = 2.5, unit = 'cm') %>% 
+  width(2:5, width = 3.5, unit = 'cm') %>% 
+  width(6, width = 2.4, unit = 'cm') %>% 
   width(7, width = 2.1, unit = 'cm') %>%
-  footnote(1, 6:7, value = as_paragraph('COVID-19 severity strata comparison; categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Kruskal-Wallis test with \u03C7\u00B2 effect size statistic'), ref_symbols = 'a', part = 'header') %>% 
-  footnote(2, 1, value = as_paragraph('Females: hemoglobin (Hb) < 120 g/dL, males: Hb < 140 g/dL'), ref_symbols = 'b', part = 'body') %>% 
-  footnote(3, 1, as_paragraph('Blood hemoglobin'), ref_symbols = 'c', part = 'body') %>% 
-  footnote(4, 1, as_paragraph('Serum ferritin'), ref_symbols = 'd', part = 'body') %>%
-  footnote(5, 1, as_paragraph('Serum transferrin saturation'), ref_symbols = 'e', part = 'body') %>% 
-  footnote(6, 1, as_paragraph('Serum soluble transferrin receptor'), ref_symbols = 'f', part = 'body') %>% 
-  footnote(8, 1, as_paragraph('Serum N-terminal pro-brain natriuretic peptide'), ref_symbols = 'g', part = 'body') %>% 
-  footnote(10, 1, as_paragraph('Serum C-reactive protein'), ref_symbols = 'h', part = 'body') %>% 
-  footnote(11, 1, as_paragraph('Blood glycated hamoglobin'), ref_symbols = 'i', part = 'body') %>% 
+  footnote(1, 6:7, 
+           value = as_paragraph('Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Kruskal-Wallis test with \u03C7\u00B2 effect size statistic'), 
+           ref_symbols = 'a', 
+           part = 'header') %>% 
+  footnote(2, 1, 
+           value = as_paragraph('Females: hemoglobin (Hb) < 120 g/dL, males: Hb < 140 g/dL'), 
+           ref_symbols = 'b', 
+           part = 'body') %>% 
+  footnote(3, 1, 
+           as_paragraph('Blood hemoglobin'), 
+           ref_symbols = 'c', 
+           part = 'body') %>% 
+  footnote(4, 1, 
+           as_paragraph('Serum ferritin'), 
+           ref_symbols = 'd', 
+           part = 'body') %>%
+  footnote(5, 1, 
+           as_paragraph('Serum transferrin saturation'), 
+           ref_symbols = 'e', 
+           part = 'body') %>% 
+  footnote(6, 1, 
+           as_paragraph('Serum soluble transferrin receptor'), 
+           ref_symbols = 'f', 
+           part = 'body') %>% 
+  footnote(8, 1, 
+           as_paragraph('Serum N-terminal pro-brain natriuretic peptide'), 
+           ref_symbols = 'g', part = 'body') %>% 
+  footnote(10, 1, as_paragraph('Serum C-reactive protein'), 
+           ref_symbols = 'h', 
+           part = 'body') %>% 
+  footnote(11, 1, 
+           as_paragraph('Blood glycated hamoglobin'), 
+           ref_symbols = 'i', 
+           part = 'body') %>% 
   theme_vanilla
 
 ```
 
 \newpage
 
-```{r tab-ipq-clusters, tab.cap = 'Significant (p < 0.05) and near-significant (p < 0.1) differences between the illness perception clusters.'}
+```{r tab-gender, tab.cap = 'Significant and near-significant (p < 0.1) factors differentiating between female and male participants and illness perception in the genders (Brief Illness Perception Questionnaire, BIPQ). Numeric variables are presented as medians with interquartile ranges (IQR). Categorical variables are shown as percentages and counts within the strata.'}
+
+flextable::flextable(suppl_tbl$gender) %>% 
+  width(1, width = 5.2, unit = 'cm') %>% 
+  width(2:3, width = 3.5, unit = 'cm') %>% 
+  width(4, width = 2.5, unit = 'cm') %>% 
+  width(5, width = 2.1, unit = 'cm') %>% 
+  footnote(1, 4:5, 
+           value = as_paragraph('Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Mann-Whitney test with r effect size statistic'), 
+           ref_symbols = 'a', 
+           part = 'header') %>% 
+  footnote(2, 1, 
+           value = as_paragraph('Former or active smoker'), 
+           ref_symbols = 'b', 
+           part = 'body') %>% 
+  footnote(3, 1, 
+           value = as_paragraph('Overweight: body mass index 25 - 30 kg/m\u00B2, obesity: > 30 kg/m\u00B2'), 
+           ref_symbols = 'c', 
+           part = 'body') %>% 
+  footnote(5, 1, 
+           value = as_paragraph('WHO ordinal scale for clinical improvement'), 
+           ref_symbols = 'd', 
+           part = 'body') %>% 
+  footnote(7:8, 1, 
+           value = as_paragraph('PSS: persistent somatic symptoms'), 
+           ref_symbols = 'e', 
+           part = 'body') %>% 
+  footnote(9, 1, 
+           value = as_paragraph('mMRC: Modified Medical Research Council dyspnea score'), 
+           ref_symbols = 'f', 
+           part = 'body') %>% 
+  footnote(11, 1, 
+           value = as_paragraph('Chest computer tomography severity score'), 
+           ref_symbols = 'g', 
+           part = 'body') %>% 
+  footnote(12, 1, 
+           value = as_paragraph('Blood hemoglobin'), 
+           ref_symbols = 'h', 
+           part = 'body') %>% 
+  footnote(13, 1, 
+           value = as_paragraph('Serum ferritin'), 
+           ref_symbols = 'i', 
+           part = 'body') %>% 
+  theme_vanilla
+
+```
+
+\newpage
+
+```{r tab-respi, tab.cap = 'Significant and near-significant (p < 0.1) factors differentiating between participants with and without respiratory comorbidity. Numeric variables are presented as medians with interquartile ranges (IQR). Categorical variables are shown as percentages and counts within the strata.'}
+
+flextable::flextable(suppl_tbl$respi) %>% 
+  width(1, width = 4.8, unit = 'cm') %>% 
+  width(2:3, width = 3.3, unit = 'cm') %>% 
+  width(4, width = 2.5, unit = 'cm') %>% 
+  width(5, width = 2.1, unit = 'cm') %>% 
+  footnote(1, 4:5, 
+           value = as_paragraph('Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Mann-Whitney test with r effect size statistic'), 
+           ref_symbols = 'a', 
+           part = 'header') %>% 
+  footnote(5:6, 1, 
+           value = as_paragraph("CFS: Chalder's fatigue score"), 
+           ref_symbols = 'b', 
+           part = 'body') %>% 
+  footnote(7, 1, 
+           as_paragraph('Lung function testing abnormality: FVC < 80% or FEV1 < 80% or TLC < 80% or DLCO < 80% predicted or FEV1:FVC < 70% predicted reference value'), 
+           ref_symbols = 'c', 
+           part = 'body') %>% 
+  footnote(8:12, 1, 
+           as_paragraph('BIPQ: brief illness perception questionnaire'), 
+           ref_symbols = 'd', 
+           part = 'body') %>% 
+  theme_vanilla
+
+```
+
+\newpage
+
+```{r tab-ipq-clusters, tab.cap = 'Significant and near-significant (p < 0.1) differences between the illness perception clusters. Numeric variables are presented as medians with interquartile ranges (IQR). Categorical variables are shown as percentages and counts within the strata.'}
 
 flextable::flextable(suppl_tbl$ipq_clusters) %>% 
-  width(1, width = 4.8, unit = 'cm') %>% 
-  width(2:4, width = 2.6, unit = 'cm') %>% 
+  width(1, width = 5.4, unit = 'cm') %>% 
+  width(2:4, width = 3, unit = 'cm') %>% 
   width(5, width = 2.5, unit = 'cm') %>% 
   width(6, width = 2.1, unit = 'cm') %>%
-  footnote(1, 5:6, value = as_paragraph('COVID-19 severity strata comparison; categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Kruskal-Wallis test with \u03C7\u00B2 effect size statistic'), ref_symbols = 'a', part = 'header') %>% 
-  footnote(8, 1, value = as_paragraph('Eastern Cooperative Oncology Group performance score'), ref_symbols = 'b', part = 'body') %>% 
-  footnote(9, 1, value = as_paragraph('Modified Medical Research Council dyspnea score'), ref_symbols = 'c', part = 'body') %>% 
-  footnote(13:14, 1, value = as_paragraph("Chalder's Fatigure Score"), ref_symbols = 'd', part = 'body') %>% 
-  footnote(15, 1, value = as_paragraph('Lung function testing abnormality: FVC < 80% or FEV1 < 80% or TLC < 80% or DLCO < 80% predicted or FEV1:FVC < 70% predicted reference value'), ref_symbols = 'e', part = 'body') %>% 
-  footnote(16, 1, value = as_paragraph('Any abnormality in chest computed tomography (CT), CT severity score ≥ 1'), ref_symbols = 'f', part = 'body') %>% 
+  footnote(1, 5:6, 
+           value = as_paragraph('Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Kruskal-Wallis test with \u03C7\u00B2 effect size statistic'), 
+           ref_symbols = 'a', 
+           part = 'header') %>% 
+  footnote(2, 1, 
+           value = as_paragraph('Former or active smoker'), 
+           ref_symbols = 'b', 
+           part = 'body') %>% 
+  footnote(5, 1, 
+           value = as_paragraph('WHO ordinal scale for clinical improvement'), 
+           ref_symbols = 'c', 
+           part = 'body') %>% 
+  footnote(6:7, 1, 
+           value = as_paragraph('PSS: persistent somatic symptoms'), 
+           ref_symbols = 'd', 
+           part = 'body') %>% 
+  footnote(8, 1, 
+           value = as_paragraph('ECOG: Eastern Cooperative Oncology Group performance score'), 
+           ref_symbols = 'e', 
+           part = 'body') %>% 
+  footnote(9, 1, 
+           value = as_paragraph('mMRC: Modified Medical Research Council dyspnea score'), 
+           ref_symbols = 'f', 
+           part = 'body') %>% 
+  footnote(13:14, 1, value = as_paragraph("Chalder's Fatigure Score"), 
+           ref_symbols = 'g', 
+           part = 'body') %>% 
+  footnote(15, 1, 
+           value = as_paragraph('Lung function testing abnormality: FVC < 80% or FEV1 < 80% or TLC < 80% or DLCO < 80% predicted or FEV1:FVC < 70% predicted reference value'), 
+           ref_symbols = 'h', 
+           part = 'body') %>% 
   theme_vanilla
 
 ```
@@ -269,79 +545,197 @@ flextable::flextable(suppl_tbl$ipq_clusters) %>%
 
 # Supplementary Figures
 
-```{r fig-coherence, fig.width = mm_inch(suppl_fig$coherence$w), fig.height = mm_inch(suppl_fig$coherence$h), fig.cap = 'Coherence of the illness perception score.'}
+```{r fig-sev-symptoms, fig.width = mm_inch(suppl_fig$sev_symptoms$w), fig.height = mm_inch(suppl_fig$sev_symptoms$h), fig.cap = 'Longitudinal changes of symptom rates, frequency of persistent somatic symptoms in the COVID-19 severity strata at the one-year follow-up.'}
+
+suppl_fig$sev_symptoms$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-sev-symptoms). Longitudinal changes of persistent somatic symptom rates, frequency of persistent somatic symptoms in the COVID-19 severity strata at the one-year follow-up.__
+
+_(A) Frequencies of persistent somatic symptoms (PSS) in acute COVID-19 (time 0) and at the consecutive follow-ups after COVID-19 diagnosis expressed as percentages of the analysis collective. Only PSS recorded at every follow-up were analyzed. Statistical significance of changes in frequencies in time was investigated by Cochran Q test. Number of complete observations is indicated in the plot caption. P values for specific PSS are presented in the plot legend._
+
+_(B) Frequencies of PSS at the one-year follow up were compared between survivors of ambulatory, moderate and severe COVID-19 by $\chi^2$ test. Percentages of individuals with and without the specific PSS within the severity strata are presented in a stack plot. Significance is indicated in the plot facets. Numbers of complete observations are displayed next to the plot. bi. CFS: bimodal Chalder's fatigue score; reduced performance: ECOG (Eastern Cooperative Oncology Group) $\geq$ 1._
+
+\newpage
+
+```{r fig-overlap, fig.width = mm_inch(suppl_fig$overlap$w), fig.height = mm_inch(suppl_fig$overlap$h), fig.cap = 'Overlap between persistent somatic symptoms and cardiopulmonary findings at the one-year follow-up.'}
+
+suppl_fig$overlap$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-overlap). Overlap between persistent somatic symptoms and cardiopulmonary findings at the one-year follow-up.__
+
+_Numbers of the analyzed CovILD study participants (total: n = `r nrow(cov_data$clear_data)`) with at least one persistent somatic symptom (PSS), any abnormality in chest computed tomography (CT findings) or lung function testing (LFT abnormality) or diastolic dysfunction in trans-thoracic echocardiography (TTE abnormality) at the one-year follow-up presented in a quasi-proportional Venn plot._
+
+\newpage
+
+```{r fig-factor-analysis, fig.width = mm_inch(suppl_fig$factor_analysis$w), fig.height = mm_inch(suppl_fig$factor_analysis$h), fig.cap = 'Factor analysis of the BIPQ tool items.'}
+
+suppl_fig$factor_analysis$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-factor-analysis). Factor analysis of the BIPQ tool items.__
+
+_Brief illness perception questionnaire (BIPQ) items were subjected to three-dimensional factor analysis. Loadings of the BIPQ items for the first two factors are presented as points. Variances associated with the factors are shown in the plot axes. Numbers of complete observations are indicated in the plot caption._
+
+\newpage
+
+```{r fig-coherence, fig.width = mm_inch(suppl_fig$coherence$w), fig.height = mm_inch(suppl_fig$coherence$h), fig.cap = 'Coherence of the BIPQ tool.'}
 
 suppl_fig$coherence$plot
 
 ```
 
-__Supplementary Figure S\@ref(fig:fig-coherence). Coherence of the illness perception score.__ 
+__Supplementary Figure S\@ref(fig:fig-coherence). Coherence of the BIPQ tool.__
 
-_Pair-wise correlation between particular items of the Brief Illness Perception Questionnaire (IPQ) was assessed by Spearman test and the results presented in the point plot. Point size corresponds to absolute values of the correlation coefficient $\rho$. Point color codes for the $\rho$ value. The points are labeled with $\rho$ values, significant effects are highlighted in bold. Internal consistency of the BIPQ tool was measured by Cronbach's $\alpha$. The $\alpha$ statistic with 95% confidence intervals and the number of complete observations are displayed in the plot caption._
+_Pair-wise correlation between the Brief Illness Perception Questionnaire (BIPQ) items was assessed by Spearman test (observations: n = `r nrow(cov_data$clear_data)`) and the results presented in a bubble plot. Point size corresponds to absolute values of the correlation coefficient $\rho$. Point color codes for the $\rho$ value. The points are labeled with $\rho$ values, significant effects are highlighted in bold. Internal consistency of the BIPQ tool was measured by McDonald's $\omega$. $\omega$ values for the entire BIPQ tool, the emotion/concern/consequences (Q1/2/3/6/8) and the lacking control/coherence (Q3/Q4/Q7) factors are indicated in the plot caption._
 
 \newpage
 
-```{r fig-performance, fig.width = mm_inch(suppl_fig$perfomance$w), fig.height = mm_inch(suppl_fig$perfomance$h), fig.cap = 'Multi-parameter model performance.'}
+```{r fig-performance, fig.width = mm_inch(suppl_fig$perfomance$w), fig.height = mm_inch(suppl_fig$perfomance$h), fig.cap = 'Performance and reproducibility of regularized multi-parameter models.'}
 
 suppl_fig$perfomance$plot
 
 ```
 
-__Supplementary Figure S\@ref(fig:fig-performance). Multi-parameter model performance.__ 
+__Supplementary Figure S\@ref(fig:fig-performance). Performance and reproducibility of regularized multi-parameter models.__ 
 
-_(A) Fraction of illness perception score variance explained by the Elastic Net, LASSO and Bayesian LASSO model in the training data set and 10-repeats 10-fold cross-validation (CV) was estimated by the $R^2$ statistic._
-
-_(B) Model error expressed as root mean squared error (RMSE) in the training and CV data sets._
+_The total illness perception (IP) score (A), the emotion/concern/consequences (B) and the lacking control/coherence (C) IP component scores at the one-year follow-up were modeled by the Elastic Net, LASSO and Bayesian LASSO. Fraction of the modeling response variance explained by the model in the training data set and 10-repeats 10-fold cross-validation (CV) was estimated by the $R^2$ statistic. Model error was expressed as root mean squared error (RMSE) in the training and CV data sets._
 
 \newpage
 
-```{r fig-eln-est, fig.width = mm_inch(suppl_fig$eln_est$w), fig.height = mm_inch(suppl_fig$eln_est$h), fig.cap = 'Non-zero coefficient estimates of the Elastic Net multi-parameter model.'}
+```{r fig-eln-est-total, fig.width = mm_inch(suppl_fig$eln_est_total$w), fig.height = mm_inch(suppl_fig$eln_est_total$h), fig.cap = 'Non-zero coefficient estimates of the Elastic Net multi-parameter model of the total illness perception score at the one-year follow-up.'}
 
-suppl_fig$eln_est$plot
+suppl_fig$eln_est_total$plot
 
 ```
 
-__Supplementary Figure S\@ref(fig:fig-eln-est). Non-zero coefficient estimates of the Elastic Net multi-parameter model.__ 
+__Supplementary Figure S\@ref(fig:fig-eln-est-total). Non-zero coefficient estimates of the Elastic Net multi-parameter model of the total illness perception (IP) score at the one-year follow-up.__
 
-_Z-score normalized estimates ($\beta$) of the non-zero coefficients of the Elastic Net model are presented in the plot as points. Point color codes $\beta$ value, point size corresponds to the absolute value of $\beta$. Model's performance measures in the training data set ($R^2$ and root mean squared error [RMSE]) and numbers of complete observations are indicated in the plot caption. The data points are labeled with their $\beta$ values._
+_Z-score normalized estimates ($\beta$) of the non-zero coefficients of the model are presented in the plot as points. Point color codes $\beta$ value, point size corresponds to the absolute value of $\beta$. Model's performance measures in the training data set ($R^2$ and root mean squared error [RMSE]) and numbers of complete observations are indicated in the plot caption. The data points are labeled with their $\beta$ values. CFS: Chalder's fatigue score; reduced performance: ECOG (Eastern Cooperative Oncology Group) $\geq$ 1; # PSS: number of persistent somatic symptoms at the one-year follow-up._
 
 \newpage
 
-```{r fig-lasso-est, fig.width = mm_inch(suppl_fig$lasso_est$w), fig.height = mm_inch(suppl_fig$lasso_est$h), fig.cap = 'Non-zero coefficient estimates of the LASSO multi-parameter model.'}
+```{r fig-lasso-est-total, fig.width = mm_inch(suppl_fig$lasso_est_total$w), fig.height = mm_inch(suppl_fig$lasso_est_total$h), fig.cap = 'Non-zero coefficient estimates of the LASSO multi-parameter model of the total illness perception score at the one-year follow-up.'}
 
-suppl_fig$lasso_est$plot
+suppl_fig$lasso_est_total$plot
 
 ```
 
-__Supplementary Figure S\@ref(fig:fig-lasso-est). Non-zero coefficient estimates of the LASSO multi-parameter model.__ 
+__Supplementary Figure S\@ref(fig:fig-lasso-est-total). Non-zero coefficient estimates of the LASSO multi-parameter model of the total illness perception (IP) score at the one-year follow-up.__ 
 
-_Z-score normalized estimates ($\beta$) of the non-zero coefficients of the LASSO (least absolute shrinkage and selection operator) model are presented in the plot as points. Point color codes $\beta$ value, point size corresponds to the absolute value of $\beta$. Model's performance measures in the training data set ($R^2$ and root mean squared error [RMSE]) and numbers of complete observations are indicated in the plot caption. The data points are labeled with their $\beta$ values._
+_Z-score normalized estimates ($\beta$) of the non-zero coefficients of the model are presented in the plot as points. Point color codes $\beta$ value, point size corresponds to the absolute value of $\beta$. Model's performance measures in the training data set ($R^2$ and root mean squared error [RMSE]) and numbers of complete observations are indicated in the plot caption. The data points are labeled with their $\beta$ values. CFS: Chalder's fatigue score; reduced performance: ECOG (Eastern Cooperative Oncology Group) $\geq$ 1; # PSS: number of persistent somatic symptoms at the one-year follow-up._
 
 \newpage
 
-```{r fig-blasso-est, fig.width = mm_inch(suppl_fig$blasso_est$w), fig.height = mm_inch(suppl_fig$blasso_est$h), fig.cap = 'Non-zero coefficient estimates of the Bayesian LASSO multi-parameter model.'}
+```{r fig-blasso-est-total, fig.width = mm_inch(suppl_fig$blasso_est_total$w), fig.height = mm_inch(suppl_fig$blasso_est_total$h), fig.cap = 'Non-zero coefficient estimates of the Bayesian LASSO multi-parameter model of the total illness perception score at the one-year follow-up.'}
 
-suppl_fig$blasso_est$plot
+suppl_fig$blasso_est_total$plot
 
 ```
 
-__Supplementary Figure S\@ref(fig:fig-blasso-est). Non-zero coefficient estimates of the Bayesian LASSO multi-parameter model.__ 
+__Supplementary Figure S\@ref(fig:fig-blasso-est-total). Non-zero coefficient estimates of the Bayesian LASSO multi-parameter model of the total illness perception (IP) score at the one-year follow-up.__ 
 
-_Z-score normalized estimates ($\beta$) of the non-zero coefficients of the Bayesian LASSO model are presented in the plot as points. Point color codes $\beta$ value, point size corresponds to the absolute value of $\beta$. Model's performance measures in the training data set ($R^2$ and root mean squared error [RMSE]) and numbers of complete observations are indicated in the plot caption. The data points are labeled with their $\beta$ values._
+_Z-score normalized estimates ($\beta$) of the non-zero coefficients of the model are presented in the plot as points. Point color codes $\beta$ value, point size corresponds to the absolute value of $\beta$. Model's performance measures in the training data set ($R^2$ and root mean squared error [RMSE]) and numbers of complete observations are indicated in the plot caption. The data points are labeled with their $\beta$ values. CFS: Chalder's fatigue score; reduced performance: ECOG (Eastern Cooperative Oncology Group) $\geq$ 1; # PSS: number of persistent somatic symptoms at the one-year follow-up._
 
 \newpage
 
-```{r fig-cardiopulmo, fig.width = mm_inch(suppl_fig$cardiopulmo$w), fig.height = mm_inch(suppl_fig$cardiopulmo$h), fig.cap = 'Age, sex and cardiopulmonary abnormalities at the one-year follow-up and illness perception.'}
+```{r fig-eln-est-sub1, fig.width = mm_inch(suppl_fig$eln_est_sub1$w), fig.height = mm_inch(suppl_fig$eln_est_sub1$h), fig.cap = 'Non-zero coefficient estimates of the Elastic Net multi-parameter model of the emotion/concern/consequences illness perception component at the one-year follow-up.'}
 
-suppl_fig$cardiopulmo$plot
+suppl_fig$eln_est_sub1$plot
 
 ```
 
-__Supplementary Figure S\@ref(fig:fig-cardiopulmo). Age, sex and cardiopulmonary abnormalities at the one-year follow-up and illness perception..__ 
+__Supplementary Figure S\@ref(fig:fig-eln-est-sub1). Non-zero coefficient estimates of the Elastic Net multi-parameter model of the emotion/concern/consequences illness perception component the one-year follow-up.__
 
-_(A - D) Differences in the illness perception score between males and female (A), the study participants with and without lung function (LFT) testing abnormality (B), chest computed tomography (CT) abnormality (C) and heart diastolic dysfunction (D) were assessed by Mann-Whitney test with Wilcoxon r effect size statistic. Effect size statistic and p values are indicated in the plot captions. Illness perception score values are presented i violin plots. Each point represents a single observation. Red diamonds and whiskers represent medians with interquartile ranges. Numbers of individuals with and without cardiopulmonary abnormalities are displayed under the plots._
+_Z-score normalized estimates ($\beta$) of the non-zero coefficients of the model are presented in the plot as points. Point color codes $\beta$ value, point size corresponds to the absolute value of $\beta$. Model's performance measures in the training data set ($R^2$ and root mean squared error [RMSE]) and numbers of complete observations are indicated in the plot caption. The data points are labeled with their $\beta$ values. CFS: Chalder's fatigue score; reduced performance: ECOG (Eastern Cooperative Oncology Group) $\geq$ 1; # PSS: number of persistent somatic symptoms at the one-year follow-up; CT lesion severity: chest computed tomography abnormality severity at the one-year follow-up; GID: gastrointestinal disease; CRP: serum C-reactive protein; COVID-19 severity: HS: hospitalized/severe; NT-proBNP; N-terminal pro-brain natriuretic peptide._
 
-_(F). Correlation of age at COVID-19 diagnosis and the illness perception score at one year after COVID-19 diagnosis was investigated by Spearman's test. Correlation coefficients ($\rho$) and p values are indicated in the plot captions. Each point represents a single observations. Blue lines with gray ribbons depict the fitted second order terms and 95% confidence intervals. Numbers of complete observations are displayed under the plots._
+\newpage
+
+```{r fig-lasso-est-sub1, fig.width = mm_inch(suppl_fig$lasso_est_sub1$w), fig.height = mm_inch(suppl_fig$lasso_est_sub1$h), fig.cap = 'Non-zero coefficient estimates of the LASSO multi-parameter model of the emotion/concern/consequences illness perception component at the one-year follow-up.'}
+
+suppl_fig$lasso_est_sub1$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-lasso-est-sub1). Non-zero coefficient estimates of the LASSO multi-parameter model of the emotion/concern/consequences illness perception component at the one-year follow-up.__ 
+
+_Z-score normalized estimates ($\beta$) of the non-zero coefficients of the model are presented in the plot as points. Point color codes $\beta$ value, point size corresponds to the absolute value of $\beta$. Model's performance measures in the training data set ($R^2$ and root mean squared error [RMSE]) and numbers of complete observations are indicated in the plot caption. The data points are labeled with their $\beta$ values. CFS: Chalder's fatigue score; reduced performance: ECOG (Eastern Cooperative Oncology Group) $\geq$ 1; # PSS: number of persistent somatic symptoms at the one-year follow-up; CT lesion severity: chest computed tomography abnormality severity at the one-year follow-up; GID: gastrointestinal disease; CRP: serum C-reactive protein; COVID-19 severity: HS: hospitalized/severe; NT-proBNP; N-terminal pro-brain natriuretic peptide._
+
+\newpage
+
+```{r fig-blasso-est-sub1, fig.width = mm_inch(suppl_fig$blasso_est_sub1$w), fig.height = mm_inch(suppl_fig$blasso_est_sub1$h), fig.cap = 'Non-zero coefficient estimates of the Bayesian LASSO multi-parameter model of the emotion/concern/consequences illness perception illness perception component at the one-year follow-up.'}
+
+suppl_fig$blasso_est_sub1$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-blasso-est-sub1). Non-zero coefficient estimates of the Bayesian LASSO multi-parameter model of the emotion/concern/consequences illness perception component at the one-year follow-up.__ 
+
+_Z-score normalized estimates ($\beta$) of the non-zero coefficients of the model are presented in the plot as points. Point color codes $\beta$ value, point size corresponds to the absolute value of $\beta$. Model's performance measures in the training data set ($R^2$ and root mean squared error [RMSE]) and numbers of complete observations are indicated in the plot caption. The data points are labeled with their $\beta$ values. CFS: Chalder's fatigue score; reduced performance: ECOG (Eastern Cooperative Oncology Group) $\geq$ 1; # PSS: number of persistent somatic symptoms at the one-year follow-up; CRP: serum C-reactive protein._
+
+\newpage
+
+```{r fig-cardiopulmo-total, fig.width = mm_inch(suppl_fig$cardiopulmo_total$w), fig.height = mm_inch(suppl_fig$cardiopulmo_total$h), fig.cap = 'Age, sex, cardiopulmonary abnormalities and persistent somatic symptoms at the one-year follow-up and the total illness perception score.'}
+
+suppl_fig$cardiopulmo_total$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-cardiopulmo-total). Age, sex, cardiopulmonary abnormalities and persistent somatic symptoms at the one-year follow-up and the total illness perception score.__ 
+
+_Association of the total illness perception (IP) score with age at COVID-19 diagnosis, sex, and lung function (LFT) testing abnormality, chest computed tomography (CT) abnormality and heart diastolic dysfunction and presence of any persistent somatic symptoms (PSS) at the one-year follow-up. Statistical significance was assessed by Spearman's correlation (age) or Mann-Whitney test with r effect size statistic (remaining independent variables). The correlation with age is presented in a point plot; the blue line represents the fitted second-order trend and the gray ribbon depicts the 95% confidence intervals. For the remaining independent variables, the score values are presented in violin plots with single observations depicted as points, and red diamonds and whiskers representing medians with interquartile ranges. Effect size statistic and p values are indicated in the plot captions. Numbers of complete observations are displayed in the plot captions or in the plot X axes._
+
+\newpage
+
+```{r fig-cardiopulmo-sub, fig.width = mm_inch(suppl_fig$cardiopulmo_sub$w), fig.height = mm_inch(suppl_fig$cardiopulmo_sub$h), fig.cap = 'Age, sex, cardiopulmonary abnormalities and persistent somatic symptoms at the one-year follow-up and the illness perception components.'}
+
+suppl_fig$cardiopulmo_sub$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-cardiopulmo-sub). Age, sex, cardiopulmonary abnormalities and persistent somatic symptoms at the one-year follow-up and the illness perception components.__ 
+
+_Association of the emotion/concern/consequences (A) and the lacking control/coherence (B) IP component scores with age at COVID-19 diagnosis, sex, and lung function (LFT) testing abnormality, chest computed tomography (CT) abnormality and heart diastolic dysfunction and presence of any persistent somatic symptoms (PSS) at the one-year follow-up. Statistical significance was assessed by Spearman's correlation (age) or Mann-Whitney test with r effect size statistic (remaining independent variables). The correlation with age is presented in a point plot; the blue line represents the fitted second-order trend and the gray ribbon depicts the 95% confidence intervals. For the remaining independent variables, the score values are presented in violin plots with single observations depicted as points, and red diamonds and whiskers representing medians with interquartile ranges. Effect size statistic and p values are indicated in the plot captions. Numbers of complete observations are displayed in the plot captions or in the plot X axes._
+
+\newpage
+
+```{r fig-interaction-total, fig.width = mm_inch(suppl_fig$interaction_total$w), fig.height = mm_inch(suppl_fig$interaction_total$h), fig.cap = 'Interactions of diastolic dysfunction, fatigue and fatigue intensity with cardiopulmonary findings follow-up affecting the total illness perception at the one-year follow-up.'}
+
+suppl_fig$interaction_total$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-interaction-total). Interactions of diastolic dysfunction, fatigue and fatigue intensity with cardiopulmonary findings follow-up affecting the total illness perception at the one-year follow-up.__ 
+
+_Interaction effects between the key factors affecting the total illness perception (IP) score and cardiopulmonary abnormalities (A: chest computed tomography [CT] abnormality, B: lung function testing [LFT] abnormality, C: diastolic dysfunction) at the one-year follow-up were investigated by two-way ANOVA with $\eta^2$ effect size statistic. The key factors with significant and near-significant interaction effects (p < 0.1) are presented. The associations with fatigue scoring are presented in a point plots; the black line represents the fitted linear trend and the tinted ribbon depicts the 95% confidence intervals. The total score values for the remaining explanatory variables are presented in violin plots with single observations depicted as points, and red diamonds and whiskers representing medians with interquartile ranges. Numbers of complete observations in the strata are displayed in the plot or in the plot facets. Effect size statistic and p values are shown under the plots. CFS: Chalder's fatigue score._
+
+\newpage
+
+```{r fig-interaction-sub1-ct, fig.width = mm_inch(suppl_fig$interaction_sub1_ct$w), fig.height = mm_inch(suppl_fig$interaction_sub1_ct$h), fig.cap = 'Interactions of diastolic dysfunction, fatigue and fatigue scoring with chest CT abnormality affecting the emotion/concern/consequences component of illness perception.'}
+
+suppl_fig$interaction_sub1_ct$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-interaction-sub1-ct). Interactions of diastolic dysfunction, fatigue and fatigue scoring with chest CT abnormality affecting the emotion/concern/consequences component of illness perception.__ 
+
+_Interaction effects between the key factors affecting the emotion/concern/consequences IP component score and chest computed tomography (CT) abnormalities at the one-year follow-up were investigated by two-way ANOVA with $\eta^2$ effect size statistic. The key factors with significant and near-significant interaction effects (p < 0.1) are presented. The associations with fatigue scoring are presented in a point plots; the black line represents the fitted linear trend and the tinted ribbon depicts the 95% confidence intervals. The total score values for the remaining explanatory variables are presented in violin plots with single observations depicted as points, and red diamonds and whiskers representing medians with interquartile ranges. Numbers of complete observations in the strata are displayed in the plot or in the plot facets. Effect size statistic and p values are shown under the plots. CFS: Chalder's fatigue score._
+
+\newpage
+
+```{r fig-interaction-sub1-lufo-dia, fig.width = mm_inch(suppl_fig$interaction_sub1_lufo_dia$w), fig.height = mm_inch(suppl_fig$interaction_sub1_lufo_dia$h), fig.cap = 'Interactions of symptom number, fatigue and fatigue scoring with LFT abnormality and diastolic dysfunction affecting the emotion/concern/consequences component of illness perception.'}
+
+suppl_fig$interaction_sub1_lufo_dia$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-interaction-sub1-lufo-dia). Interactions of persistent somatic symptom number, fatigue and fatigue scoring with LFT abnormality and diastolic dysfunction affecting the emotion/concern/consequences component of illness perception.__ 
+
+_Interaction effects between the key factors affecting the emotion/concern/consequences IP component score and cardiopulmonary abnormalities (A: lung function testing [LFT] abnormality, B: diastolic dysfunction) at the one-year follow-up were investigated by two-way ANOVA with $\eta^2$ effect size statistic. The key factors with significant and near-significant interaction effects (p < 0.1) are presented. The associations with fatigue scoring are presented in a point plots; the black line represents the fitted linear trend and the tinted ribbon depicts the 95% confidence intervals. The total score values for the remaining explanatory variables are presented in violin plots with single observations depicted as points, and red diamonds and whiskers representing medians with interquartile ranges. Numbers of complete observations in the strata are displayed in the plot or in the plot facets. Effect size statistic and p values are shown under the plots. CFS: Chalder's fatigue score._
 
 \newpage
 
@@ -355,7 +749,7 @@ __Supplementary Figure S\@ref(fig:fig-clust-dev). Choice of the optimal clusteri
 
 _Study participants were clustered in respect to the Brief Illness Perception Questionnaire items (Q1 - Q8) using the PAM (partitioning around medoids) clustering algorithm and Euclidean distance between the observations. Numbers of complete observations and clustering variables are indicated in (A)_
 
-_(A) Comparison of clustering algorithm performance (PAM: partitioning around medoids, HCL: Ward D2 hierarchical clustering, KMEANS). Explained clustering variance was defined as a ratio of the between-cluster sum of squares to the total sum of squares, cluster assignment accuracy was investigated in 10-fold cross-validation (CV). Note the superior CV accuracy of the PAM/Euclidean distance._
+_(A) Comparison of clustering algorithm performance (PAM, HCL: Ward D2 hierarchical clustering, KMEANS). Explained clustering variance was defined as a ratio of the between-cluster sum of squares to the total sum of squares, cluster assignment accuracy was investigated in 10-fold cross-validation (CV). Note the superior CV accuracy of the PAM/Euclidean distance._
 
 _(B, C) Choice of the optimal cluster number for the hierarchical clustering/Euclidean distance algorithm. The optimal cluster number was selected based on the bend of the curve of within-cluster sum of squares (B, dashed red line: the selected cluster number) and visual inspection of the distance heat map (C)._
 

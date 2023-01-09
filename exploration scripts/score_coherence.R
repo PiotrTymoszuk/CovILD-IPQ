@@ -1,4 +1,7 @@
-# IPQ score coherence with Cronbach's alpha
+# IPQ score coherence with MdDonald's omega.
+#
+# The choice of the consistency statistic was motivated by multi-dimensionality 
+# of the BIPQ tool with two independent components identified by factor analysis
 
   insert_head()
   
@@ -69,7 +72,7 @@
                                                           geom_smooth(method = 'gam')))
   
   
-# calculation of the alphas -----
+# calculation of the Cronbach's alpha -----
   
   insert_msg('Alpha calculation')
   
@@ -91,6 +94,18 @@
     map2_dfr(., names(.), ~mutate(.x, response = .y)) %>% 
     as_tibble
   
+# Calculation of the omegas -------
+  
+  insert_msg('Calculation of the omegas')
+  
+  ipq_co$omega_obj <- 
+    psych::omega(ipq_co$analysis_tbl$ipq_total, 
+                 nfactors = 2, 
+                 fm = 'ml', 
+                 title = 'BIPQ', 
+                 option = 'equal', 
+                 niter = 1000)
+
 # visualization of the correlation matrix ------
   
   insert_msg('Plotting the correlation matrix')
@@ -151,17 +166,44 @@
                                             vjust = 0.5, 
                                             angle = -90)))
   
-  ## appending the plots with titles n numbers and Cronbach's alpha
+  ## appending the plots with titles n numbers and omegas
   
   ipq_co$corr_mtx_plots <- 
     list(x = ipq_co$corr_mtx_plots, 
          y = translate_var(names(ipq_co$corr_mtx_plots)), 
-         z = paste0(ipq_co$alpha_stats$plot_cap, 
+         z = paste0('\u03C9 = ', 
+                    signif(ipq_co$omega_obj$omega.group$total, 2), 
                     ', n = ', 
                     map_dbl(ipq_co$analysis_tbl, nrow))) %>% 
     pmap(function(x, y, z) x + 
            labs(title = y, 
                 subtitle = z))
+  
+# A common summary plot with the faceting by the BIPQ components ------
+  
+  insert_msg('A common bubble plot')
+  
+  ipq_co$summ_omega_lab <- 
+    map2_chr(c('total (Q1 - Q8)', 
+               'emotion/concern/consequences (Q1/2/3/6/8)', 
+               'lacking control/coherence (Q3/Q4/Q7)'), 
+             signif(ipq_co$omega_obj$omega.group$total, 2), 
+             paste, sep = ': \u03C9 = ') %>% 
+    paste(collapse = '\n')
+  
+  ipq_co$corr_summ_plot <- ipq_co$corr_mtx_plots$ipq_total + 
+    scale_x_discrete(limits = c('ipq_q1', 'ipq_q2', 
+                                'ipq_q5', 'ipq_q6', 
+                                'ipq_q8', 
+                                'ipq_q3', 'ipq_q4', 'ipq_q7') , 
+                     labels = globals$ipq_sublabs) + 
+    scale_y_discrete(limits = c('ipq_q1', 'ipq_q2', 
+                                'ipq_q5', 'ipq_q6', 
+                                'ipq_q8', 
+                                'ipq_q3', 'ipq_q4', 'ipq_q7') , 
+                     labels = globals$ipq_sublabs) + 
+    labs(title = 'BIPQ tool', 
+         subtitle = ipq_co$summ_omega_lab)
   
 # END ------
   

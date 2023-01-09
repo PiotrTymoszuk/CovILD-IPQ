@@ -18,6 +18,16 @@
   
   plan('multisession')
   
+  ## n numbers to be presented in the X axes
+  
+  clust_chara$clust_numbers <- expl$variables %>% 
+    map(~map(.x, 
+             ~filter(clust_chara$analysis_tbl, 
+                     !is.na(.data[[.x]]))) %>% 
+          map(count, clust_id) %>% 
+          map(~map2_chr(.x[[1]], .x[[2]], 
+                   paste, sep = '\nn = ')))
+  
 # descriptive stats ------
   
   insert_msg('Descriptive stats')
@@ -68,7 +78,7 @@
     map(function(resp_type) list(variable = expl$variables[[resp_type]], 
                                  type = expl$plot_type[[resp_type]], 
                                  plot_title = expl$variables[[resp_type]] %>% 
-                                   translate_var(out_value = 'label_long'), 
+                                   translate_var(out_value = 'label'), 
                                  plot_subtitle = clust_chara$test_results[[resp_type]]$plot_cap, 
                                  y_lab = expl$variables[[resp_type]] %>% 
                                    translate_var(out_value = 'axis_lab')) %>% 
@@ -77,12 +87,13 @@
                split_factor = 'clust_id',
                scale = 'percent', 
                x_lab = 'IP cluster', 
+               point_hjitter = 0, 
                cust_theme = globals$common_theme) %>% 
-          map(~.x + 
-                labs(tag = .x$labels$tag %>% 
-                       stri_replace_all(fixed = '\n', replacement = ', ') %>% 
-                       paste0('\n', .)) + 
-                scale_fill_manual(values = globals$clust_colors)) %>% 
+          map2(clust_chara$clust_numbers[[resp_type]], 
+               ~.x + 
+                 scale_x_discrete(labels = .y) + 
+                 scale_fill_manual(values = globals$clust_colors) + 
+                 theme(plot.tag = element_blank())) %>% 
           set_names(expl$variables[[resp_type]]))
   
 # A summary heat map of the psych variables in the clusters ------
@@ -169,6 +180,111 @@
          subtitle = 'Kruskal-Wallis test, normalized scores', 
          x = 'Patricipant',
          tag = clust_chara$psy_plot_tag )
+  
+# A summary plot of the symptom frequency in the clusters -----
+  
+  insert_msg('Symptom frequency plot')
+  
+  ## symptom variables, ordered by their effect size of the difference
+  ## between the clusters
+  
+  clust_chara$symptoms <- c('fatigue_sympt', 
+                            'dyspnoe_sympt', 
+                            'cough_sympt', 
+                            'sleep_sympt', 
+                            'night_sweat_sympt', 
+                            'anosmia_sympt', 
+                            'derma_sympt', 
+                            'gastro_sympt', 
+                            'hair_loss_sympt', 
+                            'Chalder_FS_bimodal')
+  
+  clust_chara$sympt_tests <- clust_chara$test_results$fup %>% 
+    filter(variable %in% clust_chara$symptoms) %>% 
+    arrange(desc(eff_size))
+  
+  clust_chara$symptoms <- clust_chara$sympt_tests$variable
+  
+  ## labels with p values
+  
+  clust_chara$symptom_labs <- clust_chara$sympt_tests %>% 
+    mutate(var_lab = translate_var(variable, out_value = 'label'), 
+           var_lab = stri_replace(var_lab, fixed = ' ', replacement = '\n'), 
+           var_lab = stri_replace(var_lab, fixed = ' (', replacement = '\n('),
+           var_lab = stri_replace(var_lab, 
+                                  fixed = 'Gastrointestinal', 
+                                  replacement = 'GI'), 
+           var_lab = stri_replace(var_lab, 
+                                  fixed = 'sympt.', 
+                                  replacement = 'symptoms'), 
+           var_lab = stri_replace(var_lab, 
+                                  fixed = 'bimodal', 
+                                  replacement = 'bi.'), 
+           var_lab = paste(var_lab, significance, sep = '\n'))
+  
+  clust_chara$symptom_labs <- set_names(clust_chara$symptom_labs$var_lab, 
+                                        clust_chara$symptom_labs$variable)
+  
+  ## stack plot
+  
+  clust_chara$symptom_plot <- 
+    draw_freq_panel(clust_chara$analysis_tbl, 
+                    variables = clust_chara$symptoms, 
+                    split_factor = 'clust_id', 
+                    labeller = as_labeller(clust_chara$symptom_labs), 
+                    plot_title = 'PSS in IP clusters', 
+                    y_lab = 'IP cluster', 
+                    x_lab = '% of cluster', 
+                    cust_theme = globals$common_theme) + 
+    scale_fill_manual(values = c(no = 'cornsilk', 
+                                 yes = 'steelblue4'), 
+                      labels = c(no = 'absent', 
+                                 yes = 'present'), 
+                      name = '')
+  
+# A summary plot with frequency of COVID-19 sequelae in the clusters ------
+  
+  insert_msg('A plot with frequency of sequlae in the clusters')
+  
+  ## sequelae variables sorted by their significance
+  
+  clust_chara$sequelae <- c('sympt_present', 
+                            'ct_severity_any', 
+                            'lufo_red', 
+                            'diastolic_dysf')
+  
+  clust_chara$sequelae_tests <- clust_chara$test_results$fup %>% 
+    filter(variable %in% clust_chara$sequelae) %>% 
+    arrange(desc(eff_size))
+  
+  clust_chara$sequelae <- clust_chara$sequelae_tests$variable
+  
+  ## labels with p values
+  
+  clust_chara$sequelae_labs <- clust_chara$sequelae_tests %>% 
+    mutate(var_lab = translate_var(variable, out_value = 'label'), 
+           var_lab = stri_replace(var_lab, fixed = ' ', replacement = '\n'), 
+           var_lab = paste(var_lab, significance, sep = '\n'))
+  
+  clust_chara$sequelae_labs <- set_names(clust_chara$sequelae_labs$var_lab, 
+                                         clust_chara$sequelae_labs$variable)
+  
+  ## stack plot
+  
+  clust_chara$sequelae_plot <- 
+    draw_freq_panel(clust_chara$analysis_tbl, 
+                    variables = clust_chara$sequelae, 
+                    split_factor = 'clust_id', 
+                    labeller = as_labeller(clust_chara$sequelae_labs), 
+                    plot_title = 'COVID-19 sequelae in IP clusters', 
+                    y_lab = 'IP cluster', 
+                    x_lab = '% of cluster', 
+                    cust_theme = globals$common_theme) + 
+    scale_fill_manual(values = c(no = 'cornsilk', 
+                                 yes = 'coral4'), 
+                      labels = c(no = 'absent', 
+                                 yes = 'present'), 
+                      name = '')
   
 # END -----
   

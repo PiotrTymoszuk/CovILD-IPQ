@@ -67,7 +67,7 @@
   insert_msg('N numbers and names of sgnificant explanatory variables')
   
   paper_val$n_indep_vars <- 
-    mdexpr(length(globals$variables), 
+    mdexpr(length(mod$variables), 
            ref_name = 'n_indep_vars', 
            caption = 'Number of independent variables.')
 
@@ -159,6 +159,32 @@
            ref_name = 'key_factors_and', 
            caption = 'The key factors for IPQ.')
   
+# Numbers and names of the key factors for the emotion/concern/consequences -------
+  
+  insert_msg('Key factors for the emotion/concern/consequences')
+  
+  paper_val$key_factor_number_sub1 <-  
+    mdexpr(length(an$cmm_variables$ipq_sub1), 
+           ref_name = 'key_factor_number_sub1', 
+           caption = paste('Number of the key factors for', 
+                           'emotion/concern/consequences.'))
+  
+  paper_val$key_factors_sub1 <- 
+    mdexpr(an$cmm_variables$ipq_sub1 %>% 
+             translate_var(out_value = 'label_long') %>% 
+             de_capitalize %>% 
+             paste(collapse = ', '), 
+           ref_name = 'key_factors_sub1', 
+           caption = 'The key factors for emotion/concern/consequences.')
+  
+  paper_val$key_factors_and_sub1 <- 
+    mdexpr(an$cmm_variables$ipq_sub1 %>% 
+             translate_var(out_value = 'label_long') %>% 
+             de_capitalize %>% 
+             collapse_and, 
+           ref_name = 'key_factors_and_sub1', 
+           caption = 'The key factors for emotion/concern/consequences.')
+  
 # Cohort characteristic ------
   
   insert_msg('Cohort characteristic')
@@ -226,9 +252,9 @@
            ref_name = 'diastolic_dysf', 
            caption = 'Diastolic dysfunction, cohort')
   
-# IPQ ------
+# IPQ in the cohort ------
   
-  insert_msg('IPQ')
+  insert_msg('IPQ in the cohort')
   
   paper_val$ipq_cohort <- 
     mdexpr(get_median_iqr(cov_data$clear_data, 'ipq_total'), 
@@ -322,9 +348,9 @@
            ref_name = 'clusters_percent', 
            caption = 'Clusters, percents of the cohort.')
   
-# Optimal lambda values -----
+# Optimal lambda values, total score -----
   
-  insert_msg('Optimal lambda values')
+  insert_msg('Optimal lambda values, total score')
   
   paper_val$elnet_lambda <- 
     mdexpr(filter(eln_mod$opt_lambda, response == 'ipq_total')$lambda %>% 
@@ -344,9 +370,33 @@
            ref_name = 'blasso_sparsity', 
            caption = 'Bayesian LASSO, optimal sparsity')
   
-# Multi - parameter modeling performance measures ------
+# Optimal lambda values, emotion/concerns/consequences ------
   
-  insert_msg('Multi-paramater model performance')
+  insert_msg('Optimal lambda values, emotion/concerns/consequences')
+  
+  paper_val$elnet_lambda_sub1 <- 
+    mdexpr(filter(eln_mod$opt_lambda, response == 'ipq_sub1')$lambda %>% 
+             signif(2), 
+           ref_name = 'elnet_lambda_sub1', 
+           caption = paste('Elastic Net, optimal lambda,', 
+                           'emotion/concerns/consequences'))
+  
+  paper_val$lasso_lambda_sub1 <- 
+    mdexpr(filter(lasso_mod$opt_lambda, response == 'ipq_sub1')$lambda %>% 
+             signif(2), 
+           ref_name = 'lasso_lambda_sub1', 
+           caption = 'LASSO, optimal lambda, emotion/concerns/consequences')
+  
+  paper_val$blasso_sparsity <- 
+    mdexpr(blass_mod$models$ipq_sub1$bestTune[1, 'sparsity'] %>% 
+             signif(2), 
+           ref_name = 'blasso_sparsity_sub1', 
+           caption = paste('Bayesian LASSO, optimal sparsity,', 
+                           'emotion/concerns/consequences'))
+  
+# Multi - parameter modeling performance measures, total score ------
+  
+  insert_msg('Multi-paramater model performance, total score')
 
   paper_val$elnet_rsq_train <- 
     mdexpr(eln_mod$cv_fit_stats$ipq_total$estimate[4] %>% 
@@ -390,9 +440,61 @@
            ref_name = 'blasso_rsq_cv', 
            caption = 'CV R-squared of the Bayesian LASSO model.')
   
-# IPQ in the clusters -----
+# Multi - parameter modeling performance measures, emotion/concern/consequences ------
   
-  insert_msg('IPQ in the clusters')
+  insert_msg('Multi-paramater model performance, emotion/concern/consequences')
+  
+  paper_val$elnet_rsq_train_sub1 <- 
+    mdexpr(eln_mod$cv_fit_stats$ipq_sub1$estimate[4] %>% 
+             signif(2) %>% 
+             unname, 
+           ref_name = 'elnet_rsq_train_sub1', 
+           caption = paste('R-squared of the Elastic Net model,', 
+                           'emotion/concern/consequences.'))
+  
+  paper_val$elnet_rsq_cv_sub1 <- 
+    mdexpr(eln_mod$cv_fit_stats$ipq_sub1$estimate[12] %>% 
+             signif(2) %>% 
+             unname, 
+           ref_name = 'elnet_rsq_cv_sub1', 
+           caption = paste('CV R-squared of the Elastic Net model,', 
+                           'emotion/concern/consequences.'))
+  
+  paper_val$lasso_rsq_train_sub1 <- 
+    mdexpr(lasso_mod$cv_fit_stats$ipq_sub1$estimate[4] %>% 
+             signif(2) %>% 
+             unname, 
+           ref_name = 'lasso_rsq_train_sub1', 
+           caption = paste('R-squared of the LASSO model,', 
+                           'emotion/concern/consequences.'))
+  
+  paper_val$lasso_rsq_cv_sub1 <- 
+    mdexpr(lasso_mod$cv_fit_stats$ipq_sub1$estimate[12] %>% 
+             signif(2) %>% 
+             unname, 
+           ref_name = 'lasso_rsq_cv', 
+           caption = paste('CV R-squared of the LASSO model,', 
+                           'emotion/concern/consequences.'))
+  
+  paper_val$blasso_rsq_train_sub1 <- 
+    mdexpr(blass_mod$cv_fit_stats$ipq_sub1$estimate[4] %>% 
+             signif(2) %>% 
+             unname, 
+           ref_name = 'blasso_rsq_train_sub1', 
+           caption = paste('R-squared of the Bayesian LASSO model,', 
+                           'emotion/concern/consequences.'))
+  
+  paper_val$blasso_rsq_cv_sub1 <- 
+    mdexpr(blass_mod$cv_fit_stats$ipq_sub1$estimate[12] %>% 
+             signif(2) %>% 
+             unname, 
+           ref_name = 'blasso_rsq_cv_sub1', 
+           caption = paste('CV R-squared of the Bayesian LASSO model,', 
+                           'emotion/concern/consequences.'))
+  
+# Total IPQ in the clusters -----
+  
+  insert_msg('Total IPQ in the clusters')
 
   paper_val$ipq_clust1 <- 
     mdexpr(get_median_iqr(ipq_clust$analysis_tbl %>% 
@@ -415,9 +517,59 @@
            ref_name = 'ipq_clust3', 
            caption = 'IPQ, cluster 3')
 
-# Score consistency ------
+# Emotion/concern/consequences in the clusters -----
   
-  insert_msg('Score consistency')
+  insert_msg('Emotion/concern/cconsequences in the clusters')
+  
+  paper_val$sub1_clust1 <- 
+    mdexpr(get_median_iqr(ipq_clust$analysis_tbl %>% 
+                            filter(clust_id == '#1'), 
+                          'ipq_sub1'), 
+           ref_name = 'sub1_clust1', 
+           caption = 'Emotion/concern/consequences, cluster 1')
+  
+  paper_val$sub1_clust2 <- 
+    mdexpr(get_median_iqr(ipq_clust$analysis_tbl %>% 
+                            filter(clust_id == '#2'), 
+                          'ipq_sub1'), 
+           ref_name = 'sub1_clust2', 
+           caption = 'Emotion/concern/consequences, cluster 2')
+  
+  paper_val$sub1_clust3 <- 
+    mdexpr(get_median_iqr(ipq_clust$analysis_tbl %>% 
+                            filter(clust_id == '#3'), 
+                          'ipq_sub1'), 
+           ref_name = 'sub1_clust3', 
+           caption = 'Emotion/concern/consequences, cluster 3')
+  
+# Control/coherence in the clusters ---------
+  
+  insert_msg('Control/consequences in the clusters')
+  
+  paper_val$sub2_clust1 <- 
+    mdexpr(get_median_iqr(ipq_clust$analysis_tbl %>% 
+                            filter(clust_id == '#1'), 
+                          'ipq_sub2'), 
+           ref_name = 'sub2_clust1', 
+           caption = 'Control/coherence, cluster 1')
+  
+  paper_val$sub2_clust2 <- 
+    mdexpr(get_median_iqr(ipq_clust$analysis_tbl %>% 
+                            filter(clust_id == '#2'), 
+                          'ipq_sub2'), 
+           ref_name = 'sub2_clust2', 
+           caption = 'Control/coherence, cluster 2')
+  
+  paper_val$sub2_clust3 <- 
+    mdexpr(get_median_iqr(ipq_clust$analysis_tbl %>% 
+                            filter(clust_id == '#3'), 
+                          'ipq_sub2'), 
+           ref_name = 'sub2_clust3', 
+           caption = 'Control/coherence, cluster 3')
+  
+# Score consistency alpha ------
+  
+  insert_msg('Score consistency alpha')
   
   paper_val$ipq_total_alpha <- 
     mdexpr(ipq_co$alpha_stats %>% 
@@ -433,6 +585,22 @@
                    stri_replace_all(regex = '\\[|\\]', 
                                     replacement = '')))
   
+# Score consistency omega --------
+  
+  insert_msg('Score consistency, omega')
+  
+  paper_val$omega_global <- 
+    mdexpr(ipq_co$omega_obj$omega.group$total[1] %>% 
+             signif(2))
+  
+  paper_val$omega_sub1 <- 
+    mdexpr(ipq_co$omega_obj$omega.group$total[2] %>% 
+             signif(2))
+  
+  paper_val$omega_sub2 <- 
+    mdexpr(ipq_co$omega_obj$omega.group$total[3] %>% 
+             signif(2))
+
 # END ----
   
   insert_tail()

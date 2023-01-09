@@ -1,4 +1,4 @@
-# Venn plots with the common influnetial factors and plots with the 
+# Venn plots with the common influential factors and plots with the 
 # response-wise performance measures
 
   insert_head()
@@ -41,22 +41,25 @@
   
   insert_msg('Numbers of selected factors')
   
+  ## working with safely, since there are likely no factors found
+  ## for the control/coherence subscore
+  
   mod_plots$venn_plots <- 
     list(data = map(an$variables, 
                     ~set_names(.x, an$methods[names(.x)])), 
          plot_title = an$responses %>% 
-           translate_var %>% 
-           paste('1-year follow-up', sep = ', ')) %>% 
-    pmap(plot_n_venn, 
-         plot_subtitle = 'variables with non-zero coefficients', 
-         plot_tag = paste0('variables: n = ', 
-                           length(mod$variables), 
-                           ', observations: n = ', 
-                           nrow(mod$multi_tbl)), 
+           translate_var) %>% 
+    pmap(safely(plot_n_venn),  
          fill_color = set_names(an$method_colors, 
                                 an$methods), 
-         fontScale = 3, 
-         panel = FALSE)
+         subset_names = an$methods[names(an$variables$ipq_total)], 
+         fontScale = 4, 
+         panel = FALSE, 
+         legend_position = 'bottom', 
+         comp_heights = c(0.08, 0, 0.92, 0))
+  
+  mod_plots$venn_plots <- mod_plots$venn_plots %>% 
+    map(~.x$result)
 
 # END -----
   

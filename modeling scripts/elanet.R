@@ -15,7 +15,7 @@
   eln_mod$response <- mod$responses %>% 
     map(~mod$multi_tbl[[.x]])
 
-  eln_mod$variables <- model.matrix(~., data = mod$multi_tbl[globals$variables])
+  eln_mod$variables <- model.matrix(~., data = mod$multi_tbl[mod$variables])
   
   ## alpha and n repetitions
   
@@ -57,8 +57,9 @@
   
   eln_mod$lambda_tbl <- eln_mod$lambda_tune %>% 
     map(~map(.x, 
-             ~as_tibble(.x[c('lambda', 'cvm', 'cvup', 'cvlo', 'lambda.min')]))) %>% 
-    map(~map_dfr(.x, filter, lambda == lambda.min))
+             ~as_tibble(.x[c('lambda', 'cvm', 'cvup', 'cvlo', 
+                             'lambda.min', 'lambda.1se')]))) %>% 
+    map(~map_dfr(.x, filter, lambda == lambda.1se))
   
   eln_mod$opt_lambda <- eln_mod$lambda_tbl %>% 
     map(filter, cvm == min(cvm)) %>% 

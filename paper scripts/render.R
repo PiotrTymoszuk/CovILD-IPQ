@@ -11,6 +11,15 @@
                                         reference_docx = 'ms_template.docx'), 
          output_dir = './paper')
   
+# Reviewer material ------
+  
+  insert_msg('Rendering the supplements')
+  
+  render('./paper/markdown/reviewer_material.Rmd', 
+         output_format = word_document2(number_sections = FALSE, 
+                                        reference_docx = 'ms_template.docx'), 
+         output_dir = './paper')
+  
 # paper -----
   
   insert_msg('Rendering the paper')

@@ -261,6 +261,7 @@
                           labelRegions = FALSE, 
                           fontScale = 2,
                           plot_leg_ratio = c(0.9, 0.1), 
+                          comp_heights = c(0.08, 0.06, 0.8, 0.06), 
                           panel = TRUE, ...) {
     
     ## plots a Venn diagram employing nVennR
@@ -269,8 +270,9 @@
       
       subset_names <- stri_replace(subset_names, 
                                    fixed = '\n', 
-                                   replacement = ' ') %>% 
-        set_names(data, subset_names)
+                                   replacement = ' ')
+      
+      data <- set_names(data, subset_names)
       
       
     } 
@@ -318,7 +320,8 @@
     
     ## the legend will be obtained from a 'fake plot'
     
-    gg_legend <- tibble(subset = factor(subset_names, levels = rev(subset_names)), 
+    gg_legend <- tibble(subset = factor(subset_names, 
+                                        levels = subset_names), 
                         n = 1) %>% 
       ggplot(aes(x = subset_names, 
                  y = n, 
@@ -326,7 +329,8 @@
       geom_bar(stat = 'identity', 
                alpha = if(2.5 * opacity > 1) 1 else 2.5 * opacity, 
                size = borderWidth) + 
-      scale_fill_manual(values = rev(tolower(fill_color)), 
+      scale_fill_manual(values = set_names(fill_color, 
+                                           subset_names), 
                         name = '') + 
       globals$common_theme + 
       theme(legend.position = legend_position)
@@ -353,6 +357,126 @@
            legend_grob = gg_legend)
       
     }
+    
+  }
+  
+# Plotting two-way interactions ------
+  
+  two_way_corr <- function(data, 
+                           response, 
+                           num_variable, 
+                           split_factor = 'ct_severity_any', 
+                           plot_title = translate_var(num_variable), 
+                           plot_subtitle = NULL, 
+                           x_lab = translate_var(num_variable, 
+                                                 out_value = 'axis_lab'), 
+                           y_lab = translate_var(response, 
+                                                 out_value = 'axis_lab'), 
+                           labeller = 'label_value',  
+                           plot_tag = NULL, 
+                           fill_colors = c('steelblue', 'coral3'), ...) {
+    
+    ## correlations with a illness perception score 
+    ## in the strata defined by a split factor
+    
+    data %>% 
+      ggplot(aes(x = .data[[num_variable]], 
+                 y = .data[[response]], 
+                 fill = .data[[split_factor]])) + 
+      geom_point(shape = 21, 
+                 size = 2) + 
+      geom_smooth(...) + 
+      scale_fill_manual(values = fill_colors) + 
+      facet_grid(cols = vars(.data[[split_factor]]), 
+                 labeller = labeller) + 
+      guides(fill = 'none') + 
+      globals$common_theme + 
+      labs(title = plot_title, 
+           plot_subtitle = NULL, 
+           x = x_lab, 
+           y = y_lab, 
+           tag = plot_tag)
+    
+  }
+  
+  two_way_violin <- function(data, 
+                             response, 
+                             fct_variable, 
+                             split_factor = 'ct_severity_any', 
+                             plot_title = translate_var(fct_variable, 
+                                                        out_value = 'label_long'), 
+                             plot_subtitle = NULL, 
+                             x_lab = translate_var(fct_variable), 
+                             y_lab = translate_var(response, 
+                                                   out_value = 'axis_lab'), 
+                             fill_lab = translate_var(split_factor), 
+                             plot_tag = NULL, 
+                             shape_alpha = 0.25, 
+                             point_alpha = 0.5, 
+                             fill_colors = c('steelblue', 'coral3'), ...) {
+    
+    ## violin plot of an illness perception score split by the fct_variable
+    ## and the split_factor
+    
+    ## a table with means and interquartile ranges
+    
+    median_tbl <- data %>%
+      group_by(.data[[fct_variable]], .data[[split_factor]]) %>% 
+      summarise(median = median(.data[[response]]), 
+                lower_q = quantile(.data[[response]], 0.25), 
+                upper_q = quantile(.data[[response]], 0.75), 
+                n = length(.data[[response]]), 
+                text_y = max(.data[[response]])) %>% 
+      ungroup
+    
+    ## the plot
+    
+    data %>% 
+      ggplot(aes(x = .data[[fct_variable]], 
+                 y = .data[[response]], 
+                 fill = .data[[split_factor]])) + 
+      geom_violin(alpha = shape_alpha, 
+                  position = position_dodge(0.9), 
+                  show.legend = FALSE, 
+                  ...) + 
+      geom_point(position = position_jitterdodge(jitter.width = 0.1, 
+                                                 jitter.height = 0, 
+                                                 dodge.width = 0.9), 
+                 shape = 21, 
+                 size = 2, 
+                 alpha = point_alpha) + 
+      geom_errorbar(data = median_tbl, 
+                    aes(y = median, 
+                        ymin = lower_q, 
+                        ymax = upper_q), 
+                    width = 0, 
+                    size = 0.75, 
+                    color = 'orangered3', 
+                    position = position_dodge(0.9)) + 
+      geom_point(data = median_tbl,
+                 aes(y = median, 
+                     group = .data[[split_factor]]), 
+                 shape = 23, 
+                 size = 3, 
+                 fill = 'orangered3', 
+                 position = position_dodge(0.9)) + 
+      geom_text(data = median_tbl, 
+                aes(y = text_y, 
+                    label = paste('n =', n), 
+                    color = .data[[split_factor]]), 
+                size = 2.6, 
+                vjust = -0.5, 
+                position = position_dodge(0.9), 
+                show.legend = FALSE) + 
+      scale_fill_manual(values = fill_colors) + 
+      scale_color_manual(values = fill_colors) + 
+      globals$common_theme + 
+      labs(title = plot_title, 
+           subtitle = plot_subtitle, 
+           x = x_lab, 
+           y = y_lab, 
+           fill = fill_lab, 
+           tag = plot_tag)
     
   }
   
@@ -396,7 +520,7 @@
       map_dfc(stri_replace, fixed = 'Mean =', replacement = 'mean:') %>% 
       map_dfc(stri_replace, fixed = 'Range', replacement = 'range') %>% 
       map_dfc(stri_replace, fixed = 'Complete', replacement = 'complete') %>% 
-      map_dfc(stri_replace, fixed = ' [', replacement = '\n[') %>% 
+      #map_dfc(stri_replace, fixed = ' [', replacement = '\n[') %>% 
       mutate(variable = translate_var(variable, out_value = out_value))
     
     if(rm_n) {
@@ -409,7 +533,9 @@
     if(rm_mean) {
       
       data <- data %>% 
-        map_dfc(stri_replace, regex = 'mean.*\\n', replacement = '')
+        map_dfc(stri_replace, 
+                regex = 'mean.*\\nmedian:\\s{1}', 
+                replacement = '')
       
     }
     

@@ -1,4 +1,7 @@
-# Relationship between common influential factors and sub2 value
+# Relationship between common influential factors and sub2 value 
+# (control/coherence)
+#
+# Note: there were no factor identified by modeling!
 
   insert_head()
 
@@ -14,6 +17,15 @@
     filter(variable %in% unique(c(an$cmm_variables$ipq_sub2, 
                                   an$conf_variables))) %>% 
     dlply(.(what))
+  
+  ## n numbers to be presented in the X axis
+  
+  sub2_factors$n_numbers <- sub2_factors$variables$eff_size$variable %>% 
+    map(~count(mod$multi_tbl, .data[[.x]])) %>% 
+    set_names(sub2_factors$variables$eff_size$variable)
+  
+  sub2_factors$x_axes <- sub2_factors$n_numbers %>% 
+    map(~map2_chr(.x[[1]], .x[[2]], paste, sep = '\nn = '))
   
 # Serial comparisons and correlations -----
   
@@ -43,6 +55,7 @@
              variables = 'ipq_sub2', 
              what = 'eff_size', 
              ci = FALSE, 
+             exact = FALSE, 
              pub_styled = TRUE) %>% 
     mutate(split_factor = sub2_factors$variables$eff_size$variable, 
            plot_cap = paste(eff_size, significance, sep = ', '))
@@ -79,12 +92,13 @@
                         plot_subtitle = .y, 
                         y_lab = translate_var('ipq_sub2'), 
                         x_lab = translate_var(.x), 
+                        point_hjitter = 0, 
                         cust_theme = globals$common_theme)) %>% 
-    map(~.x + 
+    map2(sub2_factors$x_axes, 
+        ~.x + 
+          scale_x_discrete(labels = .y) + 
           scale_fill_brewer() + 
-          labs(tag = .x$labels$tag %>% 
-                 stri_replace_all(fixed = '\n', replacement = ', ') %>% 
-                 paste0('\n', .))) %>% 
+          theme(plot.tag = element_blank())) %>% 
     set_names(sub2_factors$factor_test$split_factor)
   
 # Plotting the correlations -----
@@ -103,15 +117,18 @@
                            x_lab = translate_var(.x, out_value = 'axis_lab'), 
                            y_lab = translate_var('ipq_sub2', out_value = 'axis_lab'), 
                            show_trend = FALSE, 
+                           point_hjitter = 0, 
+                           point_wjitter = 0, 
                            cust_theme = globals$common_theme)) %>% 
     map(~.x +
           geom_smooth(method = 'lm', 
                       formula = y ~ x + I(x^2)) +
-          labs(tag = .x$labels$tag %>% 
-                 paste0('\n', .))) %>% 
+          labs(subtitle = paste(.x$labels$subtitle, 
+                                .x$labels$tag, 
+                                sep = ', ')) + 
+          theme(plot.tag = element_blank())) %>% 
     set_names(sub2_factors$corr_test$variable2)
   
 # END -----
   
   insert_tail()
-

@@ -34,7 +34,7 @@
                          'weight_class', 
                          'comorb_present', 
                          'no_comorb', 
-                         'no_comorb_sq', 
+                         'no_comorb_class', 
                          'cardiovascular_comorb', 
                          'hypertension_comorb', 
                          'endometabolic_comorb', 
@@ -47,10 +47,9 @@
                          'immdef_comorb', 
                          'cat_WHO', 
                          'WHO', 
-                         'WHO_sq', 
                          'sympt_present', 
                          'sympt_number', 
-                         'sympt_number_sq', 
+                         'sympt_number_class', 
                          'fatigue_sympt', 
                          'dyspnoe_sympt', 
                          'cough_sympt', 
@@ -70,19 +69,31 @@
                          'lufo_red', 
                          'ct_severity_any', 
                          'ct_severity_score',
-                         'ctss_sq', 
+                         'ctss_class', 
                          'diastolic_dysf', 
                          'rehabilitation', 
                          'anemia', 
                          'Hb', 'Hb_sq', 
-                         'ferritin', 'ferritin_sq', 
-                         'TSAT', 'TSAT_sq', 
-                         'sTFR', 'sTFR_sq', 
-                         'Hepcidin', 'Hepcidin_sq', 
-                         'NTproBNP', 'NTproBNP_sq', 
-                         'DDimer', 'DDimer_sq', 
-                         'CRP', 'CRP_sq', 
-                         'HbA1c', 'HbA1c_sq')
+                         'ferritin', 
+                         'log_ferritin', 
+                         'log_ferritin_sq', 
+                         'TSAT', 
+                         'sqrt_TSAT', 
+                         'sqrt_TSAT_sq', 
+                         'sTFR', 
+                         'log_sTFR', 
+                         'log_sTFR_sq', 
+                         'Hepcidin', 
+                         'sqrt_Hepcidin', 
+                         'sqrt_Hepcidin_sq', 
+                         'NTproBNP', 
+                         'NTproBNP_class', 
+                         'DDimer', 
+                         'DDimer_class', 
+                         'CRP', 
+                         'CRP_class', 
+                         'HbA1c', 
+                         'HbA1c_class')
   
   globals$psy_variables <- c('EQ5DL_p', 
                              'EQ5DL_mobility', 
@@ -141,14 +152,19 @@
   
   globals$ipq_sublabs <- c(ipq_q1 = 'Q1 consequences', 
                            ipq_q2 = 'Q2 timeline', 
-                           ipq_q3 = 'Q3 pers. control', 
-                           ipq_q4 = 'Q4 treat. control', 
+                           ipq_q3 = 'Q3 lacking pers. control', 
+                           ipq_q4 = 'Q4 lacking treat. control', 
                            ipq_q5 = 'Q5 identity', 
                            ipq_q6 = 'Q6 concern', 
-                           ipq_q7 = 'Q7 coherence', 
+                           ipq_q7 = 'Q7 lacking coherence', 
                            ipq_q8 = 'Q8 emotional repres.')
   
-  ## IPQ score colors
+  ## IPQ score and subscore labels and colors
+  
+  globals$ipq_labs <- 
+    c(ipq_total = 'Illness perception score (BIPQ sum)', 
+      ipq_sub1 = 'Emotion/concern/consequences subscore (BIPQ 1/2/5/6/8)', 
+      ipq_sub2 = 'Control/coherence subscore (BIPQ 3/4/7)')
   
   globals$ipq_colors <- c(ipq_total = 'darkolivegreen4', 
                           ipq_sub1 = 'coral3', 
@@ -158,8 +174,7 @@
   
   globals$clust_colors <- c('darkolivegreen3', 
                             'steelblue', 
-                            'gray60', 
-                            'orangered3')
+                            'gray60')
   
 # reading the data, IPQ scores and variable lexicons -------
 
@@ -192,6 +207,35 @@
     select(- Folder) %>% 
     set_names(c('ID', paste0('ipq_q', 1:8)))
   
+# a data frame with longitudinal symptom data ---------
+  
+  insert_msg('Longitudinal symptom data')
+  
+  ## it will be used later to check the likelihood
+  ## that the symptoms are COVID-19-specific
+  ## NA is handled as symptom absence
+  
+  ## symptoms recorded and present at all follow-ups
+  
+  cov_data$symptoms <- c('sleep_sympt', 
+                         'dyspnoe_sympt', 
+                         'cough_sympt', 
+                         'gastro_sympt', 
+                         'anosmia_sympt', 
+                         'night_sweat_sympt', 
+                         'fatigue_sympt')
+  
+  cov_data$sympt_data <- cov_data$data_tbl %>% 
+    select(ID, time, all_of(cov_data$symptoms))
+  
+  for(i in cov_data$symptoms) {
+    
+    cov_data$sympt_data <- cov_data$sympt_data %>% 
+      mutate(!!i := ifelse(is.na(.data[[i]]), 'no', as.character(.data[[i]])), 
+             !!i := factor(.data[[i]], c('no', 'yes')))
+    
+  }
+    
 # main data set, additional, project-specific wrangling steps -----
   
   insert_msg('Wrangling of the main patient data set')
@@ -240,8 +284,9 @@
            rehabilitation = factor(rehabilitation, c('no', 'yes')), 
            smoking_history = ifelse(smoking == 'never', 'no', 'yes'), 
            smoking_history = factor(smoking_history, c('no', 'yes')), 
-           no_comorb_sq = no_comorb^2, 
-           WHO_sq = WHO^2, 
+           no_comorb_class = cut(no_comorb, 
+                                 c(-Inf, 0, 3, Inf), 
+                                 c('0', '1-3', '4+')), 
            age_sq = age^2, 
            smwd = ifelse(is.na(smwd), smwd_ref, smwd), 
            smwd_sq = smwd^2, 
@@ -252,15 +297,29 @@
                                Chalder_FS), 
            Chalder_FS_sq = Chalder_FS^2, 
            Hb_sq = Hb^2, 
-           ctss_sq = ct_severity_score^2, 
-           ferritin_sq = ferritin^2, 
-           TSAT_sq = TSAT^2, 
-           sTFR_sq = sTFR^2, 
-           Hepcidin_sq = Hepcidin^2, 
-           NTproBNP_sq = NTproBNP^2, 
-           CRP_sq = CRP^2, 
-           DDimer_sq = DDimer^2, 
-           HbA1c_sq = HbA1c^2)
+           ctss_class = cut(ct_severity_score, 
+                            c(-Inf, 0, 5, 10, Inf), 
+                            c('none', 'mild', 'moderate', 'severe')), 
+           log_ferritin = log(ferritin), 
+           log_ferritin_sq = log_ferritin^2, 
+           sqrt_TSAT = sqrt(TSAT), 
+           sqrt_TSAT_sq = sqrt_TSAT^2, 
+           log_sTFR = log(sTFR), 
+           log_sTFR_sq = log_sTFR^2, 
+           sqrt_Hepcidin = sqrt(Hepcidin), 
+           sqrt_Hepcidin_sq = sqrt_Hepcidin^2, 
+           NTproBNP_class = cut(NTproBNP, 
+                                c(-Inf, 125, Inf), 
+                                c('normal', '>125 pg/mL')), 
+           CRP_class = cut(CRP, 
+                           c(-Inf, 0.5, Inf), 
+                           c('normal', '>0.5 mg/L')), 
+           DDimer_class = cut(DDimer, 
+                              c(-Inf, 460, Inf), 
+                              c('normal', '>460 µg/L')), 
+           HbA1c_class = cut(HbA1c, 
+                             c(-Inf, 5.7, Inf), 
+                             c('normal', '>5.7%')))
 
   ## handling the symptoms: NA is treated as symptom-free
   ## significant fatigue defined as a symptom
@@ -290,10 +349,16 @@
   cov_data$data_tbl <- cov_data$data_tbl %>% 
     mutate(sympt_present = ifelse(sympt_number > 0, 'yes', 'no'), 
            sympt_present = factor(sympt_present, c('no', 'yes')), 
-           sympt_number_sq = sympt_number^2)
+           sympt_number_class = cut(sympt_number, 
+                                    c(-Inf, 0, 1, 3, Inf), 
+                                    c('0', '1', '2-3', '4+')))
   
   ## selection of the patients, who have ongoing symptoms
   ## or a CT abnormality or an LFT deficit or diastolic dysfunction
+  
+  ## assigning the raw data set for analysis of excluded participants
+  
+  cov_data$raw_data <- cov_data$data_tbl
   
   cov_data$clear_data <- cov_data$data_tbl %>% 
     filter(sympt_present == 'yes' | 
@@ -334,7 +399,7 @@
   ## merging with the main data set
   ## elimination of the participants with incomplete IPQ answers
   ## from the main data set
-  
+
   cov_data$clear_data <- right_join(cov_data$clear_data, 
                                     cov_data$ipq_subscores, 
                                     by = 'ID')
@@ -364,16 +429,7 @@
            sqrt_ipq_sub1 = sqrt(ipq_sub1), 
            log_ipq_sub2 = log(ipq_sub2 + 1), 
            sqrt_ipq_sub2 = sqrt(ipq_sub2))
-  
-  ## inverting the items Q3, Q4 and Q7 back to their genuine form
-  
-  for(i in c('ipq_q3', 'ipq_q4', 'ipq_q7')) {
-    
-    cov_data$clear_data <- cov_data$clear_data %>% 
-      mutate(!!i := abs(10 - .data[[i]]))
-    
-  }
-  
+
 # Variable missingness analysis ------
   
   insert_msg('Variable missingness')
@@ -404,13 +460,22 @@
               cov_data$data_tbl[c('ID', globals$psy_variables)], 
               by = 'ID')
   
+  ## filtering the longitudinal symptom data
+  
+  cov_data$sympt_data <- cov_data$sympt_data %>% 
+    filter(ID %in% cov_data$clear_data$ID)
+  
 # END -----
   
   cov_data <- cov_data[c('data_tbl', 
+                         'raw_data', 
+                         'sympt_data', 
                          'clear_data', 
                          'year_complete', 
                          'cov_residuals', 
                          'ipq_complete', 
                          'var_complete')]
+  
+  rm(i)
   
   insert_tail()

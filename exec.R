@@ -9,5 +9,3 @@
                      'paper.R'), 
                    crash = FALSE, 
                    message = TRUE))
-  
-  save.image()

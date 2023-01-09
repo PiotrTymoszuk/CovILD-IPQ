@@ -1,12 +1,11 @@
-# Paper and supplement figures
+# Main figures of the manuscript
 
   insert_head()
   
 # containers -----
   
   paper_fig <- list()
-  suppl_fig <- list()
-  
+
 # Figure 1: study CONSORT diagram ------
   
   insert_msg('Figure 1: study consort')
@@ -24,62 +23,134 @@
   
   insert_msg('Figure 2: key factors impacting on disease perception')
   
-  ## top panel: Venn plot
+  ## Venn plots are present and the key factors for the total illness
+  ## perception score, the emotion/concern/consequences 
+  ## and the control/coherence sub-scores (no factors identified, actually) 
+  ## are shown
   
-  paper_fig$key_factors$upper_panel <- 
+  paper_fig$key_factors$left_panel <- 
     plot_grid(mod_plots$venn_plots$ipq_total$venn, 
-              plot_grid(mod_plots$venn_plots$ipq_total$legend_grob, 
-                        ggdraw() + 
-                          draw_text(paste(an$cmm_variables$ipq_total %>% 
-                                            translate_var(out_value = 'label_long'), 
-                                          collapse = '\n'), 
-                                    hjust = 0, 
-                                    x = 0.1, 
-                                    size = 8), 
-                        ncol = 2, 
-                        rel_widths = c(0.4, 0.6)), 
+              ggdraw() + 
+                draw_text(paste(an$cmm_variables$ipq_total %>% 
+                                  translate_var(out_value = 'label'), 
+                                collapse = '\n'), 
+                          hjust = 0, 
+                          x = 0.1, 
+                          size = 8), 
               ncol = 2, 
-              rel_widths = c(0.5, 0.5))
+              rel_widths = c(0.57, 0.43))
   
-  ## middle panel: violin plots
+  paper_fig$key_factors$right_panel <- 
+    plot_grid(mod_plots$venn_plots$ipq_sub1$venn, 
+              ggdraw() + 
+                draw_text(paste(an$cmm_variables$ipq_sub1 %>% 
+                                  translate_var(out_value = 'label'), 
+                                collapse = '\n'), 
+                          hjust = 0, 
+                          x = 0.1, 
+                          size = 8), 
+              ncol = 2, 
+              rel_widths = c(0.57, 0.43))
   
-  paper_fig$key_factors$middle_panel <- 
-    ipq_factors$violin_plots[c('fatigue_sympt', 
-                               'respi_comorb', 
-                               'hair_loss_sympt')] %>% 
-    map(~.x + theme(legend.position = 'none')) %>% 
-    plot_grid(plotlist = ., 
-              ncol = 3, 
-              align = 'hv')
+  ## the entire figure
   
-  ## bottom panel: correlations
-  
-  paper_fig$key_factors$bottom_panel <- 
-    plot_grid(ipq_factors$corr_plots$Chalder_FS, 
-              ncol = 3, 
-              align = 'hv')
-
-  ## entire figure
-  
-  paper_fig$key_factors <- plot_grid(paper_fig$key_factors$upper_panel, 
-                                     ggdraw(), 
-                                     paper_fig$key_factors$middle_panel, 
-                                     paper_fig$key_factors$bottom_panel, 
-                                     nrow = 4, 
-                                     rel_heights = c(1, 0.05, 1, 1), 
-                                     labels = c('A', '', 'B', 'C'), 
-                                     label_size = 10) %>% 
+  paper_fig$key_factors <- 
+    plot_grid(paper_fig$key_factors$left_panel + 
+                theme(plot.margin = ggplot2::margin(t = 0.3, 
+                                                    l = 0.25, 
+                                                    unit = 'cm')), 
+              paper_fig$key_factors$right_panel + 
+                theme(plot.margin = ggplot2::margin(t = 0.3, 
+                                                    l = 0.25, 
+                                                    unit = 'cm')), 
+              ncol = 2, 
+              labels = LETTERS, 
+              label_size = 10) %>% 
+    plot_grid(plot_grid(mod_plots$venn_plots$ipq_sub1$legend_grob, 
+                        ggdraw() + 
+                          draw_text(paste0('variables: n = ', 
+                                           length(mod$variables), 
+                                           ', observations: n = ', 
+                                           nrow(mod$multi_tbl)), 
+                                    size = 8)), 
+              nrow = 2, 
+              rel_heights = c(0.9, 0.1)) %>% 
     as_figure(label = 'figure_2_key_factors', 
               ref_name = 'key_factors', 
-              caption = 'Key factors associated with disease perception one year after COVID-19.', 
+              caption = paste('Key factors associated with disease', 
+                              'perception one year after COVID-19.'), 
               w = 180, 
-              h = 220)
+              h = 73)
+
+# Figure 3: influential factors, total BIPQ -------  
   
-# Figure 3: illness perception heterogeneity -------
+  insert_msg('Figure 3: influential factors, total BIPQ')
   
-  insert_msg('Figure 3: individuals at risk of aberrant illness perception')
+  paper_fig$total_bipq <- 
+    c(ipq_factors$violin_plots[c('sympt_number_class', 
+                                 'fatigue_sympt')], 
+      ipq_factors$corr_plots['Chalder_FS']) %>% 
+    map(~.x + 
+          labs(y = 'Total IP score') + 
+          scale_y_continuous(limits = c(0, 60), 
+                             breaks = seq(0, 60, by = 20)) + 
+          theme(legend.position = 'none')) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 3, 
+              align = 'hv') %>% 
+    as_figure(label = 'figure_3_factors_total_ipq', 
+              ref_name = 'total_bipq', 
+              caption = paste('Persistent symptom number,', 
+                              'reduced physical performance,', 
+                              'fatigue and the total illness', 
+                              'perception scoring'), 
+              w = 180, 
+              h = 70)
   
-  ## top panel, cluster characteristic
+# Figure 4: influential factors, emotion/concern/consequences ------
+  
+  insert_msg('Figure 4: influential factors, emotion/concern/consequences')
+  
+  paper_fig$sub1_bipq <- list(## symptoms: 
+                              sub1_factors$violin_plots$sympt_number_class, 
+                              sub1_factors$corr_plots$Chalder_FS, 
+                              sub1_factors$violin_plots$Chalder_FS_bimodal, 
+                              sub1_factors$violin_plots$fatigue_sympt, 
+                              sub1_factors$violin_plots$hair_loss_sympt, 
+                              sub1_factors$violin_plots$cough_sympt, 
+                              ## other one-year features
+                              sub1_factors$violin_plots$rehabilitation, 
+                              sub1_factors$violin_plots$diastolic_dysf,
+                              sub1_factors$violin_plots$CRP_class, 
+                              ## comorbidities
+                              sub1_factors$violin_plots$respi_comorb, 
+                              sub1_factors$violin_plots$weight_class) %>% 
+    map(~.x + 
+          scale_y_continuous(limits = c(0, 50), 
+                             breaks = seq(0, 40, by = 20)) + 
+          labs(y = 'Emotion/concern/consequencessource') + 
+          theme(legend.position = 'none')) %>%
+    plot_grid(plotlist = ., 
+              ncol = 3, 
+              align = 'hv', 
+              labels = c('A', '', '', 
+                         '', '', '', 
+                         'B', '', '', 
+                         'C', '', ''), 
+              label_size = 10) %>% 
+    as_figure(label = 'figure_4_factors_emotion_concern_consequences_ipq', 
+              ref_name = 'sub1_bipq', 
+              caption = paste('Key factors influencing the', 
+                              'emotional representation, concern', 
+                              'and consequences component of illness perception.'), 
+              w = 180, 
+              h = 230)
+  
+# Figure 5: characteristic of the clusters --------
+  
+  insert_msg('Figure 5: Characteristic of the clusters')
+  
+  ## upper panel: radial plot of the BIPQ levels in the clusters
   
   paper_fig$ipq_clusters$top_panel <- 
     plot_grid(ggdraw(), 
@@ -96,196 +167,156 @@
                                     x = 0.1), 
                         nrow = 2), 
               ncol = 3, 
-              rel_widths = c(0.1, 0.6, 0.3))
+              rel_widths = c(0.05, 0.7, 0.25))
   
-  ## bottom panels: symptoms and fatigue
+  ## bottom panel: levels of the total BIPQ 
+  ## and the sub-scores of emotion/concern/consequences and control/coherence
   
-  paper_fig$ipq_clusters$middle_panel <- 
-    c(list(ipq_clust$comp_plots$ipq_total), 
-      clust_chara$fup_plots[c('sympt_number', 
-                              'Chalder_FS')]) %>% 
+  paper_fig$ipq_clusters$bottom_panel <- 
+    clust_chara$ipq_plots[c('ipq_total', 
+                            'ipq_sub1', 
+                            'ipq_sub2')] %>% 
     map(~.x + 
-          theme(legend.position = 'none') + 
-          labs(x = 'IP cluster')) %>% 
+          labs(title = stri_replace(.x$labels$title, 
+                                    regex = '\\s{1}\\(.*', 
+                                    replacement = '')) + 
+          theme(legend.position = 'none', 
+                plot.tag = element_blank())) %>% 
     plot_grid(plotlist = ., 
               ncol = 3, 
               align = 'hv')
   
-  paper_fig$ipq_clusters$bottom_panel <- 
-    clust_chara$fup_plots[c('Chalder_FS_bimodal', 
-                            'fatigue_sympt', 
-                            'sleep_sympt')] %>%
-    map(~.x + 
-          scale_fill_manual(values = c(no = 'steelblue', 
-                                       yes = 'coral3'), 
-                            name = '') + 
-          labs(x = 'IP cluster'))
-  
-  paper_fig$ipq_clusters$bottom_panel <- 
-    paper_fig$ipq_clusters$bottom_panel %>% 
-    map(~.x + theme(legend.position = 'none')) %>% 
-    plot_grid(plotlist = ., 
-              ncol = 3, 
-              align = 'hv') %>% 
-    plot_grid(., 
-              get_legend(paper_fig$ipq_clusters$bottom_panel[[1]] + 
-                           theme(legend.position = 'bottom')), 
-              nrow = 2, 
-              rel_heights = c(0.85, 0.15))
-  
-  ## entire figure
+  ## the entire figure
   
   paper_fig$ipq_clusters <- plot_grid(paper_fig$ipq_clusters$top_panel, 
-                                      paper_fig$ipq_clusters$middle_panel, 
                                       paper_fig$ipq_clusters$bottom_panel, 
-                                      nrow = 3, 
-                                      rel_heights = c(1.2, 0.8, 1), 
+                                      nrow = 2, 
+                                      rel_heights = c(1.2, 0.8), 
                                       labels = LETTERS, 
                                       label_size = 10) %>% 
-    as_figure(label = 'figure_3_clustering', 
-              ref_name = 'risk_clusters', 
-              caption = 'Heterogeneity of illness perception and residual symptoms one year after COVID-19.', 
+    as_figure(label = 'figure_5_ipq_clusters', 
+              ref_name = 'ipq_clusters', 
+              caption = paste('Clusters of illness perception'), 
               w = 180, 
-              h = 220)
+              h = 170)
   
-# Supplementary Figure S1: score coherence ------
+# Figure 6: course of COVID and sequelae in the clusters ------
   
-  insert_msg('Figure S1: score coherence')
+  insert_msg('Figure 6: COVID-19 course and sequelae in the clusters')
   
-  suppl_fig$coherence <- ipq_co$corr_mtx_plots$ipq_total %>% 
-    as_figure(label = 'figure_s1_score_coherence',
-              ref_name = 'coherence', 
-              caption = 'Coherence of the illness perception score.', 
-              w = 180, 
-              h = 150)
+  ## upper panel: COVID-19 severity and rehabilitation
   
-# Supplementary Figure S2: model construction, training and CV performance -----
-  
-  insert_msg('Figure S2: training and CV performance')
-  
-  suppl_fig$perfomance <- mod_plots$perf_plots$ipq_total %>% 
-    map(~.x + 
-          theme(legend.position = 'none', 
-                plot.title.position = 'plot', 
-                plot.margin = ggplot2::margin(t = 8, l = 3, unit = 'mm'))) %>% 
-    map2(., c(1, 1), 
-         ~.x + expand_limits(x = .y)) %>% 
+  paper_fig$clust_cov$upper_panel <- 
+    list(clust_chara$baseline_plots$cat_WHO + 
+           scale_fill_manual(values = globals$sev_colors[c('A', 'HM', 'HS')]) + 
+           theme(legend.position = 'bottom'), 
+         clust_chara$baseline_plots$WHO + 
+           theme(legend.position = 'none'), 
+         clust_chara$fup_plots$rehabilitation + 
+           scale_fill_manual(values = c(no = 'steelblue', 
+                                        yes = 'coral3'), 
+                             name = '') + 
+           theme(legend.position = 'bottom')) %>% 
     plot_grid(plotlist = ., 
-              ncol = 2, 
+              ncol = 3, 
               align = 'hv', 
-              labels = LETTERS, 
-              label_size = 10) %>% 
-    plot_grid(get_legend(mod_plots$perf_plots$ipq_total[[1]] + 
-                           theme(legend.position = 'bottom')), 
+              axis = 'tblr')
+  
+  ## bottom panel: symptoms and cardiopulmonary residuals
+  ## CT severity score
+  
+  paper_fig$clust_cov$bottom_panel <- 
+    plot_grid(clust_chara$sequelae_plot + 
+                theme(legend.position = 'none'),
+              plot_grid(get_legend(clust_chara$sequelae_plot + 
+                                     theme(legend.position = 'bottom')), 
+                        ggdraw() + 
+                          draw_text(map2_chr(pap$n_clust[[1]], 
+                                             pap$n_clust[[2]], 
+                                             paste, sep = ': n = ') %>% 
+                                      paste(collapse = ', '), 
+                                    size = 8, 
+                                    hjust = 0.5), 
+                        ncol = 2), 
               nrow = 2, 
               rel_heights = c(0.9, 0.1)) %>% 
-    as_figure(label = 'figure_s2_model_performance', 
-              ref_name = 'performance', 
-              caption = 'Multi-parameter model performance.', 
-              w = 180, 
-              h = 110)
-  
-# Supplementary Figure S3 - S5: model estimates------
-  
-  insert_msg('Figure S3 - S5: model estimates')
-  
-  suppl_fig[c('eln_est', 
-              'lasso_est', 
-              'blasso_est')] <- 
-    map2(list(eln_mod, lasso_mod, blass_mod), 
-         list(scale_x_continuous(limits = pap$est_limits, 
-                                 name = expression('normalized ' * beta[ElasticNet])), 
-              scale_x_continuous(limits = pap$est_limits, 
-                                 name = expression('normalized ' * beta[LASSO])), 
-              scale_x_continuous(limits = pap$est_limits, 
-                                 name = expression('normalized ' * beta[BayesianLASSO]))), 
-         ~.x$estimate_plots$ipq_total + pap$est_fills + .y) %>% 
-    map2(., an$methods, 
-         ~.x + labs(subtitle = paste(.y, .x$labels$subtitle, sep = ', '))) %>% 
-    list(x = ., 
-         h = c(210, 170, 80), 
-         ref_name = c('eln_est', 'lasso_est', 'blasso_est'), 
-         label = c('figure_s3_elnet_estimates', 
-                   'figure_s4_lasso_estimates',
-                   'figure_s5_blasso_estimates'), 
-         caption = c('Non-zero coefficient estimates of the Elastic Net multi-parameter model.', 
-                     'Non-zero coefficient estimates of the LASSO multi-parameter model.', 
-                     'Non-zero coefficient estimates of the Bayesian LASSO multi-parameter model.')) %>% 
-    pmap(as_figure, 
-         w = 180)
-  
-# Supplementary Figure S6: age, sex, IP and cardiopulmonary findings -----
-  
-  insert_msg('Figure S6: IP, age, sex and cardiopulmonary findings')
-  
-  suppl_fig$cardiopulmo <- ipq_factors$violin_plots[c('sex', 
-                                                      'lufo_red', 
-                                                      'ct_severity_any', 
-                                                      'diastolic_dysf')] %>% 
-    map(~.x + 
-          theme(legend.position = 'none', 
-                plot.title.position = 'plot')) %>% 
-    plot_grid(plotlist = ., 
-              ncol = 4, 
-              align = 'hv', 
-              labels = LETTERS, 
-              label_size = 10) %>% 
-    plot_grid(plot_grid(ipq_factors$corr_plots$age, 
-                        ncol = 2, 
-                        rel_widths = c(0.9, 1.1)), 
-              nrow = 2, 
-              labels = LETTERS, 
-              label_size = 10) %>% 
-    as_figure(label = 'figure_s6_cardiopulmo', 
-              ref_name = 'cardiopulmo', 
-              caption = 'Age, sex and cardiopulmonary abnormalities at the one-year follow-up and illness perception.', 
-              w = 180, 
-              h = 160)
-  
-# Supplementary Figure S7: choice of the clustering algorithm ------
-  
-  insert_msg('Figure S7: Clustering algorithm choice')
-  
-  suppl_fig$clust_dev$upper_panel <- 
-    plot_grid(ipq_clust_dev$algo_plot + 
-                theme(legend.position = 'none'), 
-              plot_grid(get_legend(ipq_clust_dev$algo_plot), 
-                        ggdraw() + 
-                          draw_text(ipq_clust$diagnostic_plots$wss$labels$tag, 
-                                    size = 8, 
-                                    x = 0.1, 
-                                    hjust = 0), 
-                        nrow = 2), 
+    plot_grid(plot_grid(clust_chara$fup_plots$ct_severity_score + 
+                          theme(legend.position = 'none'), 
+                        ncol = 1, 
+                        nrow = 2, 
+                        rel_heights = c(1.1, 0.9)), 
               ncol = 2, 
-              rel_widths = c(0.8, 0.2))
-  
-  suppl_fig$clust_dev$bottom_panel <- 
-    ipq_clust$diagnostic_plots[c('wss', 'heat_map')] %>% 
-    map(~.x + 
-          theme(legend.position = 'bottom', 
-                plot.tag = element_blank()) + 
-          labs(subtitle = stri_replace(.x$labels$subtitle, 
-                                       fixed = 'euclidean', 
-                                       replacement = 'Euclidean') %>% 
-                 stri_replace(regex = ', ward.*', 
-                              replacement = ''))) %>% 
-    plot_grid(plotlist = ., 
-              ncol = 2, 
-              align = 'hv', 
-              axis = 'tblr', 
+              rel_widths = c(2.03, 0.97), 
               labels = c('B', 'C'), 
               label_size = 10)
   
-  suppl_fig$clust_dev <- plot_grid(suppl_fig$clust_dev$upper_panel, 
-                                   suppl_fig$clust_dev$bottom_panel, 
+  ## entire figures
+  
+  paper_fig$clust_cov <- plot_grid(paper_fig$clust_cov$upper_panel, 
+                                   paper_fig$clust_cov$bottom_panel, 
                                    nrow = 2, 
+                                   rel_heights = c(0.8, 1.2), 
                                    labels = c('A', ''), 
                                    label_size = 10) %>% 
-    as_figure(label = 'figure_s7_cluster_development', 
-              ref_name = 'clust_dev', 
-              caption = 'Choice of the optimal clustering algorithm and the cluster number.', 
+    as_figure(label = 'figure_6_cluster_covid_course_fup', 
+              ref_name = 'clust_cov', 
+              caption = paste('Course of COVID-19, rehabilitation and', 
+                              'one-year follow-up sequelae of COVID-19', 
+                              'in the illness perception clusters.'), 
               w = 180, 
-              h = 190)
+              h = 185)
+  
+# Figure 7: persistent symptoms in the clusters --------  
+  
+  insert_msg('Figure 7: COVID-19 symptoms in the clusters')
+  
+  ## left panel, summary of symptom frequencies
+  
+  paper_fig$clust_symptoms$left_panel <- 
+    plot_grid(clust_chara$symptom_plot + 
+                theme(legend.position = 'none', 
+                      strip.text = element_text(size = 7)),
+              plot_grid(get_legend(clust_chara$symptom_plot + 
+                                     theme(legend.position = 'bottom')), 
+                        ggdraw() + 
+                          draw_text(map2_chr(pap$n_clust[[1]], 
+                                             pap$n_clust[[2]], 
+                                             paste, sep = ': n = ') %>% 
+                                      paste(collapse = ', '), 
+                                    size = 8, 
+                                    hjust = 0.5), 
+                        ncol = 2), 
+              nrow = 2, 
+              rel_heights = c(0.95, 0.05))
+  
+  ## right panel: symptom counts and measures of fatigue
+  
+  paper_fig$clust_symptoms$right_panel <- 
+    clust_chara$fup_plots[c('sympt_number', 
+                            'Chalder_FS')] %>% 
+    map(~.x + theme(legend.position = 'none')) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 1, 
+              nrow = 4, 
+              align = 'hv', 
+              axis = 'tblr')
+  
+  ## the entire figure
+  
+  paper_fig$clust_symptoms <- 
+    plot_grid(paper_fig$clust_symptoms$left_panel, 
+              paper_fig$clust_symptoms$right_panel, 
+              ncol = 2, 
+              rel_widths = c(2, 1), 
+              labels = LETTERS, 
+              label_size = 10) %>% 
+    as_figure(label = 'figure_7_cluster_symptoms', 
+              ref_name = 'clust_symptoms', 
+              caption = paste('Persistent COVID-19-related symptoms at', 
+                              'the one-year follow-up in the illness', 
+                              'perception clusters.'), 
+              w = 180, 
+              h = 220)
   
 # Saving the figures ------
   
@@ -294,12 +325,6 @@
   paper_fig %>% 
     walk(pickle, 
          path = './paper/figures', 
-         format = 'pdf', 
-         device = cairo_pdf)
-  
-  suppl_fig %>% 
-    walk(pickle, 
-         path = './paper/supplementary figures', 
          format = 'pdf', 
          device = cairo_pdf)
   

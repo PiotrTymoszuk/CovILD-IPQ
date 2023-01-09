@@ -35,7 +35,7 @@
   
   ## common scales for the estimate plots
   
-  pap$est_limits <- c(-0.35, 0.49)
+  pap$est_limits <- c(-0.5, 0.5)
   
   pap$est_fills <- scale_fill_gradient2(low = 'steelblue', 
                                         high = 'firebrick', 
@@ -50,6 +50,7 @@
   
   c('./paper scripts/tables.R', 
     './paper scripts/figures.R', 
+    './paper scripts/supplement.R', 
     './paper scripts/values.R', 
     './paper scripts/render.R') %>% 
     source_all(message = TRUE, crash = TRUE)
