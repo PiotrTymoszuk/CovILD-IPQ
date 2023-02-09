@@ -11,7 +11,11 @@
 # hypothesis testing and analysis of their interaction with cardiopulmonary
 # abnormalities (two-way ANOVA)
 #
-# 3) Unsupervised clustering of the study participants in respect to 
+# 3) Unsupervised clustering of the study participants in respect 
+# to the BIPQ items
+#
+# 4) Analysis of effects of the interaction between persistent somatic 
+# symptoms and cardiopulmonary findings on IP; two-way ANOVA
 
 
 # tools ------

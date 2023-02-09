@@ -152,13 +152,13 @@ COVID-19, clustering, illness perception, persistent somatic symptoms, post-COVI
 
 # Introduction
 
-A subset of coronavirus disease 2019 (COVID-19) patients is affected by protracted somatic symptoms, cardiopulmonary pathology and mental health disorders [@Sonnweber2020; @Sahanic2021; @Luger2022; @Sonnweber2022; @Hufner2022; @Al-Aly2021; @Davis2021; @Soriano2022; @Evans2021a; @Sudre2021; @Chen2022]. 
+A subset of coronavirus disease 2019 (COVID-19) patients is affected by protracted somatic symptoms, cardiopulmonary pathology and mental health disorders [@Sonnweber2020; @Sahanic2021; @Luger2022; @Sonnweber2022; @Hufner2022; @Al-Aly2021; @Davis2021; @Soriano2022; @Evans2021; @Sudre2021; @Chen2022]. 
 Persistent COVID-19-related symptoms have been initially described by patient initiatives [@McCorkell2021] and subsequently recognized as 'post-COVID-19 condition' by the clinical community [@Sonnweber2020; @Sahanic2021; @Davis2021; @Soriano2022; @Al-Aly2021; @Sudre2021]. 
 <span custom-style = 'revision'>Most patients recover completely from acute COVID-19 symptoms within four weeks. 
 The clearance rate is particularly fast for non-specific infection complaints [@Sudre2021; @Sahanic2021; @Rass2022]. 
-In a recent metaanalysis of 1.7 million patients, the pooled prevalence estimate of post-COVID-19 condition, i.e. symptoms present for 3 months or longer, was 43% [@Soriano2022; @Chen2022]. 
+In a recent</span> <span custom-style = 'revision2'>meta-analysis</span> <span custom-style = 'revision'>of 1.7 million patients, the pooled prevalence estimate of post-COVID-19 condition, i.e. symptoms present for 3 months or longer, was 43% [@Soriano2022; @Chen2022]. 
 Yet, in a rigorously controlled study, approximately 12.7% of SARS-CoV-2-positive individuals suffered from persistent somatic symptoms directly associated with COVID-19 [@Ballering2022].
-Fatigue, concentration and memory problems, sleep disorders, physical performance deficits, smell/taste disorders and hair loss, dyspnea and pain are the most common, frequently overlapping and relapsing manifestations [@Chen2022; @Sonnweber2022; @Sahanic2021; @Davis2021; @Rass2022; @Evans2021a; @Huang2021; @Ballering2022].</span> 
+Fatigue, concentration and memory problems, sleep disorders, physical performance deficits, smell/taste disorders and hair loss, dyspnea and pain are the most common, frequently overlapping and relapsing manifestations [@Chen2022; @Sonnweber2022; @Sahanic2021; @Davis2021; @Rass2022; @Evans2021; @Huang2021; @Ballering2022].</span> 
 
 Yet, patients' and clinicians' perceptions 
 <span custom-style = 'revision'>of post-COVID-19 condition <span custom-style = 'revision'>and its impact on patients´ lives</span> are not always consistent, as observed also in chronic obstructive pulmonary disease [@Miravitlles2013; @Schwartz2020] or functional disorders [@Schumacher2013]. 
@@ -179,7 +179,7 @@ However, characterization of IP and its influencing factors in a defined observa
 In particular, it is unclear how PSS, lung and heart pathology [@Sonnweber2020; @Sonnweber2022; @Luger2022] shape IP during long-term COVID-19 recovery.</span>
 
 <span custom-style = 'revision'>We aimed to describe IP and IP components, identify demographic and clinical variables affecting IP and explore IP patterns in convalescents suffering from persistent somatic symptoms (PSS), lung or heart abnormalities one year after COVID-19.
-To this end, we gauged IP in a long-term observatory cross-sectional COVID-19 collective [@Sonnweber2020; @Sahanic2021; @Luger2022; @Sonnweber2022] with the Brief Illness Perception Questionnaire (BIPQ) [@Broadbent2006] and investigated components, influential factors and patterns of IP by factor analysis, regularized multi-parameter modeling and unsupervised PAM clustering.</span>
+To this end, we gauged IP in a long-term observatory cross-sectional COVID-19 collective [@Sonnweber2020; @Sahanic2021; @Luger2022; @Sonnweber2022] with the Brief Illness Perception Questionnaire (BIPQ) [@Broadbent2006] and investigated components, influential factors and patterns of IP by factor analysis, regularized multi-parameter modeling and unsupervised clustering.</span>
 
 \newpage
 
@@ -195,7 +195,7 @@ The follow-ups were scheduled at two, three, six months and one year after COVID
 The screened subset size was limited by the number of COVID-19 cases diagnosed at the study centers, their follow-up availability (residency in the study region) and available resources for the follow-up assessments. 
 No statistical sample size estimation was performed, as the kinetic of COVID-19 recovery was unknown at the pandemic onset.
 Out of 145 enrolled individuals, `r nrow(cov_data$raw_data)` completed the one-year follow-up.</span>
-A subset of participants (n = `r nrow(cov_data$clear_data)`) was analyzed who displayed (1) PSS or (2) any abnormality in chest computed tomography (CT) or (3) any lung function testing (LFT) deficits or (4) any heart abnormality in trans-thoracic echocardiography (TTE) at the one-year follow-up <span custom-style = 'revision'>and had a complete set of BIPQ, demographic and clinical analysis variables (__Figure \@ref(fig:fig-consort)__, __Supplementary Tables S1 - S2__).</span>
+A subset of participants (n = `r nrow(cov_data$clear_data)`) was analyzed who displayed (1) PSS or (2) any abnormality in chest computed tomography or (3) any lung function testing deficits or (4) any heart abnormality in trans-thoracic echocardiography at the one-year follow-up <span custom-style = 'revision'>and had a complete set of BIPQ, demographic and clinical analysis variables (__Figure \@ref(fig:fig-consort)__, __Supplementary Tables S1 - S2__).</span>
 <span custom-style = 'revision'>We decided to restrict the analysis to incomplete COVID-19 recovery, because BIPQ was initially designed for and validated in somatic conditions [@Broadbent2006].</span>
 
 The study was performed in accordance with the Declaration of Helsinki and European Data Policy. 
@@ -209,14 +209,14 @@ For full descriptions of procedures and variables, see __Supplementary Methods__
 Baseline clinical and acute COVID-19 data were recorded retrospectively at the two-month follow-up [@Sonnweber2020]. 
 Study participants were classified as ambulatory (outpatient, WHO <span custom-style = 'revision'>ordinal scale for clinical improvement</span> 1 - 2), moderate (hospitalized without oxygen therapy, WHO 3 - 4) and severe COVID-19 survivors (hospitalized with non-invasive ventilation or high-flow oxygen or mechanical ventilation, WHO 5 - 7). 
 
-Physical performance was rated with the Eastern Cooperative Oncology Group scale (ECOG). 
-Dyspnea was scored with the Modified Medical British Research Council scale (mMRC).
-Fatigue was rated with likert and bimodal Chalder's Fatigue Scales (CFS) [@Chalder1993; @Morriss1998]. 
-Exertional capacity was assessed by six-minute walking distance (SMWD) [@Crapo2012].
+Physical performance was rated with the Eastern Cooperative Oncology Group scale. 
+Dyspnea was scored with the Modified Medical British Research Council scale.
+Fatigue was rated with likert and bimodal Chalder's Fatigue Scales [@Chalder1993; @Morriss1998]. 
+Exertional capacity was assessed by six-minute walking distance [@Crapo2012].
 
-The following, <span custom-style = 'revision'>PSS,</span> were analyzed at the one-year follow-up: 
-reduced physical performance (ECOG $\geq$ 1), 
-dyspnea (mMRC $\geq$ 1), 
+The following <span custom-style = 'revision'>PSS</span> were analyzed at the one-year follow-up: 
+reduced physical performance (Eastern Cooperative Oncology Group scale $\geq$ 1), 
+dyspnea (Modified Medical British Research Council scale $\geq$ 1), 
 self-reported cough (yes/no item), 
 self-reported sleep problems (yes/no), 
 self-reported night sweating (yes/no), 
@@ -224,11 +224,11 @@ self-reported hyposmia or anosmia (yes/no),
 self-reported dermatological symptoms (yes/no), 
 self-reported gastrointestinal symptoms (yes/no), 
 self-reported hair loss (yes/no), 
-significant fatigue (bimodal CFS $\geq$ 4). 
+significant fatigue (bimodal Chalder's Fatigue Scale $\geq$ 4). 
 <span custom-style = 'revision'>Records of reduced physical performance, dyspnea, cough, sleep problems, night sweating, hyposmia/anosmia and gastrointestinal symptoms were available for acute COVID-19 and all follow-ups [@Sonnweber2022].</span>
 
-LFT abnormality was defined as at least one parameter < 80% (forced vital capacity [FVC], forced expiratory volume in 1 second [FEV1], total lung capacity, diffusion lung capacity for carbon monoxide) or < 70% (FEV1:FVC ratio) of the reference value [@Sonnweber2022]. 
-CT images were evaluated with the Fleischner Society glossary terms [@Hansell2008] and the CT severity score [@Sonnweber2020; @Luger2022; @Sonnweber2022]. 
+Lung function testing abnormality was defined as at least one parameter < 80% (forced vital capacity, forced expiratory volume in 1 second, total lung capacity, diffusion lung capacity for carbon monoxide) or < 70% (ratio of forced expiratory volume in 1 second to forced vital capacity) of the reference value [@Sonnweber2022]. 
+Computed tomography images were evaluated with the Fleischner Society glossary terms [@Hansell2008] and the computed tomography severity score [@Sonnweber2020; @Luger2022; @Sonnweber2022]. 
 Blood biomarkers encompassed hemoglobin and parameters of iron turnover, inflammation and coagulation.
 
 IP was investigated with <span custom-style = 'revision'>a German translation of BIPQ [@Broadbent2006] with the following 8 items:</span> 
@@ -279,7 +279,7 @@ Bayesian LASSO coefficients were calculated as medians over all algorithm iterat
 <span custom-style = 'revision'>Hence,</span> variables with non-zero coefficients in <span custom-style = 'revision'>models constructed with all three algorithms</span> were deemed the key factors for 
 <span custom-style = 'revision'>the total IP score, emotion/concern/consequences and lacking control/coherence scores.</span>
 
-Clustering by the BIPQ items was accomplished by PAM (partitioning around medoids) <span custom-style = 'revision'>with Euclidean distance [@Schubert2019; @Drost2018].</span> 
+Clustering by the BIPQ items was accomplished by the partitioning around medoids algorithm <span custom-style = 'revision'>with Euclidean distance [@Schubert2019; @Drost2018].</span> 
 <span custom-style = 'revision'>The clustering algorithm choice was motivated by its optimal stability in 10-fold cross-validation [@Lange2004] and good explanatory performance measured by the fraction of clustering variance as compared with hierarchical and KMEANS clustering.</span>
 
 \newpage
@@ -289,12 +289,12 @@ Clustering by the BIPQ items was accomplished by PAM (partitioning around medoid
 ## Study cohort at baseline and one year after COVID-19
 
 The CovILD cohort was recruited <span custom-style = 'revision'>during the first outbreak of SARS-CoV-2</span> between April and June 2020 [@Sonnweber2020]. 
-Out of 145 participants enrolled, `r nrow(cov_data$clear_data)` individuals with PSS, lung CT, LFT or cardiological abnormalities, <span custom-style = 'revision'>complete BIPQ and a complete set of study variables set at the one-year follow-up</span> were analyzed. 
+Out of 145 participants enrolled, `r nrow(cov_data$clear_data)` individuals with PSS or abnormalities in lung computed tomography, lung function testing or cardiological abnormalities, <span custom-style = 'revision'>complete BIPQ and a complete set of study variables set at the one-year follow-up</span> were analyzed. 
 The major reasons of patient dropout were missing follow-ups and incomplete BIPQ (__Figure \@ref(fig:fig-consort)__).
 <span custom-style = 'revision'>The excluded participants tended towards less severe acute COVID-19, more dermatological and gastrointestinal symptoms at the one-year follow-up, and lower blood hemoglobin and ferritin as compared with the analysis collective; those effects were, however, not significant. 
-The excluded participants had also significantly lower SMWD (__Supplementary Figure S3__).</span>
+The excluded participants had also significantly lower six-minute walking distance (__Supplementary Figure S3__).</span>
 
-The <span custom-style = 'revision'>analyzed</span> participants were predominantly male (`r get_percent(cov_data$clear_data, "sex")['male']`%), the median age at COVID-19 diagnosis was `r get_median_iqr(cov_data$clear_data, "age")['median']` years (IQR: `r get_median_iqr(cov_data$clear_data, "age")['iqr']`), over one-third were active or ex-smokers (`r get_percent(cov_data$clear_data, "smoking_history")['yes']`%). 
+The <span custom-style = 'revision'>analyzed</span> participants were predominantly male (`r get_percent(cov_data$clear_data, "sex")['male']`%), the median age at COVID-19 diagnosis was `r get_median_iqr(cov_data$clear_data, "age")['median']` years (interquartile range: `r get_median_iqr(cov_data$clear_data, "age")['iqr']`), over one-third were active or ex-smokers (`r get_percent(cov_data$clear_data, "smoking_history")['yes']`%). 
 Most participants suffered from comorbidities (`r get_percent(cov_data$clear_data, "comorb_present")['yes']`%), with cardiovascular disease, metabolic and respiratory disorders as leading conditions. 
 The participants were classified by COVID-19 severity as ambulatory (`r get_percent(cov_data$clear_data, "cat_WHO")[1]`%), moderate (hospitalized, no intensive care, no oxygen therapy, `r get_percent(cov_data$clear_data, "cat_WHO")[2]`%) and severe COVID-19 survivors (hospitalized, oxygen therapy or intensive care, `r get_percent(cov_data$clear_data, "cat_WHO")[3]`%). 
 The ambulatory COVID-19 subset had the lowest median age, smoking and comorbidity rates (__Table \@ref(tab:tab-cohort-baseline)__).
@@ -305,16 +305,16 @@ Significant fatigue (`r get_percent(cov_data$clear_data, "Chalder_FS_bimodal")['
 There was little improvement during later convalescence and percentages of performance deficits, sleep problems and smell disorders were substantially higher at the one-year than at the 6 month follow-up suggestive of relapse. 
 Except for self-reported anosmia, which was absent in severe COVID-19 survivors, </span>PSS frequencies and fatigue rating were comparable between the COVID-19 severity strata (__Supplementary Figure S1__, __Supplementary Table S4__).
 
-LFT abnormalities affected `r get_percent(cov_data$clear_data, "lufo_red")['yes']`% of participants and were substantially enriched in severe COVID-19 survivors. 
-Lung CT abnormalities were found in `r get_percent(cov_data$clear_data, "ct_severity_any")['yes']`% individuals and their frequency and scoring was significantly higher in moderate-to-severe COVID-19 than in the ambulatory subset. 
+Lung function testing abnormalities affected `r get_percent(cov_data$clear_data, "lufo_red")['yes']`% of participants and were substantially enriched in severe COVID-19 survivors. 
+Abnormalities in lung computed tomography were found in `r get_percent(cov_data$clear_data, "ct_severity_any")['yes']`% individuals and their frequency and scoring was significantly higher in moderate-to-severe COVID-19 than in the ambulatory subset. 
 The leading cardiological finding was low grade diastolic dysfunction (`r get_percent(cov_data$clear_data, "diastolic_dysf")['yes']`%), which was significantly enriched in moderate and severe COVID-19 survivors. 
-<span custom-style = 'revision'>Concomitant PSS, abnormal lung CT, LFT and TTE one year after COVID-19 were observed in `r signif(fup_overlap$all_intersection/nrow(cov_data$clear_data), 3) * 100`% of participants. 
+<span custom-style = 'revision'>Concomitant PSS, abnormal lung computed tomography, lung function testing and diastolic dysfunction in echocardiography one year after COVID-19 were observed in `r signif(fup_overlap$all_intersection/nrow(cov_data$clear_data), 3) * 100`% of participants. 
 In `r signif(14/nrow(cov_data$clear_data), 3) * 100`% of participants, PSS were not accompanied by cardiopulmonary abnormalities (__Supplementary Figure S2__).</span>
 Nearly 80% of severe disease survivors attended COVID-19-specific rehabilitation, the rehabilitation rates in the remaining severity strata were below 20% (__Supplementary Table S4__). 
 Most laboratory parameters at the one-year follow-up were within their normal values. 
-Mild anemia and improper glycemia control (HbA1c) were evident primarily in moderate and severe COVID-19 survivors (__Supplementary Table S5__).
+Mild anemia and improper glycemia control assessed by glycated hemoglobin levels were evident primarily in moderate and severe COVID-19 survivors (__Supplementary Table S5__).
 
-<span custom-style = 'revision'>Females displayed significantly less severe COVID-19 and less chest CT abnormalities but higher PSS rates and counts than males at the one-year follow-up. 
+<span custom-style = 'revision'>Females displayed significantly less severe COVID-19 and less chest computed tomography abnormalities but higher PSS rates and counts than males at the one-year follow-up. 
 Differences between the genders in frequencies and scoring of specific PSS were not significant (__Supplementary Table S6__ and not shown).</span>
 
 ## Illness perception one year after COVID-19
@@ -323,7 +323,7 @@ Differences between the genders in frequencies and scoring of specific PSS were 
 The entire BIPQ ($\omega$ = `r ipq_co$omega_obj$omega.group$total[1] %>% signif(2)`) and the emotion/concern/consequence component ($\omega$ = `r ipq_co$omega_obj$omega.group$total[2] %>% signif(2)`) had good internal consistencies as determined by McDonald's omega [@McDonald1999]. 
 The lacking control/coherence component consistency was markedly lower ($\omega$ = `r ipq_co$omega_obj$omega.group$total[3] %>% signif(2)`), presumably due to weak correlation of the lacking personal control (Q3) with the remaining items (__Supplementary Figure S4__).</span>
 
-The median <span custom-style = 'revision'>total</span> IP score representing the sum of all BIPQ items was `r get_median_iqr(cov_data$clear_data, "ipq_total")['median']` (IQR: `r get_median_iqr(cov_data$clear_data, "ipq_total")['iqr']`) in the study collective, the differences between ambulatory, moderate and severe COVID-19 were not significant. 
+The median <span custom-style = 'revision'>total</span> IP score representing the sum of all BIPQ items was `r get_median_iqr(cov_data$clear_data, "ipq_total")['median']` (interquartile range: `r get_median_iqr(cov_data$clear_data, "ipq_total")['iqr']`) in the study collective, the differences between ambulatory, moderate and severe COVID-19 were not significant. 
 <span custom-style = 'revision'>The emotion/concern/consequences IP component rated by the Q1, Q2, Q5, Q6 and Q8 item sum was the lowest in moderate and the highest in severe COVID-19. 
 Moderate COVID-19 convalescents had in turn the highest intensity of the lacking control/coherence IP component scored as the Q3, Q4 and Q7 item sum as compared with the remaining severity subsets; this difference was not significant (__Table \@ref(tab:tab-psych)__).</span>
 
@@ -344,22 +344,22 @@ Between `r length(an$variables$ipq_sub1$blass_mod)` (Bayesian LASSO) and `r leng
 <span custom-style = 'revision'>The key variables affecting total IP identified by all three models were PSS count, reduced physical performance and fatigue scoring at the one-year follow-up. 
 In uni-variable analysis, each of them was significantly associated with total IP (__Figure \@ref(fig:fig-total-bipq)__). 
 The key explanatory factors for the emotion/concern/consequences IP component identified by all three modeling algorithms were 
-PSS count, reduced physical performance, fatigue scoring, significant fatigue, hair loss, cough, diastolic dysfunction, elevated C-reactive protein (CRP) at the one-year follow-up as well as rehabilitation during COVID-19 recovery, respiratory comorbidity and body weight class. 
+PSS count, reduced physical performance, fatigue scoring, significant fatigue, hair loss, cough, diastolic dysfunction, elevated C-reactive protein at the one-year follow-up as well as rehabilitation during COVID-19 recovery, respiratory comorbidity and body weight class. 
 In uni-variable analysis, PSS number, fatigue scoring and significant fatigue, reduced performance, hair loss, rehabilitation and respiratory comorbidity were significantly associated with increased emotion/concern/consequences scores (__Figure \@ref(fig:fig-sub1-bipq)__).</span>
 
-<span custom-style = 'revision'>Age, gender, CT, LFT or TTE abnormalities alone had no significant effects on total IP or its components in uni-variable analysis (__Supplementary Figures S12 - S13__). 
-However, lung CT abnormalities at the one-year follow-up amplified the effects of diastolic dysfunction, fatigue and fatigue rating on total IP and the emotion/concern/consequences component, as revealed by significant interactions in two-way ANOVA.
-In particular, individuals with concomitant diastolic dysfunction plus CT abnormalities or with high fatigue scoring plus CT abnormalities displayed significantly higher emotion/concern/consequences scores than participants without lung CT findings.
-Similar interaction effects of LFT deficits, fatigue and symptom numbers and of diastolic dysfunction and fatigue were discerned as well (__Supplementary Figures S14__ - __S16__).
-Participants with respiratory comorbidities had significantly elevated fatigue scores, LFT abnormality rates, total IP and emotion/concern/consequences ratings as compared with the remaining collective. 
-This may suggest additional interaction effects of respiratory conditions, LFT deficits and persistent fatigue on IP (__Supplementary Table S7__).</span>
+<span custom-style = 'revision'>Age, gender, or abnormalities in chest computed tomography or lung function testing, or diastolic dysfunction alone had no significant effects on total IP or its components in uni-variable analysis (__Supplementary Figures S12 - S13__). 
+However, lung abnormalities in computed tomography at the one-year follow-up amplified the effects of diastolic dysfunction, fatigue and fatigue rating on total IP and the emotion/concern/consequences component, as revealed by significant interactions in two-way ANOVA.
+In particular, individuals with concomitant diastolic dysfunction plus lung computed tomography abnormalities or with high fatigue scoring plus lung computed tomography abnormalities displayed significantly higher emotion/concern/consequences scores than participants without lung computed tomography findings.
+Similar interaction effects of lung function testing deficits, fatigue and symptom numbers and of diastolic dysfunction and fatigue were discerned as well (__Supplementary Figures S14__ - __S16__).
+Participants with respiratory comorbidities had significantly elevated fatigue scores, lung function testing abnormality rates, total IP and emotion/concern/consequences ratings as compared with the remaining collective. 
+This may suggest additional interaction effects of respiratory conditions, lung function testing deficits and persistent fatigue on IP (__Supplementary Table S7__).</span>
 
 ## Illness perception clusters
 
 <span custom-style = 'revision'>IP patterns were investigated by unsupervised clustering of the study participants in respect to the BIPQ items. 
-Among several algorithms tested, PAM with Euclidean distance [@Drost2018; @Schubert2019] demonstrated the best reproducibility [@Lange2004] and good explanatory performance and was hence used for definition of three IP clusters (__Supplementary Figure S17__).</span>
+Among several algorithms tested, partition aroud medoids with Euclidean distance [@Drost2018; @Schubert2019] demonstrated the best reproducibility [@Lange2004] and good explanatory performance and was hence used for definition of three IP clusters (__Supplementary Figure S17__).</span>
 Roughly half of participants <span custom-style = 'revision'>assigned to the cluster #1 displayed low scores for each BIPQ item.</span> 
-This translated to low total IP severity, <span custom-style = 'revision'>, and low scoring of the emotion/concern/consequences and lacking control/coherence IP components.</span>
+This translated to low total IP severity, <span custom-style = 'revision'>and low scoring of the emotion/concern/consequences and lacking control/coherence IP components.</span>
 Another `r signif(ngroups(ipq_clust$clust_obj)$n/sum(ngroups(ipq_clust$clust_obj)$n) * 100, 2)[2]`% of participants assigned to the cluster #2 were characterized by low self-perceived personal or treatment control but also by low rating of the concern, identity, timeline, consequences and emotional representation items. 
 <span custom-theme = 'revision'>As a result, the maximum scores of the lacking control/consequence components and low emotion/concern/consequences IP component scores were observed in the cluster #2.</span>
 Cluster #3 individuals (`r signif(ngroups(ipq_clust$clust_obj)$n/sum(ngroups(ipq_clust$clust_obj)$n) * 100, 2)[3]`% of participants) had highly elevated rating of the concern, identity, timeline, consequences and emotional representation items as compared with the clusters #1 and #2. 
@@ -368,9 +368,9 @@ In turn, the scoring  of the lacking control/coherence IP component was low, sug
 Effect sizes of differences in total IP and its components between the IP clusters were large (Kruskal-Wallis test, total IP: `r clust_chara$test_results$ipq %>% filter(variable == 'ipq_total') %>% .$plot_cap`, emotion/concern/consequences: `r clust_chara$test_results$ipq %>% filter(variable == 'ipq_total') %>% .$plot_cap`, lacking control/coherence: `r clust_chara$test_results$ipq %>% filter(variable == 'ipq_sub2') %>% .$plot_cap`).</span>
 
 <span custom-style = 'revision'>The cluster #1 individuals tended towards the lowest rates of smoking, metabolic and respiratory comorbidities (__Supplementary Table S8__). 
-In the cluster #2 the lowest acute COVID-19 severity, rates of rehabilitation and lung CT abnormality grades were observed. 
+In the cluster #2 the lowest acute COVID-19 severity, rates of rehabilitation and lung computed tomography abnormality grades were observed. 
 The cluster #2 tended also towards the lowest frequency of diastolic dysfunction.
-By contrast, in the cluster #3 affected by disease-related concerns, the frequency of severe COVID-19, COVID-19-specific rehabilitation rate, chest CT finding severity and PSS frequency at the one-year follow-up were the highest (__Figure \@ref(fig:fig-clust-cov)__). 
+By contrast, in the cluster #3 affected by disease-related concerns, the frequency of severe COVID-19, COVID-19-specific rehabilitation rate, chest computed tomography finding severity and PSS frequency at the one-year follow-up were the highest (__Figure \@ref(fig:fig-clust-cov)__). 
 In particular, cluster #3 individuals suffered from protracted fatigue, reduced physical performance, dyspnea and sleep problems to the highest extend, and hair loss and gastrointestinal complaints were observed solely in the cluster #3. 
 Consequently, the PSS number and fatigue scoring peaked in the cluster #3. 
 PSS frequencies and intensity were comparable in the clusters #1 and #2 (__Figure \@ref(fig:fig-clust-symptoms)__). </span>
@@ -382,48 +382,49 @@ significant fatigue ($\chi^2$ test: `r clust_chara$test_results$fup %>% filter(v
 sleep problems (`r clust_chara$test_results$fup %>% filter(variable == 'sleep_sympt') %>% .$plot_cap`) or 
 hair loss (`r clust_chara$test_results$fup %>% filter(variable == 'hair_loss_sympt') %>% .$plot_cap`) and differences in rehabilitation rates (`r clust_chara$test_results$fup %>% filter(variable == 'rehabilitation') %>% .$plot_cap`) were of moderate-to-large effect size.
 Effects of differences in 
-lung CT abnormality (`r clust_chara$test_results$fup %>% filter(variable == 'ct_severity_any') %>% .$plot_cap`), 
-chest CT abnormality scoring (`r clust_chara$test_results$fup %>% filter(variable == 'ct_severity_score') %>% .$plot_cap`), 
-LFT deficits (`r clust_chara$test_results$fup %>% filter(variable == 'lufo_red') %>% .$plot_cap`) or 
+lung computed tomography abnormality (`r clust_chara$test_results$fup %>% filter(variable == 'ct_severity_any') %>% .$plot_cap`), 
+chest computed tomography abnormality scoring (`r clust_chara$test_results$fup %>% filter(variable == 'ct_severity_score') %>% .$plot_cap`), 
+lung function testing deficits (`r clust_chara$test_results$fup %>% filter(variable == 'lufo_red') %>% .$plot_cap`) or 
 diastolic dysfunction (`r clust_chara$test_results$fup %>% filter(variable == 'diastolic_dysf') %>% .$plot_cap`) were substantially weaker (__Supplementary Table S8__).</span>
 
 \newpage
 
 # Discussion
 
-<span custom-style = 'revision'>In our observational collective affected by PSS or abnormalities in cardiopulmonary tests one year after COVID, two IP facets were identified: an emotion, concern and consequences component, and a lacking control and coherence component. 
+<span custom-style = 'revision'>In our observational collective affected by PSS or abnormalities in cardiopulmonary tests one year after COVID-19, two IP facets were identified: an emotion, concern and consequences component, and a lacking control and coherence component. 
 By multi-parameter modeling, we established signatures of total IP and the emotion/concern/consequences IP component. 
 They included reduced physical performance, fatigue intensity and PSS number. 
-The  emotions, concerns and consequences IP component correlated additionally with significant fatigue, hair loss, COVID-19-specific rehabilitation, respiratory comorbidity, and, to a lesser degree, with diastolic dysfunction, elevated levels of the inflammatory marker CRP and obesity. 
+The  emotions, concerns and consequences IP component correlated additionally with significant fatigue, hair loss, COVID-19-specific rehabilitation, respiratory comorbidity, and, to a lesser degree, with diastolic dysfunction, elevated levels of the inflammatory marker C-reactive protein and obesity. 
 Three IP clusters of study participants were identified based on the BIPQ items. 
-Differences between the IP clusters in PPS readouts such as PSS number, fatigue rating or sleep problems were much more pronounced than differing rates of llung and heart abnormalities in CT, LFT and TTE.</span>
+Differences between the IP clusters in PPS readouts such as PSS number, fatigue rating or sleep problems were much more pronounced than differing rates of lung and heart abnormalities in computed tomography, lung function testing or echocardiography.</span>
 
-We identified <span custom-style = 'revision'>fatigue, a leading persistent COVID-19 manifestation [@Chen2022; @Sudre2021; @Davis2021; @Sahanic2021; @Bierbauer2022]</span> as a strong covariate <span custom-style = 'revision'>of total IP severity and the emotion/concern/consequences IP component.</span>.
+We identified <span custom-style = 'revision'>fatigue, a leading persistent COVID-19 manifestation [@Chen2022; @Sudre2021; @Davis2021; @Sahanic2021; @Bierbauer2022]</span> as a strong covariate <span custom-style = 'revision'>of total IP severity and the emotion/concern/consequences IP component</span>.
 Similar effects were described in arthritis [@Schwartz2020], hematological malignancy [@Schoormans2020], <span custom-style = 'revision'>and recently in post-COVID-19 condition [@Bierbauer2022].</span>
 <span custom-style = 'revision'>Physical performance was found to be another key factor of IP and its emotion/concern/consequences component, in line with findings in hospitalized COVID-19 survivors, where reduced mobility was paralleled by anxiety and depression signs [@Evans2021].
 Objective readouts of good physical fitness in turn correlated with shorter symptom duration, lower PSS count, less fatigue and improved mental health in ambulatory COVID-19 patients [@Jimeno-Almazan2022].</span>
 <span custom-style = 'revision'>Hair loss belongs to the most frequent post-COVID-19 condition manifestations [@Chen2022; @Sahanic2021; @Jimeno-Almazan2022] and may result from psychological stress and/or inflammation [@Sattur2021]. 
-Hair loss, along with CRP, was linked by us with the emotion/concern/consequences IP component and may reflect an interplay between protracted inflammation and deteriorated mental health.</span>
+Hair loss, along with C-reactive protein, was linked by us with the emotion/concern/consequences IP component and may reflect an interplay between protracted inflammation and deteriorated mental health.</span>
 Post-COVID-19 condition encompass various respiratory symptoms [@Sahanic2021; @Sonnweber2020; @Sonnweber2022; @Davis2021; @Sudre2021; @Chen2022; @Bierbauer2022]. 
 In addition, COVID-19 was found to exacerbate symptoms and worsen disease control in asthma [@Philip2022]. 
-<span custom-style = 'revision'>In our collective, respiratory comorbidity was associated with the emotion/concern/consequences IP component, higher fatigue rating and LFT abnormalities. 
-Such superimposed subjective fatigue feeling and objective LFT deficits may explain more severe IP in individuals with respiratory comorbidity. 
+<span custom-style = 'revision'>In our collective, respiratory comorbidity was associated with the emotion/concern/consequences IP component, higher fatigue rating and lung function testing abnormalities. 
+Such superimposed subjective fatigue feeling and objective lung function deficits may explain more severe IP in individuals with respiratory comorbidity. 
 We proposed PSS count as a strong covariate of IP severity and the emotion/concern/consequences IP component. 
 In line with literature evidence [@Sudre2021; @Sahanic2021; @Sneller2022; @Chen2022], significantly more PSS at the one-year follow-up were discerned in females than male participants. 
 However, IP rating was comparable between the genders. 
-This may be explained by the less severe COVID-19 and less lung CT abnormalities in females. 
-Interestingly, we observed significant super-additive effects of fatigue, reduced physical performance plus lung CT abnormalities on IP. 
-Since pulmonary CT findings affected nearly 75% of male participants, these interactions may influence IP in a male-specific manner and compensate for the higher PSS burden in females.</span>
+This may be explained by the less severe COVID-19 and less lung computed tomography abnormalities in females. 
+Interestingly, we observed significant super-additive effects of fatigue, reduced physical performance plus lung computed tomography abnormalities on IP. 
+Since pulmonary computed tomography findings affected nearly 75% of male participants, these interactions may influence IP in a male-specific manner and compensate for the higher PSS burden in females.</span>
 
 <span custom-style = 'revision'>No explanatory factors affecting the lacking control/coherence IP component were identified by any of the modeling algorithms. 
 This may reflect two non-exclusive phenomena. 
-First, the internal consistency of the lacking control/coherence component was remarkably lower than consistency of the BIPQ tool or the emotion/concern/consequences component. 
-Second, the lacking control/coherence component covering cognitive IP aspects [@Broadbent2006] may be influenced primarily by COVID-19-independent factors such as socioeconomic background, education level or follow-up care. 
+First, the internal consistency of the lacking control/coherence component was remarkably lower than consistency of the BIPQ tool or the emotion/concern/consequences component.</span>
+<span custom-style = 'revision2'>This low reliability may attenuate observed associations [@Spearman1904] and hence obscure true effects of e.g. persistent somatic symptoms or cardiopulmonary findings on the lacking control/coherence component of IP.</span> 
+<span custom-style = 'revision'>Second, the lacking control/coherence component covering cognitive IP aspects [@Broadbent2006] may be influenced primarily by COVID-19-independent factors such as socioeconomic background, education level or follow-up care. 
 Low socioeconomic status was proposed as a risk factor of post-COVID-19 condition [@Dumont2022] and can affect IP measured by BIPQ [@Mafla2018].</span>
 
 We identified three clusters of participants differing in key IP components. 
 <span custom-style = 'revision'>The cluster #1 encompassing roughly</span> half of the participants displayed low total IP severity, good self-perceived coherence, personal and treatment control paralleled by low PSS rates. 
-Another `r signif(ngroups(ipq_clust$clust_obj)$n/sum(ngroups(ipq_clust$clust_obj)$n) * 100, 2)[2]`% of participants <span custom-style = 'revision'>assigned to the cluster #2 enriched in moderate COVID-19 survivors with the lowest grade of lung CT abnormalities</span> showed a similarly low levels of PSS or fatigue. 
+Another `r signif(ngroups(ipq_clust$clust_obj)$n/sum(ngroups(ipq_clust$clust_obj)$n) * 100, 2)[2]`% of participants <span custom-style = 'revision'>assigned to the cluster #2 enriched in moderate COVID-19 survivors with the lowest grade of lung computed tomography abnormalities</span> showed a similarly low levels of PSS or fatigue. 
 Yet their IP was hallmarked by poor disease understanding and disbelief in personal or treatment control. 
 By contrast, the cluster #3 individuals suffered from multiple PSS such as significant fatigue, sleep problems, physical performance deficits or hair loss, <span custom-style = 'revision'>had the highest rehabilitation rate</span> and tended to have more residual lung lesions and severe acute COVID-19 course. 
 Their IP was characterized by high severity of the emotion/concern/consequences IP component <span custom-style = 'revision'>and, paradoxically, good coherence and belief in disease control.</span> 
@@ -499,7 +500,7 @@ flextable::flextable(paper_tbl$baseline) %>%
   width(6, width = 2.5, unit = 'cm') %>% 
   width(7, width = 2.2, unit = 'cm') %>%
   footnote(1, 6:7, 
-           value = as_paragraph('COVID-19 severity strata comparison; categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Kruskal-Wallis test with \u03C7\u00B2 effect size statistic'), 
+           value = as_paragraph('COVID-19 severity strata comparison; categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Kruskal-Wallis test with \u03B7\u00B2 effect size statistic'), 
            ref_symbols = 'a', 
            part = 'header') %>% 
   footnote(4, 1, 
@@ -527,7 +528,7 @@ flextable::flextable(paper_tbl$psych) %>%
   width(2:5, width = 2.7, unit = 'cm') %>% 
   width(6, width = 2.5, unit = 'cm') %>% 
   width(7, width = 2.2, unit = 'cm') %>% 
-  footnote(1, 6:7, value = as_paragraph('COVID-19 severity strata comparison; Kruskal-Wallis test with \u03C7\u00B2 effect size statistic'), ref_symbols = 'a', part = 'header') %>% 
+  footnote(1, 6:7, value = as_paragraph('COVID-19 severity strata comparison; Kruskal-Wallis test with \u03B7\u00B2 effect size statistic'), ref_symbols = 'a', part = 'header') %>% 
   theme_vanilla
 
 ```
@@ -592,7 +593,7 @@ paper_fig$ipq_clusters$plot
 
 __Figure \@ref(fig:fig-ipq-clusters). Clusters of illness perception__ 
 
-_Three subsets of study participants (illness perception [IP] clusters) were identified by clustering in respect to the Brief Illness Perception Questionnaire items (BIPQ, Q1 - Q8) with PAM (partitioning around medoids) and Euclidean distance metric. Numbers of observations assigned to the clusters are displayed next to the plots or in the plot X axes._
+_Three subsets of study participants (illness perception [IP] clusters) were identified by clustering in respect to the Brief Illness Perception Questionnaire items (BIPQ, Q1 - Q8) with the partitioning around medoids algorithm and Euclidean distance metric. Numbers of observations assigned to the clusters are displayed next to the plots or in the plot X axes._
 
 _(A) Mean BIPQ item scores at one year after COVID-19 in the IP clusters. Statistical significance was determined by Kruskal-Wallis test. P values are indicated below the item names. Lines represent mean values, tinted ribbons depict 2 $\times$ SEM (standard error of the mean) intervals._
 
