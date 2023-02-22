@@ -149,9 +149,7 @@
   sympt_kinet$plot_legend <- sympt_kinet$cohran_test %>% 
     map(mutate, 
         var_lab = translate_var(.y.), 
-        significance = ifelse(p >= 0.05, 
-                              paste0('ns (p = ', signif(p, 2), ')'), 
-                              paste('p =', signif(p, 2))), 
+        significance = p_value_jps(p), 
         var_lab = paste(var_lab, significance, sep = ', '))
   
   sympt_kinet$plot_legend <- sympt_kinet$plot_legend %>% 

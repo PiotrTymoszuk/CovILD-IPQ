@@ -56,6 +56,7 @@
                 pub_styled = TRUE, 
                 adj_method = 'none', 
                 .options = furrr_options(seed = TRUE)) %>% 
+    map(format_test_jps) %>% 
     map(mutate, 
         plot_cap = paste(eff_size, significance, sep = ', '))
   

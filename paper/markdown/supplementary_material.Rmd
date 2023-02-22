@@ -256,7 +256,7 @@ Briefly, the interaction ANOVA models were constructed with the function `make_l
 The dependent variables were square root-transformed to improve normality. 
 The assumptions of normality and homogeneity of distribution of the model residuals were checked by Shapiro-Wilk and Levene tests, respectively (method `summary(type = 'assumptions')`) and standard diagnostic plots of model residuals (method `plot()`). 
 ANOVA results with the $\eta^2$ effect size statistic (fraction of variance explained by the specific ANOVA term) were extracted from the models with the `anova()` method (package [_lmqc_](https://github.com/PiotrTymoszuk/lmqc)). 
-The significant and near significant (p < 0.1) interactions are presented in __Supplementary Figures S\@ref(fig:fig-interaction-total)__ - __S\@ref(fig:fig-interaction-sub1-lufo-dia)__.
+The significant and near significant (p < .1) interactions are presented in __Supplementary Figures S\@ref(fig:fig-interaction-total)__ - __S\@ref(fig:fig-interaction-sub1-lufo-dia)__.
 
 ## Clustering analysis
 
@@ -297,7 +297,7 @@ flextable::flextable(suppl_tbl$modeling_vars) %>%
 
 \newpage
 
-```{r tab-excluded, tab.cap = 'Significant and near-significant (p < 0.1) factors differentiating between the CovILD cohort participants included in the analysis and excluded due to variable missingness or lacking long-term COVID-19 sequelae. Numeric variables are presented as medians with interquartile ranges (IQR). Categorical variables are shown as percentages and counts within the strata.'}
+```{r tab-excluded, tab.cap = 'Significant and near-significant (p < .1) factors differentiating between the CovILD cohort participants included in the analysis and excluded due to variable missingness or lacking long-term COVID-19 sequelae. Numeric variables are presented as medians with interquartile ranges (IQR). Categorical variables are shown as percentages and counts within the strata.'}
 
 flextable::flextable(suppl_tbl$excluded) %>% 
   width(1, width = 4.8, unit = 'cm') %>% 
@@ -426,7 +426,7 @@ flextable::flextable(suppl_tbl$biochemistry_fup) %>%
 
 \newpage
 
-```{r tab-gender, tab.cap = 'Significant and near-significant (p < 0.1) factors differentiating between female and male participants and illness perception in the genders (Brief Illness Perception Questionnaire, BIPQ). Numeric variables are presented as medians with interquartile ranges (IQR). Categorical variables are shown as percentages and counts within the strata.'}
+```{r tab-gender, tab.cap = 'Significant and near-significant (p < .1) factors differentiating between female and male participants and illness perception in the genders (Brief Illness Perception Questionnaire, BIPQ). Numeric variables are presented as medians with interquartile ranges (IQR). Categorical variables are shown as percentages and counts within the strata.'}
 
 flextable::flextable(suppl_tbl$gender) %>% 
   width(1, width = 5.2, unit = 'cm') %>% 
@@ -475,7 +475,7 @@ flextable::flextable(suppl_tbl$gender) %>%
 
 \newpage
 
-```{r tab-respi, tab.cap = 'Significant and near-significant (p < 0.1) factors differentiating between participants with and without respiratory comorbidity. Numeric variables are presented as medians with interquartile ranges (IQR). Categorical variables are shown as percentages and counts within the strata.'}
+```{r tab-respi, tab.cap = 'Significant and near-significant (p < .1) factors differentiating between participants with and without respiratory comorbidity. Numeric variables are presented as medians with interquartile ranges (IQR). Categorical variables are shown as percentages and counts within the strata.'}
 
 flextable::flextable(suppl_tbl$respi) %>% 
   width(1, width = 4.8, unit = 'cm') %>% 
@@ -504,7 +504,7 @@ flextable::flextable(suppl_tbl$respi) %>%
 
 \newpage
 
-```{r tab-ipq-clusters, tab.cap = 'Significant and near-significant (p < 0.1) differences between the illness perception clusters. Numeric variables are presented as medians with interquartile ranges (IQR). Categorical variables are shown as percentages and counts within the strata.'}
+```{r tab-ipq-clusters, tab.cap = 'Significant and near-significant (p < .1) differences between the illness perception clusters. Numeric variables are presented as medians with interquartile ranges (IQR). Categorical variables are shown as percentages and counts within the strata.'}
 
 flextable::flextable(suppl_tbl$ipq_clusters) %>% 
   width(1, width = 5.4, unit = 'cm') %>% 
@@ -716,7 +716,7 @@ suppl_fig$interaction_total$plot
 
 __Supplementary Figure S\@ref(fig:fig-interaction-total). Interactions of diastolic dysfunction, fatigue and fatigue intensity with cardiopulmonary findings follow-up affecting the total illness perception at the one-year follow-up.__ 
 
-_Interaction effects between the key factors affecting the total illness perception (IP) score and cardiopulmonary abnormalities (A: chest computed tomography [CT] abnormality, B: lung function testing [LFT] abnormality, C: diastolic dysfunction) at the one-year follow-up were investigated by two-way ANOVA with $\eta^2$ effect size statistic. The key factors with significant and near-significant interaction effects (p < 0.1) are presented. The associations with fatigue scoring are presented in a point plots; the black line represents the fitted linear trend and the tinted ribbon depicts the 95% confidence intervals. The total score values for the remaining explanatory variables are presented in violin plots with single observations depicted as points, and red diamonds and whiskers representing medians with interquartile ranges. Numbers of complete observations in the strata are displayed in the plot or in the plot facets. Effect size statistic and p values are shown under the plots. CFS: Chalder's fatigue score._
+_Interaction effects between the key factors affecting the total illness perception (IP) score and cardiopulmonary abnormalities (A: chest computed tomography [CT] abnormality, B: lung function testing [LFT] abnormality, C: diastolic dysfunction) at the one-year follow-up were investigated by two-way ANOVA with $\eta^2$ effect size statistic. The key factors with significant and near-significant interaction effects (p < .1) are presented. The associations with fatigue scoring are presented in a point plots; the black line represents the fitted linear trend and the tinted ribbon depicts the 95% confidence intervals. The total score values for the remaining explanatory variables are presented in violin plots with single observations depicted as points, and red diamonds and whiskers representing medians with interquartile ranges. Numbers of complete observations in the strata are displayed in the plot or in the plot facets. Effect size statistic and p values are shown under the plots. CFS: Chalder's fatigue score._
 
 \newpage
 
@@ -728,7 +728,7 @@ suppl_fig$interaction_sub1_ct$plot
 
 __Supplementary Figure S\@ref(fig:fig-interaction-sub1-ct). Interactions of diastolic dysfunction, fatigue and fatigue scoring with chest CT abnormality affecting the emotion/concern/consequences component of illness perception.__ 
 
-_Interaction effects between the key factors affecting the emotion/concern/consequences IP component score and chest computed tomography (CT) abnormalities at the one-year follow-up were investigated by two-way ANOVA with $\eta^2$ effect size statistic. The key factors with significant and near-significant interaction effects (p < 0.1) are presented. The associations with fatigue scoring are presented in a point plots; the black line represents the fitted linear trend and the tinted ribbon depicts the 95% confidence intervals. The total score values for the remaining explanatory variables are presented in violin plots with single observations depicted as points, and red diamonds and whiskers representing medians with interquartile ranges. Numbers of complete observations in the strata are displayed in the plot or in the plot facets. Effect size statistic and p values are shown under the plots. CFS: Chalder's fatigue score._
+_Interaction effects between the key factors affecting the emotion/concern/consequences IP component score and chest computed tomography (CT) abnormalities at the one-year follow-up were investigated by two-way ANOVA with $\eta^2$ effect size statistic. The key factors with significant and near-significant interaction effects (p < .1) are presented. The associations with fatigue scoring are presented in a point plots; the black line represents the fitted linear trend and the tinted ribbon depicts the 95% confidence intervals. The total score values for the remaining explanatory variables are presented in violin plots with single observations depicted as points, and red diamonds and whiskers representing medians with interquartile ranges. Numbers of complete observations in the strata are displayed in the plot or in the plot facets. Effect size statistic and p values are shown under the plots. CFS: Chalder's fatigue score._
 
 \newpage
 
@@ -740,7 +740,7 @@ suppl_fig$interaction_sub1_lufo_dia$plot
 
 __Supplementary Figure S\@ref(fig:fig-interaction-sub1-lufo-dia). Interactions of persistent somatic symptom number, fatigue and fatigue scoring with LFT abnormality and diastolic dysfunction affecting the emotion/concern/consequences component of illness perception.__ 
 
-_Interaction effects between the key factors affecting the emotion/concern/consequences IP component score and cardiopulmonary abnormalities (A: lung function testing [LFT] abnormality, B: diastolic dysfunction) at the one-year follow-up were investigated by two-way ANOVA with $\eta^2$ effect size statistic. The key factors with significant and near-significant interaction effects (p < 0.1) are presented. The associations with fatigue scoring are presented in a point plots; the black line represents the fitted linear trend and the tinted ribbon depicts the 95% confidence intervals. The total score values for the remaining explanatory variables are presented in violin plots with single observations depicted as points, and red diamonds and whiskers representing medians with interquartile ranges. Numbers of complete observations in the strata are displayed in the plot or in the plot facets. Effect size statistic and p values are shown under the plots. CFS: Chalder's fatigue score._
+_Interaction effects between the key factors affecting the emotion/concern/consequences IP component score and cardiopulmonary abnormalities (A: lung function testing [LFT] abnormality, B: diastolic dysfunction) at the one-year follow-up were investigated by two-way ANOVA with $\eta^2$ effect size statistic. The key factors with significant and near-significant interaction effects (p < .1) are presented. The associations with fatigue scoring are presented in a point plots; the black line represents the fitted linear trend and the tinted ribbon depicts the 95% confidence intervals. The total score values for the remaining explanatory variables are presented in violin plots with single observations depicted as points, and red diamonds and whiskers representing medians with interquartile ranges. Numbers of complete observations in the strata are displayed in the plot or in the plot facets. Effect size statistic and p values are shown under the plots. CFS: Chalder's fatigue score._
 
 \newpage
 

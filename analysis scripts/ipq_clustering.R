@@ -121,6 +121,7 @@
                       types = ipq_clust$clust_lexicon$test_type, 
                       ci = FALSE, 
                       pub_styled = TRUE) %>% 
+    format_test_jps %>% 
     mutate(plot_cap = paste(eff_size, significance, sep = ', '))
 
   ## plot labels for the ribbon plot

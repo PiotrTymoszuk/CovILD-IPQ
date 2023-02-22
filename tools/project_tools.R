@@ -672,5 +672,134 @@
       c(complete = n_complete))
   
   }
+  
+  p_value_jps <- function(x) {
+    
+    ## formats p values according 
+    ## to the style of J. Psychosomatic Research
+    
+    if(length(x) > 1) {
+      
+      return(map_chr(x, p_value_jps))
+      
+    }
+    
+    stopifnot(is.numeric(x))
+    
+    if(x < 0.001) {
+      
+      return('p < .001')
+      
+    }
+    
+    if(x > 0.99) {
+      
+      return('ns (p > .99)')
+      
+    }
+    
+    if(x >= 0.05) {
+      
+      new_x <- as.character(round(x, 2))
+      
+      new_x <- stri_replace(new_x, 
+                            fixed = '0.', 
+                            replacement = '.')
+      
+      if(stri_length(new_x) == 2) new_x <- paste0(new_x, '0')
+      
+      return(paste0('ns (p = ', 
+                    new_x, ')'))
+      
+    }
+    
+    if(x < 0.01) {
+      
+      new_x <- round(x, 3)
+      
+      if(new_x == 0.01) new_x <- paste0(as.character(new_x), '0')
+      
+      new_x <- as.character(new_x)
+      
+    } else if(x < 0.05) {
+      
+      new_x <- round(x, 2)
+      
+      if(new_x == 0.05) new_x <- round(x, 3)
+      
+    }
+    
+    new_x <- as.character(new_x)
+    
+    new_x <- stri_replace(new_x, 
+                          fixed = '0.', 
+                          replacement = '.')
+    
+    return(paste('p =', new_x))
+    
+    
+  }
+  
+  eff_size_jps <- function(x) {
+    
+    ## formats the effect size value according to the JPS style
+    ## takes a text entry and formats its numeric part
+    
+    stopifnot(is.character(x))
+    
+    effect_txt <- stri_extract(x, regex = '(V|r|d|(\u03B7\u00B2))\\s{1}=')
+    
+    effect_digits <- stri_extract(x, regex = '\\d{1}\\.\\d+')
+    
+    effect_digits <- as.numeric(effect_digits)
+    
+    effect_digits <- ifelse(effect_digits < 0, 0, effect_digits)
+    
+    effect_digits <- as.character(effect_digits)
+    
+    effect_digits <- stri_replace(effect_digits, 
+                                  fixed = '0.', 
+                                  replacement = '.')
+    
+    return(paste(effect_txt, effect_digits))
+    
+  }
+  
+  corr_jps <- function(x) {
+    
+    ## formats the correlation coeffcient according to the JPS style
+    ## takes a text entry and formats its numeric part
+    
+    stopifnot(is.character(x))
+    
+    effect_txt <- stri_extract(x, regex = '(r|(rho))\\s{1}=')
+    
+    effect_txt <- stri_replace(effect_txt, 
+                               fixed = 'rho', 
+                               replacement = '\u03C1')
+    
+    effect_digits <- stri_extract(x, regex = '\\d{1}\\.\\d+')
+    
+    effect_digits <- as.character(effect_digits)
+    
+    effect_digits <- stri_replace(effect_digits, 
+                                  fixed = '0.', 
+                                  replacement = '.')
+    
+    return(paste(effect_txt, effect_digits))
+    
+  }
+  
+  format_test_jps <- function(x, correlation = FALSE) {
+    
+    ## formats a table with statistical testing results as required by the JPS
+    
+    eff_fun <- if(correlation) corr_jps else eff_size_jps
+    
+    mutate(x, 
+           significance = p_value_jps(p_adjusted), 
+           eff_size = eff_fun(eff_size))
+    
+  }
 
 # END -----

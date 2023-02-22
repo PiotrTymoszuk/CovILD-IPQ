@@ -94,7 +94,9 @@
   
   insert_msg('Figure S4: BIPQ consistency')
   
-  suppl_fig$coherence <- ipq_co$corr_summ_plot %>% 
+  suppl_fig$coherence <- plot_grid(ipq_co$corr_summ_plot + 
+                                     guides(alpha = 'none', 
+                                            color = 'none')) %>% 
     as_figure(label = 'figure_s4_score_coherence',
               ref_name = 'coherence', 
               caption = 'Coherence of the illness perception score.', 

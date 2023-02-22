@@ -295,14 +295,8 @@
                                        translate_var(variable)), 
                       eff_size = paste('\u03B7\u00B2 = ', 
                                        signif(frac_explained, 2)), 
-                      significance = ifelse(`Pr(>F)` > 0.1, 
-                                            'ns', 
-                                            ifelse(`Pr(>F)` >= 0.05, 
-                                                   paste0('ns (p = ', 
-                                                          signif(`Pr(>F)`, 2), 
-                                                          ')'), 
-                                                   paste('p =', 
-                                                         signif(`Pr(>F)`, 2)))), 
+                      eff_size = eff_size_jps(eff_size), 
+                      significance = p_value_jps(`Pr(>F)`), 
                       plot_cap = paste(eff_size, significance))))
   
   inter[c('plot_tags_ct', 

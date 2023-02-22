@@ -54,6 +54,7 @@
              ci = FALSE, 
              exact = FALSE, 
              pub_styled = TRUE) %>% 
+    format_test_jps %>% 
     mutate(split_factor = ipq_factors$variables$eff_size$variable, 
            plot_cap = paste(eff_size, significance, sep = ', '))
   
@@ -67,12 +68,9 @@
                                  type = 'spearman', 
                                  ci = FALSE, 
                                  pub_styled = TRUE)) %>% 
-    safely(mutate)(plot_cap = paste(eff_size, significance, sep = ', '), 
-                   plot_cap = stri_replace(plot_cap, 
-                                           fixed = 'rho', 
-                                           replacement = '\u03C1')) %>% 
-    .$result
-  
+    format_test_jps(correlation = TRUE) %>% 
+    mutate(plot_cap = paste(eff_size, significance, sep = ', '))
+
 # Plotting the comparisons ------
   
   insert_msg('Violin plots')

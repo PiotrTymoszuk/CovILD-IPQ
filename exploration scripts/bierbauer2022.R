@@ -230,7 +230,8 @@
                       types = 'kruskal_test', 
                       exact = FALSE, 
                       ci = FALSE, 
-                      pub_styled = TRUE)
+                      pub_styled = TRUE) %>% 
+    format_test_jps
   
   lc_ipq$ax_labs <- lc_ipq$test_results %>% 
     mutate(ax_lab = paste(variable, significance, 
@@ -321,7 +322,7 @@
           axis.text.x = element_text(hjust = 0, 
                                      vjust = 0.5, 
                                      angle = -90)) + 
-    labs(title = 'Correlation analysis, IPQ, bierbauer et al. 2022', 
+    labs(title = 'Correlation analysis, IPQ, Bierbauer et al. 2022', 
          subtitle = 'Spearman correlation')
   
 # END ------
