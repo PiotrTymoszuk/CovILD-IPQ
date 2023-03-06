@@ -1,5 +1,5 @@
 ---
-title: "Persistent somatic symptoms are key to individual illness perception at one year after COVID-19 in a cross-sectional prospective cohort study"
+title: "Persistent somatic symptoms are key to individual illness perception at one year after COVID-19 in a cross-sectional analysis of a prospective cohort study"
 subtitle: "Supplementary Material"
 author: "CovILD study team"
 date: "`r format(Sys.time(), '%Y-%m-%d')`"
