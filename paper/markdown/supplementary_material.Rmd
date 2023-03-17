@@ -246,7 +246,7 @@ Extraction of caret model performance measures: root mean squared error and $R^2
 Model assumption testing (normality of residuals, Shapiro-Wilk test, method `residuals()`) and visual quality control based on plots of residuals versus fitted and residuals quantile-quantile plots was done with the [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra) package (method `plot()` called for the `caretex` object).
 
 The number of non-zero model coefficients was found to differ substantially between the regularized regression models (__Supplementary Figures S\@ref(fig:fig-eln-est-total)__ - __S\@ref(fig:fig-blasso-est-sub1)__), which was reported for data sets of similar size [@Morozova2015]. 
-Hence, the key factors impacting on the total IP score and the emotion/concern/consequences IP component at one year after COVID-19 (`r an$cmm_variables$ipq_total %>% translate_var(out_value = "label_long") %>% de_capitalize %>% collapse_and`) were defined as variables with non-zero coefficients in all multi-parameter models. 
+Hence, the key factors impacting on the total IP score and the emotion/concern/consequences IP component at one year after COVID-19 (`r an$cmm_variables$ipq_total %>% exchange(dict = globals$var_lexicon, value = "label_long") %>% de_capitalize %>% collapse_and`) were defined as variables with non-zero coefficients in all multi-parameter models. 
 Since no meaningful models for the lacking control/coherence could be obtained, no influential factors for the lacking control/coherence component could be identified (__Figure 2__).
 
 ## Analysis of interaction with two-way ANOVA
