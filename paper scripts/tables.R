@@ -130,7 +130,7 @@
   insert_msg('Table S2: modeling, explanatory variables')
   
   suppl_tbl$modeling_vars <- mod$variables %>% 
-    translate_var %>% 
+    exchange(dict = globals$var_lexicon) %>% 
     paste(collapse = ', ') %>% 
     tibble(`Explanatory variable` = .) %>% 
     as_mdtable(label = 'modeling_vars', 

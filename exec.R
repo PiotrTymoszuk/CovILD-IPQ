@@ -7,5 +7,5 @@
                      'modeling.R', 
                      'analysis.R', 
                      'paper.R'), 
-                   crash = FALSE, 
+                   crash = TRUE, 
                    message = TRUE))

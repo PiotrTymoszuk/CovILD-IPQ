@@ -67,8 +67,8 @@
         nfolds = 10, 
         kNN = 7, 
         resolve_ties = TRUE) %>% 
-    map2_dfr(., names(.), 
-             ~mutate(.x$summary, method = .y))
+    map(~.x$summary) %>% 
+    compress(names_to = 'method')
   
 # common comparison results, plotting ----
   

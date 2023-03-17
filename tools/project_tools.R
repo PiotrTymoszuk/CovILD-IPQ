@@ -12,35 +12,6 @@
   
 # data import and transformation -----
 
-  outer_rbind <- function(tbl1, tbl2) {
-    
-    ## binds two data frames by rows, missing variables are filled with NA
-    
-    ## missing variables
-    
-    miss1 <- names(tbl2)[!names(tbl2) %in% names(tbl1)]
-    miss2 <- names(tbl1)[!names(tbl1) %in% names(tbl2)]
-    
-    ## filling the tables
-    
-    for(i in miss1){
-      
-      tbl1 <- tbl1 %>% 
-        mutate(!!sym(i) := NA)
-      
-    }
-    
-    for(i in miss2){
-      
-      tbl2 <- tbl2 %>% 
-        mutate(!!sym(i) := NA)
-      
-    }
-    
-    return(rbind(tbl1, tbl2))
-    
-  }
-  
   fill_forward <- function(data_chunk, variable) {
     
     ## if complete recovery was observed at the 6 month visit and the one-year
@@ -77,30 +48,7 @@
   }
 
 # variable:label translation, color setup -----
-  
-  translate_var <- function(variable, 
-                            key = 'variable', 
-                            out_value = 'label', 
-                            dict = globals$var_lexicon, 
-                            unit = FALSE) {
-    
-    naming_vec <- dict[[out_value]]
 
-    if(unit) {
-      
-      naming_vec <- ifelse(is.na(dict[['unit']]), 
-                           naming_vec, 
-                           paste(naming_vec, dict[['unit']], sep = ', '))
-      
-    }
-    
-    naming_vec <- set_names(naming_vec, 
-                            dict[[key]])
-    
-    return(naming_vec[variable])
-    
-  }
-  
   set_colors_ <- function(color_no, seed = 123) {
     
     ## picks n colors at random from the standard palette
@@ -203,8 +151,12 @@
       map(mutate, 
           n = ifelse(is.na(n), n_complete, n), 
           y_ax = ifelse(level == 'yes' | is.na(level), 
-                        paste0(translate_var(variable), '\nn = ', n), 
-                        paste0(translate_var(variable), ': ', level, '\nn = ', n)), 
+                        paste0(exchange(variable, 
+                                        dict = globals$var_lexicon), 
+                               '\nn = ', n), 
+                        paste0(exchange(variable, 
+                                        dict = globals$var_lexicon), 
+                               ': ', level, '\nn = ', n)), 
           y_ax = ifelse(parameter == '(Intercept)', 'Baseline', y_ax))
     
     out_list
@@ -366,12 +318,15 @@
                            response, 
                            num_variable, 
                            split_factor = 'ct_severity_any', 
-                           plot_title = translate_var(num_variable), 
+                           plot_title = exchange(num_variable, 
+                                                 dict = globals$var_lexicon), 
                            plot_subtitle = NULL, 
-                           x_lab = translate_var(num_variable, 
-                                                 out_value = 'axis_lab'), 
-                           y_lab = translate_var(response, 
-                                                 out_value = 'axis_lab'), 
+                           x_lab = exchange(num_variable, 
+                                            dict = globals$var_lexicon, 
+                                            value = 'axis_lab'), 
+                           y_lab = exchange(response, 
+                                            dict = globals$var_lexicon, 
+                                            value = 'axis_lab'), 
                            labeller = 'label_value',  
                            plot_tag = NULL, 
                            fill_colors = c('steelblue', 'coral3'), ...) {
@@ -403,13 +358,17 @@
                              response, 
                              fct_variable, 
                              split_factor = 'ct_severity_any', 
-                             plot_title = translate_var(fct_variable, 
-                                                        out_value = 'label_long'), 
+                             plot_title = exchange(fct_variable, 
+                                                   dict = globals$var_lexicon, 
+                                                   value = 'label_long'), 
                              plot_subtitle = NULL, 
-                             x_lab = translate_var(fct_variable), 
-                             y_lab = translate_var(response, 
-                                                   out_value = 'axis_lab'), 
-                             fill_lab = translate_var(split_factor), 
+                             x_lab = exchange(fct_variable, 
+                                              dict = globals$var_lexicon), 
+                             y_lab = exchange(response,
+                                              dict = globals$var_lexicon, 
+                                              value = 'axis_lab'), 
+                             fill_lab = exchange(split_factor, 
+                                                 dict = globals$var_lexicon), 
                              plot_tag = NULL, 
                              shape_alpha = 0.25, 
                              point_alpha = 0.5, 
@@ -521,7 +480,9 @@
       map_dfc(stri_replace, fixed = 'Range', replacement = 'range') %>% 
       map_dfc(stri_replace, fixed = 'Complete', replacement = 'complete') %>% 
       #map_dfc(stri_replace, fixed = ' [', replacement = '\n[') %>% 
-      mutate(variable = translate_var(variable, out_value = out_value))
+      mutate(variable = exchange(variable, 
+                                 dict = globals$var_lexicon, 
+                                 value = out_value))
     
     if(rm_n) {
       
@@ -585,7 +546,7 @@
       
     } else {
       
-      labels <- translate_var(x, dict = dict, ...)
+      labels <- exchange(x, dict = dict, ...)
       
       return(ifelse(x %in% highlight, 
                     glue("<b style='color:{color}'>{labels[x]}</b>"), 

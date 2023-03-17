@@ -50,8 +50,11 @@
   library(ggvenn)
   library(kinet)
   library(rstatix)
+  library(trafo)
 
   insert_head()
+  
+  explore <- exda::explore
   
   source_all('./tools/project_tools.R')
   

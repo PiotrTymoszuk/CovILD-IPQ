@@ -129,7 +129,8 @@
   ipq_clust$ribbon_labs <- ipq_clust$test_results %>% 
     mutate(plot_lab = ifelse(variable %in% ipq_clust$clust_variables, 
                              globals$ipq_sublabs[variable], 
-                             translate_var(variable)), 
+                             exchange(variable, 
+                                      dict = globals$var_lexicon)), 
            plot_lab = stri_replace(plot_lab, fixed = ' ', replacement = '\n'), 
            plot_lab = paste(plot_lab, significance, sep = '\n'))
   
@@ -141,21 +142,20 @@
   
   ipq_clust$comp_plots <- list(variable = ipq_clust$clust_lexicon$variable, 
                                type = ipq_clust$clust_lexicon$plot_type, 
-                               plot_title = translate_var(ipq_clust$clust_lexicon$variable, 
-                                                          out_value = 'label_long'), 
+                               plot_title = exchange(ipq_clust$clust_lexicon$variable, 
+                                                     dict = globals$var_lexicon, 
+                                                     value = 'label_long'), 
                                plot_subtitle = ipq_clust$test_results$plot_cap, 
-                               y_lab = translate_var(ipq_clust$clust_lexicon$variable, 
-                                                     out_value = 'axis_lab')) %>% 
+                               y_lab = exchange(ipq_clust$clust_lexicon$variable, 
+                                                dict = globals$var_lexicon, 
+                                                value = 'axis_lab')) %>% 
     pmap(plot_variable, 
          ipq_clust$analysis_tbl, 
          split_factor = 'clust_id', 
          x_lab = 'cluster', 
          scale = 'percent', 
-         cust_theme = globals$common_theme) %>% 
-    map(~.x + 
-          labs(tag = .x$labels$tag %>% 
-                 stri_replace_all(fixed = '\n', replacement = ', ') %>% 
-                 paste0('\n', .))) %>% 
+         cust_theme = globals$common_theme, 
+         x_n_labs = TRUE) %>% 
     set_names(ipq_clust$clust_lexicon$variable)
   
   ## manual adjustment

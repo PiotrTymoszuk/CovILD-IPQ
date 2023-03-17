@@ -51,7 +51,8 @@
   psy_cor$corr_mtx_plot <- psy_cor$corr_results %>% 
     mutate(variable1 = ifelse(variable1 %in% names(globals$ipq_sublabs), 
                               globals$ipq_sublabs[variable1], 
-                              translate_var(variable1))) %>% 
+                              exchange(variable1, 
+                                       dict = globals$var_lexicon))) %>% 
     ggplot(aes(x = variable1, 
                y = variable2, 
                size = abs(estimate), 
@@ -64,7 +65,8 @@
               size = 2.75, 
               vjust = -1.5) + 
     scale_y_discrete(limits = psy_cor$var2, 
-                     labels = translate_var(psy_cor$var2)) + 
+                     labels = exchange(psy_cor$var2, 
+                                       dict = globals$var_lexicon)) + 
     scale_size_area(max_size = 5, 
                     limits = c(0, 1), 
                     name = expression('abs(' * rho * ')')) + 

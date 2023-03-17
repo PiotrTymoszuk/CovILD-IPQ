@@ -29,7 +29,7 @@
   mod_plots$perf_plots <- list(cv_stats =  mod_plots$perf_data %>% 
                                  dlply(.(response)), 
                                plot_subtitle = an$responses %>% 
-                                 translate_var %>% 
+                                 exchange(dict = globals$var_lexicon) %>% 
                                  paste('1-year follow-up', sep = ', ')) %>% 
     pmap(plot_rsq_rmse,
          y_factor = 'method') %>% 
@@ -48,7 +48,7 @@
     list(data = map(an$variables, 
                     ~set_names(.x, an$methods[names(.x)])), 
          plot_title = an$responses %>% 
-           translate_var) %>% 
+           exchange(dict = globals$var_lexicon)) %>% 
     pmap(safely(plot_n_venn),  
          fill_color = set_names(an$method_colors, 
                                 an$methods), 

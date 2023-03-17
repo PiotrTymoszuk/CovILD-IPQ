@@ -46,7 +46,7 @@
     map(explore, 
         what = 'normality', 
         variables = '.resid') %>% 
-    map2_dfr(., names(.), ~mutate(.x, response = .y))
+    compress(names_to = 'response')
   
   ## diagnostic plots
   
@@ -79,9 +79,10 @@
   
   eli_mod$forest_plots <- list(x = map(eli_mod$inference, 
                                        mutate, 
-                                       variable = translate_var(variable)), 
+                                       variable = exchange(variable, 
+                                                           dict = globals$var_lexicon)), 
                                plot_title = names(eli_mod$inference) %>% 
-                                 translate_var %>% 
+                                 exchange(dict = globals$var_lexicon) %>% 
                                  paste('1-year follow-up', sep = ', '), 
                                plot_subtitle = eli_mod$fit_stats$plot_cap) %>% 
     pmap(plot_forest, 
@@ -118,10 +119,11 @@
   
   eli_mod$dev_plots <- map2(eli_mod$deviances %>% 
                               map(mutate, 
-                                variable = translate_var(variable)) %>% 
+                                variable = exchange(variable, 
+                                                    dict = globals$var_lexicon)) %>% 
                               map(filter, variable != 'Residuals'), 
                             names(eli_mod$inference) %>% 
-                              translate_var %>% 
+                              exchange(dict = globals$var_lexicon) %>% 
                               paste('1-year follow-up', sep = ', '), 
                             ~ggplot(.x, 
                                     aes(x = frac_explained, 
@@ -182,7 +184,8 @@
     map2(., c(0.65, 1.1), 
          ~.x + 
            expand_limits(x = .y) + 
-           scale_y_discrete(labels = translate_var(names(eli_mod$caret_models))))
+           scale_y_discrete(labels = exchange(names(eli_mod$caret_models), 
+                                              dict = globals$var_lexicon)))
 
 # Calibration plots: response vs fitted -----
   
@@ -190,7 +193,7 @@
   
   eli_mod$fit_plots <- list(x = eli_mod$caret_models, 
                             plot_title = names(eli_mod$caret_models) %>% 
-                              translate_var %>% 
+                              exchange(dict = globals$var_lexicon) %>% 
                               map(paste, c('training', 'CV'), sep = ', ')) %>% 
     pmap(plot, 
          type = 'fit', 

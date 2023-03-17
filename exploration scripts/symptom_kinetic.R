@@ -148,7 +148,8 @@
   
   sympt_kinet$plot_legend <- sympt_kinet$cohran_test %>% 
     map(mutate, 
-        var_lab = translate_var(.y.), 
+        var_lab = exchange(.y., 
+                           dict = globals$var_lexicon), 
         significance = p_value_jps(p), 
         var_lab = paste(var_lab, significance, sep = ', '))
   

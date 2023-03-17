@@ -170,7 +170,8 @@
   
   ipq_co$corr_mtx_plots <- 
     list(x = ipq_co$corr_mtx_plots, 
-         y = translate_var(names(ipq_co$corr_mtx_plots)), 
+         y = exchange(names(ipq_co$corr_mtx_plots),
+                      dict = globals$var_lexicon), 
          z = paste0('\u03C9 = ', 
                     signif(ipq_co$omega_obj$omega.group$total, 2), 
                     ', n = ', 

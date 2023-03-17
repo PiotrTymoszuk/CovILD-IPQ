@@ -17,16 +17,7 @@
     filter(variable %in% unique(c(an$cmm_variables$ipq_sub2, 
                                   an$conf_variables))) %>% 
     dlply(.(what))
-  
-  ## n numbers to be presented in the X axis
-  
-  sub2_factors$n_numbers <- sub2_factors$variables$eff_size$variable %>% 
-    map(~count(mod$multi_tbl, .data[[.x]])) %>% 
-    set_names(sub2_factors$variables$eff_size$variable)
-  
-  sub2_factors$x_axes <- sub2_factors$n_numbers %>% 
-    map(~map2_chr(.x[[1]], .x[[2]], paste, sep = '\nn = '))
-  
+
 # Serial comparisons and correlations -----
   
   insert_msg('Serial comparisons')
@@ -86,15 +77,18 @@
                         split_factor = .x, 
                         variable = 'ipq_sub2', 
                         type = 'violin', 
-                        plot_title = translate_var(.x, out_value = 'label_long'), 
+                        plot_title = exchange(.x, 
+                                              dict = globals$var_lexicon, 
+                                              value = 'label_long'), 
                         plot_subtitle = .y, 
-                        y_lab = translate_var('ipq_sub2'), 
-                        x_lab = translate_var(.x), 
+                        y_lab = exchange('ipq_sub2', 
+                                         dict = globals$var_lexicon), 
+                        x_lab = exchange(.x, 
+                                         dict = globals$var_lexicon), 
                         point_hjitter = 0, 
-                        cust_theme = globals$common_theme)) %>% 
-    map2(sub2_factors$x_axes, 
-        ~.x + 
-          scale_x_discrete(labels = .y) + 
+                        cust_theme = globals$common_theme, 
+                        x_n_labs = TRUE)) %>% 
+    map(~.x + 
           scale_fill_brewer() + 
           theme(plot.tag = element_blank())) %>% 
     set_names(sub2_factors$factor_test$split_factor)
@@ -110,10 +104,16 @@
                              filter(complete.cases(.)), 
                            variables = c(.x, 'ipq_sub2'), 
                            type = 'correlation',
-                           plot_title = translate_var(.x, out_value = 'label_long'), 
+                           plot_title = exchange(.x, 
+                                                 dict = globals$var_lexicon, 
+                                                 value = 'label_long'), 
                            plot_subtitle = .y, 
-                           x_lab = translate_var(.x, out_value = 'axis_lab'), 
-                           y_lab = translate_var('ipq_sub2', out_value = 'axis_lab'), 
+                           x_lab = exchange(.x, 
+                                            dict = globals$var_lexicon, 
+                                            value = 'axis_lab'), 
+                           y_lab = exchange('ipq_sub2', 
+                                            dict = globals$var_lexicon, 
+                                            value = 'axis_lab'), 
                            show_trend = FALSE, 
                            point_hjitter = 0, 
                            point_wjitter = 0, 

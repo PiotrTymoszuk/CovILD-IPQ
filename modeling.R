@@ -42,8 +42,12 @@
   library(soucer)
   library(glmnet)
   library(doParallel)
+  library(trafo)
 
   insert_head()
+  
+  explore <- exda::explore
+  train <- caret::train
   
   source_all('./tools/project_tools.R')
   
@@ -168,7 +172,7 @@
   
 # modeling scripts ------
   
-  insert_msg('Aanlysis scripts')
+  insert_msg('Analysis scripts')
   
   ## working with cache (time costly lambda turning)
 

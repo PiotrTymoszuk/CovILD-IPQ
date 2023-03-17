@@ -116,7 +116,7 @@
                linetype = 'dashed') + 
     labs(title = 'FA loadings, Bierbauer et al. 2022', 
          subtitle = '4D factor analysis', 
-         tag = paste('\nn =', nrow(ipq_fa$analysis_tbl)))
+         tag = paste('\nn =', nrow(lc_ipq$analysis_tbl)))
   
   ## plots of loadings per dimension
   

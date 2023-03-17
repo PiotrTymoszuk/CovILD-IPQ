@@ -14,8 +14,12 @@
   library(flextable)
   library(writexl)
   library(clustTools)
+  library(trafo)
 
   insert_head()
+  
+  explore <- exda::explore
+  train <- caret::train
   
   source_all('./tools/project_tools.R')
   

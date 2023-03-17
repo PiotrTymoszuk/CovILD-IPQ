@@ -198,20 +198,17 @@
   inter$fit_stats_ct <- inter$models_ct %>% 
     map(~map(.x, 
              summary, 'fit') %>% 
-          map2_dfr(., names(.), 
-                   ~mutate(.x, variable = .y)))
+          compress(names_to = 'variable'))
   
   inter$fit_stats_lufo <- inter$models_lufo %>% 
     map(~map(.x, 
              summary, 'fit') %>% 
-          map2_dfr(., names(.), 
-                   ~mutate(.x, variable = .y)))
+          compress(names_to = 'variables'))
   
   inter$fit_stats_dia <- inter$models_dia %>% 
     map(~map(.x, 
              summary, 'fit') %>% 
-          map2_dfr(., names(.), 
-                   ~mutate(.x, variable = .y)))
+          compress(names_to = 'variable'))
 
 # Likelihood ratio test for significance of the interaction term ------
   
@@ -225,8 +222,7 @@
                        ~map2(.x, .y, ~anova(.x$model, .y$model)) %>% 
                          map(as.data.frame) %>% 
                          map(~.x[2, ]) %>% 
-                         map2_dfr(., names(.), 
-                                  ~mutate(.x, variable = .y))) %>% 
+                         compress(names_to = 'variable')) %>% 
     map(as_tibble)
   
   inter$lrt_lufo <- map2(inter$models_lufo, 
@@ -234,8 +230,7 @@
                          ~map2(.x, .y, ~anova(.x$model, .y$model)) %>% 
                            map(as.data.frame) %>% 
                            map(~.x[2, ]) %>% 
-                           map2_dfr(., names(.), 
-                                    ~mutate(.x, variable = .y))) %>% 
+                           compress(names_to = 'variable')) %>% 
     map(as_tibble)
   
   inter$lrt_dia <- map2(inter$models_dia, 
@@ -243,8 +238,7 @@
                         ~map2(.x, .y, ~anova(.x$model, .y$model)) %>% 
                           map(as.data.frame) %>% 
                           map(~.x[2, ]) %>% 
-                          map2_dfr(., names(.), 
-                                   ~mutate(.x, variable = .y))) %>% 
+                          compress(names_to = 'variable')) %>% 
     map(as_tibble)
 
 # Model inference -------
@@ -292,7 +286,8 @@
     map(~map(.x, ~map(.x, mutate, 
                       var_lab = ifelse(stri_detect(variable, fixed = ':'), 
                                        'Interaction', 
-                                       translate_var(variable)), 
+                                       exchange(variable, 
+                                                dict = globals$var_lexicon)), 
                       eff_size = paste('\u03B7\u00B2 = ', 
                                        signif(frac_explained, 2)), 
                       eff_size = eff_size_jps(eff_size), 

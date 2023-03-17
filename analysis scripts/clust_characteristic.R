@@ -17,17 +17,7 @@
                                         by = 'ID')
   
   plan('multisession')
-  
-  ## n numbers to be presented in the X axes
-  
-  clust_chara$clust_numbers <- expl$variables %>% 
-    map(~map(.x, 
-             ~filter(clust_chara$analysis_tbl, 
-                     !is.na(.data[[.x]]))) %>% 
-          map(count, clust_id) %>% 
-          map(~map2_chr(.x[[1]], .x[[2]], 
-                   paste, sep = '\nn = ')))
-  
+
 # descriptive stats ------
   
   insert_msg('Descriptive stats')
@@ -79,22 +69,23 @@
     map(function(resp_type) list(variable = expl$variables[[resp_type]], 
                                  type = expl$plot_type[[resp_type]], 
                                  plot_title = expl$variables[[resp_type]] %>% 
-                                   translate_var(out_value = 'label'), 
+                                   exchange(dict = globals$var_lexicon, 
+                                            value = 'label'), 
                                  plot_subtitle = clust_chara$test_results[[resp_type]]$plot_cap, 
                                  y_lab = expl$variables[[resp_type]] %>% 
-                                   translate_var(out_value = 'axis_lab')) %>% 
+                                   exchange(dict = globals$var_lexicon, 
+                                            value = 'axis_lab')) %>% 
           pmap(plot_variable, 
                clust_chara$analysis_tbl, 
                split_factor = 'clust_id',
                scale = 'percent', 
                x_lab = 'IP cluster', 
                point_hjitter = 0, 
-               cust_theme = globals$common_theme) %>% 
-          map2(clust_chara$clust_numbers[[resp_type]], 
-               ~.x + 
-                 scale_x_discrete(labels = .y) + 
-                 scale_fill_manual(values = globals$clust_colors) + 
-                 theme(plot.tag = element_blank())) %>% 
+               cust_theme = globals$common_theme, 
+               x_n_labs = TRUE) %>% 
+          map(~.x + 
+                scale_fill_manual(values = globals$clust_colors) + 
+                theme(plot.tag = element_blank())) %>% 
           set_names(expl$variables[[resp_type]]))
   
 # A summary heat map of the psych variables in the clusters ------
@@ -148,17 +139,19 @@
   clust_chara$psy_signif <- clust_chara$test_results$psych %>% 
     filter(p_value < 0.05) %>% 
     .$variable %>% 
-    translate_var
+    exchange(dict = globals$var_lexicon)
   
   ## heat map
   
   clust_chara$psy_plot_hm <- clust_chara$psy_plot_data %>% 
-    mutate(variable = translate_var(variable)) %>% 
+    mutate(variable = exchange(variable, 
+                               dict = globals$var_lexicon)) %>% 
     ggplot(aes(x = reorder(ID, norm_val), 
                y = variable, 
                fill = norm_val)) + 
     geom_tile() + 
-    scale_y_discrete(limits = translate_var(expl$variables$psych), 
+    scale_y_discrete(limits = exchange(expl$variables$psych, 
+                                       dict = globals$var_lexicon), 
                      labels = function(x) embolden_scale(x, 
                                                          highlight = clust_chara$psy_signif)) + 
     scale_fill_gradient2(low = 'steelblue2', 
@@ -209,7 +202,9 @@
   ## labels with p values
   
   clust_chara$symptom_labs <- clust_chara$sympt_tests %>% 
-    mutate(var_lab = translate_var(variable, out_value = 'label'), 
+    mutate(var_lab = exchange(variable, 
+                              dict = globals$var_lexicon, 
+                              value = 'label'), 
            var_lab = stri_replace(var_lab, fixed = ' ', replacement = '\n'), 
            var_lab = stri_replace(var_lab, fixed = ' (', replacement = '\n('),
            var_lab = stri_replace(var_lab, 
@@ -263,7 +258,9 @@
   ## labels with p values
   
   clust_chara$sequelae_labs <- clust_chara$sequelae_tests %>% 
-    mutate(var_lab = translate_var(variable, out_value = 'label'), 
+    mutate(var_lab = exchange(variable, 
+                              dict = globals$var_lexicon, 
+                              value = 'label'), 
            var_lab = stri_replace(var_lab, fixed = ' ', replacement = '\n'), 
            var_lab = paste(var_lab, significance, sep = '\n'))
   

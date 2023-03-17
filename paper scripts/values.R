@@ -46,7 +46,8 @@
   
   paper_val$clust_factors <- 
     mdexpr(colnames(model.frame(ipq_clust$clust_obj)) %>% 
-             translate_var(out_value = 'label_long') %>% 
+             exchange(dict = globals$var_lexicon, 
+                      value = 'label_long') %>% 
              stri_replace(fixed = 'Illness perception, ', 
                           replacement = '') %>% 
              paste(collapse = ', '), 
@@ -55,7 +56,8 @@
   
   paper_val$clust_factors_and <- 
     mdexpr(colnames(model.frame(ipq_clust$clust_obj)) %>% 
-             translate_var(out_value = 'label_long') %>% 
+             exchange(dict = globals$var_lexicon, 
+                      value = 'label_long') %>% 
              stri_replace(fixed = 'Illness perception, ', 
                           replacement = '') %>% 
              collapse_and, 
@@ -88,7 +90,8 @@
   
   paper_val$factor_elnet <- 
     mdexpr(an$variables$ipq_total$eln_mod %>% 
-             translate_var(out_value = 'label_long') %>% 
+             exchange(dict = globals$var_lexicon,
+                      value = 'label_long') %>% 
              de_capitalize %>% 
              paste(collapse = ', '), 
            ref_name = 'factor_elnet', 
@@ -96,7 +99,8 @@
   
   paper_val$factor_elnet_and <- 
     mdexpr(an$variables$ipq_total$eln_mod %>% 
-             translate_var(out_value = 'label_long') %>% 
+             exchange(dict = globals$var_lexicon, 
+                      value = 'label_long') %>% 
              de_capitalize %>% 
              collapse_and, 
            ref_name = 'factor_elnet_and', 
@@ -104,7 +108,8 @@
   
   paper_val$factor_lasso <- 
     mdexpr(an$variables$ipq_total$lasso_mod %>% 
-             translate_var(out_value = 'label_long') %>% 
+             exchange(dict = globals$var_lexicon, 
+                      value = 'label_long') %>% 
              de_capitalize %>% 
              paste(collapse = ', '), 
            ref_name = 'factor_lasso', 
@@ -112,7 +117,8 @@
   
   paper_val$factor_lasso_and <- 
     mdexpr(an$variables$ipq_total$lasso_mod %>% 
-             translate_var(out_value = 'label_long') %>% 
+             exchange(dict = globals$var_lexicon, 
+                      value = 'label_long') %>% 
              de_capitalize %>% 
              collapse_and, 
            ref_name = 'factor_lasso_and', 
@@ -120,7 +126,8 @@
   
   paper_val$factor_blasso <- 
     mdexpr(an$variables$ipq_total$blass_mod %>% 
-             translate_var(out_value = 'label_long') %>% 
+             exchange(dict = globals$var_lexicon, 
+                      value = 'label_long') %>% 
              de_capitalize %>% 
              paste(collapse = ', '), 
            ref_name = 'factor_blasso', 
@@ -128,7 +135,8 @@
   
   paper_val$factor_blasso_and <- 
     mdexpr(an$variables$ipq_total$blass_mod %>% 
-             translate_var(out_value = 'label_long') %>% 
+             exchange(dict = globals$var_lexicon, 
+                      value = 'label_long') %>% 
              de_capitalize %>% 
              collapse_and, 
            ref_name = 'factor_blasso_and', 
@@ -145,7 +153,8 @@
   
   paper_val$key_factors <- 
     mdexpr(an$cmm_variables$ipq_total %>% 
-             translate_var(out_value = 'label_long') %>% 
+             exchange(dict = globals$var_lexicon, 
+                      value = 'label_long') %>% 
              de_capitalize %>% 
              paste(collapse = ', '), 
            ref_name = 'key_factors', 
@@ -153,7 +162,8 @@
   
   paper_val$key_factors_and <- 
     mdexpr(an$cmm_variables$ipq_total %>% 
-             translate_var(out_value = 'label_long') %>% 
+             exchange(dict = globals$var_lexicon, 
+                      value = 'label_long') %>% 
              de_capitalize %>% 
              collapse_and, 
            ref_name = 'key_factors_and', 
@@ -171,7 +181,8 @@
   
   paper_val$key_factors_sub1 <- 
     mdexpr(an$cmm_variables$ipq_sub1 %>% 
-             translate_var(out_value = 'label_long') %>% 
+             exchange(dict = globals$var_lexicon, 
+                      value = 'label_long') %>% 
              de_capitalize %>% 
              paste(collapse = ', '), 
            ref_name = 'key_factors_sub1', 
@@ -179,7 +190,8 @@
   
   paper_val$key_factors_and_sub1 <- 
     mdexpr(an$cmm_variables$ipq_sub1 %>% 
-             translate_var(out_value = 'label_long') %>% 
+             exchange(dict = globals$var_lexicon, 
+                      value = 'label_long') %>% 
              de_capitalize %>% 
              collapse_and, 
            ref_name = 'key_factors_and_sub1', 

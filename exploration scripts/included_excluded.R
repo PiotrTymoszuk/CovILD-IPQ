@@ -86,21 +86,20 @@
              'lab_plots')] <- names(inc_bias$variables) %>% 
     map(function(var_class) list(variable = inc_bias$variables[[var_class]], 
                                  plot_title = inc_bias$variables[[var_class]] %>% 
-                                   translate_var(out_value = 'label_long'), 
+                                   exchange(dict = globals$var_lexicon, 
+                                            value = 'label_long'), 
                                  plot_subtitle = inc_bias$test_results[[var_class]]$plot_cap, 
                                  y_lab = inc_bias$variables[[var_class]] %>% 
-                                   translate_var(out_value = 'axis_lab'), 
+                                   exchange(dict = globals$var_lexicon, 
+                                            value = 'axis_lab'), 
                                  type = inc_bias$plot_type[[var_class]]) %>% 
           pmap(plot_variable, 
                inc_bias$analysis_tbl, 
                split_factor = 'analysis_status', 
                scale = 'percent', 
                x_lab = 'analysis status', 
-               cust_theme = globals$common_theme) %>% 
-          map(~.x + 
-                labs(tag = .x$labels$tag %>% 
-                       stri_replace_all(fixed = '\n', replacement = ', ') %>% 
-                       paste0('\n', .))) %>% 
+               cust_theme = globals$common_theme, 
+               x_n_labs = TRUE) %>% 
           set_names(inc_bias$variables[[var_class]]))
 
 # END ----

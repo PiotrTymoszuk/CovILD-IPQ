@@ -32,7 +32,8 @@
     plot_grid(mod_plots$venn_plots$ipq_total$venn, 
               ggdraw() + 
                 draw_text(paste(an$cmm_variables$ipq_total %>% 
-                                  translate_var(out_value = 'label'), 
+                                  exchange(dict = globals$var_lexicon, 
+                                           value = 'label'), 
                                 collapse = '\n'), 
                           hjust = 0, 
                           x = 0.1, 
@@ -44,7 +45,8 @@
     plot_grid(mod_plots$venn_plots$ipq_sub1$venn, 
               ggdraw() + 
                 draw_text(paste(an$cmm_variables$ipq_sub1 %>% 
-                                  translate_var(out_value = 'label'), 
+                                  exchange(dict = globals$var_lexicon, 
+                                           value = 'label'), 
                                 collapse = '\n'), 
                           hjust = 0, 
                           x = 0.1, 

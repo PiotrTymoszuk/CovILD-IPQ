@@ -37,7 +37,9 @@
                                     what = 'plots', 
                                     type = 'qq', 
                                     cust_theme = globals$common_theme) %>% 
-    map2(., translate_var(distr_tests$num_vars), 
+    map2(., 
+         exchange(distr_tests$num_vars, 
+                  dict = globals$var_lexicon), 
          ~.x + 
            labs(title = .y, 
                 subtitle = .x$labels$tag %>% 
@@ -67,7 +69,9 @@
             what = 'plots', 
             type = 'qq', 
             cust_theme = globals$common_theme) %>% 
-    map2(., translate_var(distr_tests$num_vars), 
+    map2(., 
+         exchange(distr_tests$num_vars, 
+                  dict = globals$var_lexicon), 
          ~.x + 
            labs(title = paste(.y, 'log transformed', sep = ', '), 
                 subtitle = .x$labels$tag %>% 
@@ -97,7 +101,9 @@
             what = 'plots', 
             type = 'qq', 
             cust_theme = globals$common_theme) %>% 
-    map2(., translate_var(distr_tests$num_vars), 
+    map2(., 
+         exchange(distr_tests$num_vars, 
+                  dict = globals$var_lexicon), 
          ~.x + 
            labs(title = paste(.y, 'sqrt transformed', sep = ', '), 
                 subtitle = .x$labels$tag %>% 
@@ -169,7 +175,8 @@
                color = 'steelblue') + 
     geom_vline(xintercept = 1, 
                linetype = 'dashed') + 
-    scale_y_discrete(labels = translate_var(distr_tests$num_vars)) + 
+    scale_y_discrete(labels = exchange(distr_tests$num_vars, 
+                                       dict = globals$var_lexicon)) + 
     scale_x_continuous(trans = 'log') + 
     globals$common_theme + 
     theme(axis.title.y = element_blank()) + 
@@ -184,15 +191,14 @@
   distr_tests$optimal_trans <- distr_tests[c('norm_test', 
                                              'norm_test_log', 
                                              'norm_test_sqrt')] %>% 
-    map2_dfr(., c('identity', 'log', 'sqrt'), 
-             ~mutate(.x, 
-                     transformation = .y, 
-                     base_variable = variable, 
-                     variable = ifelse(transformation == 'identity', 
-                                       base_variable, 
-                                       paste(transformation, 
-                                             base_variable, 
-                                             sep = '_')))) %>% 
+    set_names(c('identity', 'log', 'sqrt')) %>% 
+    compress(names_to = 'transformation') %>% 
+    mutate(base_variable = variable, 
+           variable = ifelse(transformation == 'identity', 
+                             base_variable, 
+                             paste(transformation, 
+                                   base_variable, 
+                                   sep = '_'))) %>% 
     group_by(base_variable) %>% 
     filter(stat == max(stat)) %>% 
     ungroup %>% 

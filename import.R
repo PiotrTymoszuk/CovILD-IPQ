@@ -11,6 +11,7 @@
   library(stringi)
   library(soucer)
   library(rlang)
+  library(trafo)
 
   insert_head()
   

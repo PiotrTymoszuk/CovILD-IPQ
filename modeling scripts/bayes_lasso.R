@@ -43,14 +43,14 @@
              explore, 
              what = 'normality', 
              variables = '.resid') %>% 
-          map2_dfr(., names(.), ~mutate(.x, mod_type = .y))) %>% 
-    map2_dfr(., names(.), ~mutate(.x, response = .y))
+          compress(names_to = 'mod_type')) %>% 
+    compress(names_to = 'response')
   
   ## residual plots
   
   blass_mod$resid_plots <- list(x = blass_mod$models, 
                                 plot_title = names(blass_mod$models) %>% 
-                                  translate_var %>% 
+                                  exchange(dict = globals$var_lexicon) %>% 
                                   map(paste, c('training', 'CV'), sep = ', ')) %>% 
     pmap(plot, 
          type = 'diagnostic', 
@@ -83,7 +83,8 @@
     map2(., c(0.7, 1.1), 
          ~.x + 
            expand_limits(x = .y) + 
-           scale_y_discrete(labels = translate_var(names(blass_mod$models))))
+           scale_y_discrete(labels = exchange(names(blass_mod$models), 
+                                              dict = globals$var_lexicon)))
   
 # Calibration plots ------
   
@@ -91,7 +92,7 @@
   
   blass_mod$fit_plots <- list(x = blass_mod$models, 
                               plot_title = names(blass_mod$models) %>% 
-                                translate_var %>% 
+                                exchange(dict = globals$var_lexicon) %>% 
                                 map(paste, c('training', 'CV'), sep = ', ')) %>% 
     pmap(plot, 
          type = 'fit', 
@@ -135,7 +136,8 @@
   
   blass_mod$estimate_plots <- 
     list(est_data = blass_mod$inference, 
-         plot_title = translate_var(names(blass_mod$inference)) %>% 
+         plot_title = exchange(names(blass_mod$inference), 
+                               dict = globals$var_lexicon) %>% 
            paste('1-year follow-up', sep = ', '), 
          plot_subtitle = blass_mod$plot_cap[names(blass_mod$inference)]) %>% 
     pmap(est_bubble, 

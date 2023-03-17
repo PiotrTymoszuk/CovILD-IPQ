@@ -67,21 +67,20 @@
   cohort[paste0(names(expl$variables), '_plots')] <- names(expl$variables) %>% 
     map(function(var_class) list(variable = expl$variables[[var_class]], 
                                  plot_title = expl$variables[[var_class]] %>% 
-                                   translate_var(out_value = 'label_long'), 
+                                   exchange(dict = globals$var_lexicon, 
+                                            value = 'label_long'), 
                                  plot_subtitle = cohort$test_results[[var_class]]$plot_cap, 
                                  y_lab = expl$variables[[var_class]] %>% 
-                                   translate_var(out_value = 'axis_lab'), 
+                                   exchange(dict = globals$var_lexicon, 
+                                            value = 'axis_lab'), 
                                  type = expl$plot_type[[var_class]]) %>% 
           pmap(plot_variable, 
                cov_data$clear_data, 
                split_factor = 'cat_WHO', 
                scale = 'percent', 
                x_lab = 'COVID-19 severity', 
-               cust_theme = globals$common_theme) %>% 
-          map(~.x + 
-                labs(tag = .x$labels$tag %>% 
-                       stri_replace_all(fixed = '\n', replacement = ', ') %>% 
-                       paste0('\n', .))) %>% 
+               cust_theme = globals$common_theme, 
+               x_n_labs = TRUE) %>%  
           set_names(expl$variables[[var_class]]))
   
 # Symptoms in the severity groups, a summary plot -------
@@ -111,7 +110,9 @@
   ## labels with p values
   
   cohort$symptom_labs <- cohort$sympt_tests %>% 
-    mutate(var_lab = translate_var(variable, out_value = 'label'), 
+    mutate(var_lab = exchange(variable, 
+                              dict = globals$var_lexicon, 
+                              value = 'label'), 
            var_lab = stri_replace(var_lab, fixed = ' ', replacement = '\n'), 
            var_lab = stri_replace(var_lab, fixed = ' (', replacement = '\n('),
            var_lab = stri_replace(var_lab, 

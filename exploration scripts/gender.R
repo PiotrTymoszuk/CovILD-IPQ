@@ -72,21 +72,20 @@
   gender[paste0(names(expl$variables), '_plots')] <- names(expl$variables) %>% 
     map(function(var_class) list(variable = expl$variables[[var_class]], 
                                  plot_title = expl$variables[[var_class]] %>% 
-                                   translate_var(out_value = 'label_long'), 
+                                   exchange(dict = globals$var_lexicon, 
+                                            value = 'label_long'), 
                                  plot_subtitle = gender$test_results[[var_class]]$plot_cap, 
                                  y_lab = expl$variables[[var_class]] %>% 
-                                   translate_var(out_value = 'axis_lab'), 
+                                   exchange(dict = globals$var_lexicon, 
+                                            value = 'axis_lab'), 
                                  type = gender$plot_type[[var_class]]) %>% 
           pmap(plot_variable, 
                cov_data$clear_data, 
                split_factor = 'sex', 
                scale = 'percent', 
                x_lab = '', 
-               cust_theme = globals$common_theme) %>% 
-          map(~.x + 
-                labs(tag = .x$labels$tag %>% 
-                       stri_replace_all(fixed = '\n', replacement = ', ') %>% 
-                       paste0('\n', .))) %>% 
+               cust_theme = globals$common_theme, 
+               x_n_labs = TRUE) %>% 
           set_names(expl$variables[[var_class]]))
   
 # END ------

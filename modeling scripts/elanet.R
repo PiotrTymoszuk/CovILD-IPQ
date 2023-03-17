@@ -63,7 +63,7 @@
   
   eln_mod$opt_lambda <- eln_mod$lambda_tbl %>% 
     map(filter, cvm == min(cvm)) %>% 
-    map2_dfr(., names(.), ~mutate(.x, response = .y))
+    compress(names_to = 'response')
   
   eln_mod$tune_grids <- eln_mod$opt_lambda$lambda %>% 
     map(~data.frame(alpha = eln_mod$alpha, 
@@ -103,14 +103,14 @@
              explore, 
              what = 'normality', 
              variables = '.resid') %>% 
-          map2_dfr(., names(.), ~mutate(.x, mod_type = .y))) %>% 
-    map2_dfr(., names(.), ~mutate(.x, response = .y))
+          compress(names_to = 'mod_type')) %>% 
+    compress(names_to = 'response')
 
   ## residual plots
   
   eln_mod$resid_plots <- list(x = eln_mod$models, 
                               plot_title = names(eln_mod$models) %>% 
-                                translate_var %>% 
+                                exchange(dict = globals$var_lexicon) %>% 
                                 map(paste, c('training', 'CV'), sep = ', ')) %>% 
     pmap(plot, 
          type = 'diagnostic', 
@@ -143,7 +143,8 @@
     map2(., c(0.7, 1.1), 
          ~.x + 
            expand_limits(x = .y) + 
-           scale_y_discrete(labels = translate_var(names(eln_mod$models))))
+           scale_y_discrete(labels = exchange(names(eln_mod$models), 
+                                              dict = globals$var_lexicon)))
 
 # Model calibration -----  
   
@@ -151,7 +152,7 @@
   
   eln_mod$fit_plots <- list(x = eln_mod$models, 
                               plot_title = names(eln_mod$models) %>% 
-                                translate_var %>% 
+                                exchange(dict = globals$var_lexicon) %>% 
                                 map(paste, c('training', 'CV'), sep = ', ')) %>% 
     pmap(plot, 
          type = 'fit', 
@@ -182,7 +183,8 @@
   
   eln_mod$estimate_plots <- 
     list(est_data = eln_mod$inference, 
-         plot_title = translate_var(names(eln_mod$inference)) %>% 
+         plot_title = exchange(names(eln_mod$inference), 
+                               dict = globals$var_lexicon) %>% 
            paste('1-year follow-up', sep = ', '), 
          plot_subtitle = eln_mod$plot_cap[names(eln_mod$inference)]) %>% 
     pmap(est_bubble, 

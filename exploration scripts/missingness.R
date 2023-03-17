@@ -16,7 +16,8 @@
            n_missing = .) %>% 
     mutate(frac_missing = n_missing/nrow(cov_data$clear_data), 
            perc_missing = frac_missing * 100) %>% 
-    mutate(var_lab = translate_var(variable))
+    mutate(var_lab = exchange(variable, 
+                              dict = globals$var_lexicon))
   
 # Plotting variable missingness -------
   

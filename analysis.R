@@ -27,8 +27,11 @@
   library(soucer)
   library(clustTools)
   library(furrr)
+  library(trafo)
 
   insert_head()
+  
+  explore <- exda::explore
   
   source_all('./tools/project_tools.R')
 

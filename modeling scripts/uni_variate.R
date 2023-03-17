@@ -30,7 +30,7 @@
              summary, 
              type = 'assumptions', 
              type.predict = 'response') %>% 
-          map2_dfr(., names(.), ~mutate(.x, variable = .y))) %>% 
+          compress(names_to = 'variable')) %>% 
     map2(., names(.), ~mutate(.x, response = .y))
 
 # model fit statistics -----
@@ -41,7 +41,7 @@
     map(~map(.x, 
              summary, 
              type = 'fit') %>% 
-          map2_dfr(., names(.), ~mutate(.x, variable = .y))) %>% 
+          compress(names_to = 'variable')) %>% 
     map(mutate, 
         rsq_eff_size = cut(raw_rsq, 
                            c(-Inf, 0.01, 0.09, 0.25, Inf), 
@@ -71,7 +71,8 @@
   insert_msg('R square value plots')
   
   uni_mod$rsq_plots <- uni_mod$fit_stats %>% 
-    map2(., translate_var(names(.)), 
+    map2(., exchange(names(.), 
+                     dict = globals$var_lexicon), 
          ~ggplot(.x, 
                  aes(x = raw_rsq, 
                      y = reorder(variable, raw_rsq), 
@@ -84,7 +85,8 @@
                       linetype = 'dashed') + 
            geom_vline(xintercept = 0.25, 
                       linetype = 'dashed') + 
-           scale_y_discrete(labels = translate_var(globals$variables)) + 
+           scale_y_discrete(labels = exchange(globals$variables,
+                                              dict = globals$var_lexicon)) + 
            scale_x_continuous(limits = c(0, 0.45)) + 
            scale_fill_manual(values = mod$size_colors, 
                              name = 'Effect size') + 
@@ -114,14 +116,15 @@
                                          variable %in% .y, 
                                          parameter != '(Intercept)')) %>% 
     map(mutate, 
-        variable = translate_var(variable))
+        variable = exchange(variable,
+                            dict = globals$var_lexicon))
   
   ## Forest plots
   
   uni_mod$forest_plots <- 
     list(x =  uni_mod$forest_results,
          plot_title = names(uni_mod$forest_results) %>% 
-           translate_var %>% 
+           exchange(globals$var_lexicon) %>% 
            paste('1-year follow-up', sep = ', ')) %>% 
     pmap(plot_forest, 
          p_value = 'p_value', 
