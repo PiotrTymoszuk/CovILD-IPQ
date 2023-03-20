@@ -378,7 +378,7 @@ PSS frequencies and intensity were comparable in the clusters #1 and #2 (__Figur
 <span custom-style = 'revision'>Generally, differences between the IP clusters in PSS readouts like 
 PSS number (Kruskal-Wallis test: `r clust_chara$test_results$fup %>% filter(variable == 'sympt_number') %>% .$plot_cap`), 
 fatigue rating (`r clust_chara$test_results$fup %>% filter(variable == 'Chalder_FS') %>% .$plot_cap`), 
-significant fatigue ($\chi^2$ test: `r clust_chara$test_results$fup %>% filter(variable == 'Chalder_FS-bimodal') %>% .$plot_cap`), 
+significant fatigue ($\chi^2$ test: `r clust_chara$test_results$fup %>% filter(variable == 'Chalder_FS_bimodal') %>% .$plot_cap`), 
 sleep problems (`r clust_chara$test_results$fup %>% filter(variable == 'sleep_sympt') %>% .$plot_cap`) or 
 hair loss (`r clust_chara$test_results$fup %>% filter(variable == 'hair_loss_sympt') %>% .$plot_cap`) and differences in rehabilitation rates (`r clust_chara$test_results$fup %>% filter(variable == 'rehabilitation') %>% .$plot_cap`) were of moderate-to-large effect size.
 Effects of differences in 

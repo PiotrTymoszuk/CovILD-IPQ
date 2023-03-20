@@ -291,6 +291,10 @@ suppl_tbl$var_lexicon[1, 1] %>%
 
 flextable::flextable(suppl_tbl$modeling_vars) %>% 
   width(1, width = 14, unit = 'cm') %>% 
+  footnote(1, 1, 
+           value = as_paragraph("CVD: cardiovascular disease; #: number of; CKD: chronic kidney disease; GID: gastrointestinal disease; PSS: persistent somatic symptoms; CFS: Chalder's fatigue score; SMWD: six-minute walking distance; SMWD vs ref.: Difference of SMWD and the expected reference SMWD value; LFT: lung function testing; CT: computed tomography of the chest; HB: blood hemoglobin; FT: serum ferritin; TF-Sat: transferrin saturation; sTFR: serum soluble transferrin receptor; NT-proBNP: serum N-terminal pro-brain natriuretic peptide; CRP: serum C-reactive protein; HbA1c: glycated blood Hb"), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
   theme_vanilla
 
 ```
@@ -304,26 +308,14 @@ flextable::flextable(suppl_tbl$excluded) %>%
   width(2:3, width = 3.5, unit = 'cm') %>% 
   width(4, width = 2.5, unit = 'cm') %>% 
   width(5, width = 2.1, unit = 'cm') %>% 
-  footnote(1, 4:5, 
-           value = as_paragraph('Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Mann-Whitney test with r effect size statistic'), 
+  footnote(1, 1, 
+           value = as_paragraph('WHO COVID-19 severity: WHO ordinal scale for clinical improvement; SMWD: Six minute walking distance; Hb: Blood hemoglobin; FT: serum ferritin'), 
            ref_symbols = 'a', 
            part = 'header') %>% 
-  footnote(2, 1, 
-           value = as_paragraph('WHO ordinal scale for clinical improvement'), 
+  footnote(1, 4:5, 
+           value = as_paragraph('Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Mann-Whitney test with r effect size statistic'), 
            ref_symbols = 'b', 
-           part = 'body') %>% 
-  footnote(5, 1, 
-           value = as_paragraph('Six minute walking distance'), 
-           ref_symbols = 'b', 
-           part = 'body') %>% 
-  footnote(6, 1, 
-           value = as_paragraph('Blood hemoglobin'), 
-           ref_symbols = 'b', 
-           part = 'body') %>% 
-  footnote(7, 1, 
-           value = as_paragraph('Serum ferritin'), 
-           ref_symbols = 'b', 
-           part = 'body') %>% 
+           part = 'header') %>% 
   theme_vanilla()
 
 ```
@@ -337,43 +329,20 @@ flextable::flextable(suppl_tbl$fup) %>%
   width(2:5, width = 3.2, unit = 'cm') %>% 
   width(6, width = 2.4, unit = 'cm') %>% 
   width(7, width = 2.1, unit = 'cm') %>%
+  footnote(1, 1, 
+           value = as_paragraph("PSS: persistent somatic symptoms; ECOG: Eastern Cooperative Oncology Group performance score; mMRC: Modified Medical Research Council dyspnea score; CFS: Chalder's fatigure score; LFT: lung function testing; CT: computed tomography of the chest; SMWD: Six minute walking distance; SMWD vs reference: SMWD, difference between the actual and reference value"), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
   footnote(1, 6:7, 
            value = as_paragraph('Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Kruskal-Wallis test with \u03B7\u00B2 effect size statistic'), 
-           ref_symbols = 'a', 
+           ref_symbols = 'b', 
            part = 'header') %>% 
-  footnote(2:3, 1, 
-           value = as_paragraph('PSS: persistent somatic symptoms'), 
-           ref_symbols = 'c', 
-           part = 'body') %>% 
-  footnote(4, 1, 
-           value = as_paragraph('ECOG: Eastern Cooperative Oncology Group performance score'), 
-           ref_symbols = 'c', 
-           part = 'body') %>% 
-  footnote(5, 1, 
-           value = as_paragraph('mMRC: Modified Medical Research Council dyspnea score'), 
-           ref_symbols = 'd', 
-           part = 'body') %>% 
-  footnote(13:14, 1, 
-           value = as_paragraph("CFS: Chalder's Fatigure Score"), 
-           ref_symbols = 'e', 
-           part = 'body') %>% 
   footnote(15, 1, 
            value = as_paragraph('Lung function testing abnormality: FVC < 80% or FEV1 < 80% or TLC < 80% or DLCO < 80% predicted or FEV1:FVC < 70% predicted reference value'), 
-           ref_symbols = 'f', 
-           part = 'body') %>% 
-  footnote(17, 1, 
-           value = as_paragraph('Chest computer tomography severity score'), 
-           ref_symbols = 'g', 
-           part = 'body') %>% 
-  footnote(19, 1, 
-           value = as_paragraph('SMWD: Six minute walking distance'), 
-           ref_symbols = 'h', 
-           part = 'body') %>% 
-  footnote(20, 1, 
-           value = as_paragraph('SMWD, difference between the actual and reference value'), 
-           ref_symbols = 'i', 
+           ref_symbols = 'c', 
            part = 'body') %>% 
   theme_vanilla
+
 
 ```
 
@@ -386,39 +355,17 @@ flextable::flextable(suppl_tbl$biochemistry_fup) %>%
   width(2:5, width = 3.5, unit = 'cm') %>% 
   width(6, width = 2.4, unit = 'cm') %>% 
   width(7, width = 2.1, unit = 'cm') %>%
+  footnote(1, 1, 
+           value = as_paragraph('Hb: blood hemoglobin; FT: serum ferritin; TF-Sat: serum transferrin saturation; sTFR: serum soluble transferrin receptor; NT-pro-BNP: serum N-terminal pro-brain natriuretic peptide; CRP: serum C-reactive protein; HbA1c: glycated blood Hb'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
   footnote(1, 6:7, 
            value = as_paragraph('Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Kruskal-Wallis test with \u03B7\u00B2 effect size statistic'), 
-           ref_symbols = 'a', 
+           ref_symbols = 'b', 
            part = 'header') %>% 
   footnote(2, 1, 
            value = as_paragraph('Females: hemoglobin (Hb) < 120 g/dL, males: Hb < 140 g/dL'), 
-           ref_symbols = 'b', 
-           part = 'body') %>% 
-  footnote(3, 1, 
-           as_paragraph('Blood hemoglobin'), 
            ref_symbols = 'c', 
-           part = 'body') %>% 
-  footnote(4, 1, 
-           as_paragraph('Serum ferritin'), 
-           ref_symbols = 'd', 
-           part = 'body') %>%
-  footnote(5, 1, 
-           as_paragraph('Serum transferrin saturation'), 
-           ref_symbols = 'e', 
-           part = 'body') %>% 
-  footnote(6, 1, 
-           as_paragraph('Serum soluble transferrin receptor'), 
-           ref_symbols = 'f', 
-           part = 'body') %>% 
-  footnote(8, 1, 
-           as_paragraph('Serum N-terminal pro-brain natriuretic peptide'), 
-           ref_symbols = 'g', part = 'body') %>% 
-  footnote(10, 1, as_paragraph('Serum C-reactive protein'), 
-           ref_symbols = 'h', 
-           part = 'body') %>% 
-  footnote(11, 1, 
-           as_paragraph('Blood glycated hamoglobin'), 
-           ref_symbols = 'i', 
            part = 'body') %>% 
   theme_vanilla
 
@@ -429,45 +376,25 @@ flextable::flextable(suppl_tbl$biochemistry_fup) %>%
 ```{r tab-gender, tab.cap = 'Significant and near-significant (p < .1) factors differentiating between female and male participants and illness perception in the genders (Brief Illness Perception Questionnaire, BIPQ). Numeric variables are presented as medians with interquartile ranges (IQR). Categorical variables are shown as percentages and counts within the strata.'}
 
 flextable::flextable(suppl_tbl$gender) %>% 
-  width(1, width = 5.2, unit = 'cm') %>% 
+  width(1, width = 6, unit = 'cm') %>% 
   width(2:3, width = 3.5, unit = 'cm') %>% 
   width(4, width = 2.5, unit = 'cm') %>% 
   width(5, width = 2.1, unit = 'cm') %>% 
+  footnote(1, 1, 
+           value = as_paragraph('WHO COVID-19 severity: WHO ordinal scale for clinical improvement; PSS: persistent somatic symptoms; mMRC: Modified Medical Research Council dyspnea score; CT: computed tomography of the chest; Hb: blood hemoglobin; FT: serum ferritin; BIPQ: brief illness perception questionnaire'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
   footnote(1, 4:5, 
            value = as_paragraph('Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Mann-Whitney test with r effect size statistic'), 
-           ref_symbols = 'a', 
+           ref_symbols = 'b', 
            part = 'header') %>% 
   footnote(2, 1, 
            value = as_paragraph('Former or active smoker'), 
-           ref_symbols = 'b', 
+           ref_symbols = 'c', 
            part = 'body') %>% 
   footnote(3, 1, 
            value = as_paragraph('Overweight: body mass index 25 - 30 kg/m\u00B2, obesity: > 30 kg/m\u00B2'), 
-           ref_symbols = 'c', 
-           part = 'body') %>% 
-  footnote(5, 1, 
-           value = as_paragraph('WHO ordinal scale for clinical improvement'), 
            ref_symbols = 'd', 
-           part = 'body') %>% 
-  footnote(7:8, 1, 
-           value = as_paragraph('PSS: persistent somatic symptoms'), 
-           ref_symbols = 'e', 
-           part = 'body') %>% 
-  footnote(9, 1, 
-           value = as_paragraph('mMRC: Modified Medical Research Council dyspnea score'), 
-           ref_symbols = 'f', 
-           part = 'body') %>% 
-  footnote(11, 1, 
-           value = as_paragraph('Chest computer tomography severity score'), 
-           ref_symbols = 'g', 
-           part = 'body') %>% 
-  footnote(12, 1, 
-           value = as_paragraph('Blood hemoglobin'), 
-           ref_symbols = 'h', 
-           part = 'body') %>% 
-  footnote(13, 1, 
-           value = as_paragraph('Serum ferritin'), 
-           ref_symbols = 'i', 
            part = 'body') %>% 
   theme_vanilla
 
@@ -478,25 +405,21 @@ flextable::flextable(suppl_tbl$gender) %>%
 ```{r tab-respi, tab.cap = 'Significant and near-significant (p < .1) factors differentiating between participants with and without respiratory comorbidity. Numeric variables are presented as medians with interquartile ranges (IQR). Categorical variables are shown as percentages and counts within the strata.'}
 
 flextable::flextable(suppl_tbl$respi) %>% 
-  width(1, width = 4.8, unit = 'cm') %>% 
+  width(1, width = 6, unit = 'cm') %>% 
   width(2:3, width = 3.3, unit = 'cm') %>% 
   width(4, width = 2.5, unit = 'cm') %>% 
   width(5, width = 2.1, unit = 'cm') %>% 
-  footnote(1, 4:5, 
-           value = as_paragraph('Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Mann-Whitney test with r effect size statistic'), 
+  footnote(1, 1, 
+           value = as_paragraph("CFS: Chalder's fatigue score; BIPQ: brief illness perception questionnaire"), 
            ref_symbols = 'a', 
            part = 'header') %>% 
-  footnote(5:6, 1, 
-           value = as_paragraph("CFS: Chalder's fatigue score"), 
+  footnote(1, 4:5, 
+           value = as_paragraph('Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Mann-Whitney test with r effect size statistic'), 
            ref_symbols = 'b', 
-           part = 'body') %>% 
+           part = 'header') %>% 
   footnote(7, 1, 
            as_paragraph('Lung function testing abnormality: FVC < 80% or FEV1 < 80% or TLC < 80% or DLCO < 80% predicted or FEV1:FVC < 70% predicted reference value'), 
            ref_symbols = 'c', 
-           part = 'body') %>% 
-  footnote(8:12, 1, 
-           as_paragraph('BIPQ: brief illness perception questionnaire'), 
-           ref_symbols = 'd', 
            part = 'body') %>% 
   theme_vanilla
 
@@ -511,36 +434,21 @@ flextable::flextable(suppl_tbl$ipq_clusters) %>%
   width(2:4, width = 3, unit = 'cm') %>% 
   width(5, width = 2.5, unit = 'cm') %>% 
   width(6, width = 2.1, unit = 'cm') %>%
+  footnote(1, 1, 
+           value = as_paragraph("WHO COVID-19 severity: WHO ordinal scale for clinical improvement; PSS: persistent somatic symptoms; ECOG: Eastern Cooperative Oncology Group performance score; mMRC: Modified Medical Research Council dyspnea score; CFS: Chalder's Fatigure Score"), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
   footnote(1, 5:6, 
            value = as_paragraph('Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic, numeric variables: Kruskal-Wallis test with \u03B7\u00B2 effect size statistic'), 
-           ref_symbols = 'a', 
+           ref_symbols = 'b', 
            part = 'header') %>% 
   footnote(2, 1, 
            value = as_paragraph('Former or active smoker'), 
-           ref_symbols = 'b', 
-           part = 'body') %>% 
-  footnote(5, 1, 
-           value = as_paragraph('WHO ordinal scale for clinical improvement'), 
            ref_symbols = 'c', 
-           part = 'body') %>% 
-  footnote(6:7, 1, 
-           value = as_paragraph('PSS: persistent somatic symptoms'), 
-           ref_symbols = 'd', 
-           part = 'body') %>% 
-  footnote(8, 1, 
-           value = as_paragraph('ECOG: Eastern Cooperative Oncology Group performance score'), 
-           ref_symbols = 'e', 
-           part = 'body') %>% 
-  footnote(9, 1, 
-           value = as_paragraph('mMRC: Modified Medical Research Council dyspnea score'), 
-           ref_symbols = 'f', 
-           part = 'body') %>% 
-  footnote(13:14, 1, value = as_paragraph("Chalder's Fatigure Score"), 
-           ref_symbols = 'g', 
            part = 'body') %>% 
   footnote(15, 1, 
            value = as_paragraph('Lung function testing abnormality: FVC < 80% or FEV1 < 80% or TLC < 80% or DLCO < 80% predicted or FEV1:FVC < 70% predicted reference value'), 
-           ref_symbols = 'h', 
+           ref_symbols = 'd', 
            part = 'body') %>% 
   theme_vanilla
 
