@@ -33,7 +33,7 @@ devtools::install_github('PiotrTymoszuk/clustTools') ## factor analysis and unsu
 devtools::install_github('PiotrTymoszuk/caretExtra') ## fit statistics and quality control for the Caret models
 devtools::install_github('PiotrTymoszuk/lmqc') ## fit statistics and quality control for linear models
 devtools::install_github('PiotrTymoszuk/figur') ## management of figures and tables in Rmd documents
-devtools::install_github('PiotrTymoszuk/trafo') ## management of figures and tables in Rmd documents
+devtools::install_github('PiotrTymoszuk/trafo') ## handling of tabular data
 
 ```
 
