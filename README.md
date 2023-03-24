@@ -19,7 +19,7 @@ Factors influencing overall illness perception (IP, A) and its emotion/concern/c
 
 ## Terms of use
 
-Please cite the repository, [preprint](https://www.medrxiv.org/content/10.1101/2022.09.05.22279602v1) and the peer-reviewed publication of the analysis results when available. The raw data files will be made upon request to the senior study author, [Prof. Judith Löffler-Ragg](mailto:judith.loeffler@i-med.ac.at).
+Please cite the repository and the [peer-reviewed publication of the analysis results](https://www.sciencedirect.com/science/article/pii/S0022399923000910?via%3Dihub) (DOI: 10.1016/j.jpsychores.2023.111234). The raw data files will be made upon request to the senior study author, [Prof. Judith Löffler-Ragg](mailto:judith.loeffler@i-med.ac.at).
 
 ## Basic usage
 
